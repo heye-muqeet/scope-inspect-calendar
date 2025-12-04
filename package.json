@@ -1,16 +1,16 @@
 {
-  "name": "@ilamy/calendar",
+  "name": "scope-inspect-calendar",
   "version": "1.1.0",
   "description": "A full-featured React calendar component library built with Shadcn-Ui, Tailwind CSS, and TypeScript.",
   "author": "Sujeet Kc",
   "license": "MIT",
-  "homepage": "https://ilamy.dev",
+  "homepage": "https://github.com/heye-muqeet/scope-inspect-calendar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kcsujeet/ilamy-calendar.git"
+    "url": "git+https://github.com/heye-muqeet/scope-inspect-calendar.git"
   },
   "bugs": {
-    "url": "https://github.com/kcsujeet/ilamy-calendar/issues"
+    "url": "https://github.com/heye-muqeet/scope-inspect-calendar/issues"
   },
   "keywords": [
     "react",
