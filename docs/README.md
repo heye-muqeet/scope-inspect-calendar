@@ -1,8 +1,107 @@
-# scope-inspect-calendar
+# ScopeInspect Calendar Documentation
 
-A powerful, full-featured React calendar component library built with TypeScript, Tailwind CSS, and modern React patterns. This package includes customizations and enhancements, including the exclusive **Visible Hours** feature.
+Welcome to the comprehensive documentation for **ScopeInspect Calendar**, a powerful React calendar component library built with TypeScript, Tailwind CSS, and modern React patterns.
 
-![Calendar Preview](https://github.com/user-attachments/assets/d289f034-0d26-4a1c-a997-dfa1ad26aa7a)
+## 📚 Documentation Index
+
+### Getting Started
+
+New to ScopeInspect Calendar? Start here:
+
+- **[Installation](./getting-started/installation.md)** - Install the package and dependencies
+- **[Quick Start](./getting-started/quick-start.md)** - Create your first calendar in minutes
+- **[Basic Usage](./getting-started/basic-usage.md)** - Learn the fundamentals
+- **[Project Setup](./getting-started/project-setup.md)** - Configure Tailwind CSS and TypeScript
+
+### Guides
+
+Comprehensive guides for all features:
+
+- **[Calendar Views](./guides/calendar-views.md)** - Month, Week, Day, and Year views
+- **[Event Management](./guides/event-management.md)** - Add, edit, and delete events
+- **[Drag & Drop](./guides/drag-and-drop.md)** - Move events with drag and drop
+- **[Recurring Events](./guides/recurring-events.md)** - RFC 5545 recurring events
+- **[Resource Calendar](./guides/resource-calendar.md)** - Multi-resource scheduling
+- **[Visible Hours](./guides/visible-hours.md)** - Control displayed time range (Exclusive Feature)
+- **[Business Hours](./guides/business-hours.md)** - Configure business hours
+- **[Internationalization](./guides/internationalization.md)** - 100+ locales support
+- **[Theming & Styling](./guides/theming-and-styling.md)** - Customize appearance
+- **[Custom Rendering](./guides/custom-rendering.md)** - Custom event and resource rendering
+- **[Performance Optimization](./guides/performance-optimization.md)** - Best practices
+
+### API Reference
+
+Complete API documentation:
+
+#### Components
+- **[ScopeInspectCalendar](./api-reference/components/scope-inspect-calendar.md)** - Main calendar component
+- **[ScopeInspectResourceCalendar](./api-reference/components/scope-inspect-resource-calendar.md)** - Resource calendar component
+
+#### Hooks
+- **[useScopeInspectCalendarContext](./api-reference/hooks/use-scope-inspect-calendar-context.md)** - Calendar context hook
+- **[useScopeInspectResourceCalendarContext](./api-reference/hooks/use-scope-inspect-resource-calendar-context.md)** - Resource calendar context hook
+
+#### Types
+- **[CalendarEvent](./api-reference/types/calendar-event.md)** - Event data structure
+- **[Resource](./api-reference/types/resource.md)** - Resource data structure
+- **[Props](./api-reference/types/props.md)** - Component props types
+- **[Utilities](./api-reference/types/utilities.md)** - Utility types
+
+#### Utilities
+- **[exportToICalendar](./api-reference/utilities/export-icalendar.md)** - Export to iCalendar format
+- **[downloadICalendar](./api-reference/utilities/export-icalendar.md)** - Download .ics file
+- **[generateRecurringEvents](./api-reference/utilities/recurrence-handler.md)** - Generate recurring events
+- **[isRecurringEvent](./api-reference/utilities/recurrence-handler.md)** - Check if event is recurring
+
+### Advanced Topics
+
+- **[Custom Event Form](./advanced/custom-event-form.md)** - Customize the event form
+- **[State Management](./advanced/state-management.md)** - Integrate with state management
+- **[Integration Patterns](./advanced/integration-patterns.md)** - Framework integrations
+- **[Extending the Calendar](./advanced/extending-the-calendar.md)** - Advanced customization
+- **[Testing](./advanced/testing.md)** - Testing strategies
+
+### Examples
+
+Real-world examples and use cases:
+
+- **[Basic Calendar](./examples/basic-calendar.md)** - Simple calendar implementation
+- **[Resource Booking](./examples/resource-booking.md)** - Room/equipment booking system
+- **[Team Scheduling](./examples/team-scheduling.md)** - Team availability and scheduling
+- **[Event Management App](./examples/event-management-app.md)** - Full-featured event app
+- **[Full-Featured Demo](./examples/full-featured-demo.md)** - All features combined
+
+### Migration
+
+- **[Upgrading](./migration/upgrading.md)** - Version upgrade guides
+
+### Reference
+
+- **[RFC 5545](./reference/rfc-5545.md)** - iCalendar standard reference
+- **[rrule.js](./reference/rrule.js.md)** - Recurrence rule library
+- **[Translation Usage](./reference/translation-usage.md)** - Internationalization guide
+
+### Troubleshooting
+
+- **[Common Issues](./troubleshooting/common-issues.md)** - Solutions to common problems
+- **[FAQ](./troubleshooting/faq.md)** - Frequently asked questions
+- **[Debugging](./troubleshooting/debugging.md)** - Debug strategies
+
+## 🚀 Quick Links
+
+### Most Popular Guides
+
+1. **[Quick Start](./getting-started/quick-start.md)** - Get started in 5 minutes
+2. **[Event Management](./guides/event-management.md)** - Learn to manage events
+3. **[Resource Calendar](./guides/resource-calendar.md)** - Multi-resource scheduling
+4. **[Recurring Events](./guides/recurring-events.md)** - Set up recurring events
+5. **[Visible Hours](./guides/visible-hours.md)** - Exclusive feature guide
+
+### API Quick Reference
+
+- **[ScopeInspectCalendar Props](./api-reference/components/scope-inspect-calendar.md#props)**
+- **[CalendarEvent Type](./api-reference/types/calendar-event.md)**
+- **[Resource Type](./api-reference/types/resource.md)**
 
 ## 🎯 Key Features
 
@@ -90,13 +189,14 @@ function App() {
 }
 ```
 
-## 📖 Usage
+## 📖 Usage Examples
 
 ### Basic Calendar
 
 ```tsx
 import { ScopeInspectCalendar } from 'scope-inspect-calendar'
-;<ScopeInspectCalendar
+
+<ScopeInspectCalendar
   events={events}
   initialView="month"
   onEventClick={(event) => console.log('Event clicked:', event)}
@@ -191,7 +291,7 @@ const recurringEvent: CalendarEvent = {
   title: 'Weekly Meeting',
   start: new Date('2025-01-15T10:00:00'),
   end: new Date('2025-01-15T11:00:00'),
-  recurrence: {
+  rrule: {
     freq: RRule.WEEKLY,
     byweekday: [RRule.MO],
     dtstart: new Date('2025-01-15T10:00:00'),
@@ -346,17 +446,27 @@ import type {
 } from 'scope-inspect-calendar'
 ```
 
-## 🧪 Testing
+## 📖 Documentation Structure
 
-```bash
-# Run tests
-npm test
+This documentation is organized into logical sections:
 
-# Run tests with coverage
-npm run test:coverage
-```
+1. **Getting Started** - Installation and basic setup
+2. **Guides** - Feature-by-feature documentation
+3. **API Reference** - Complete API documentation
+4. **Advanced Topics** - Advanced usage patterns
+5. **Examples** - Real-world use cases
+6. **Migration** - Upgrade and migration guides
+7. **Reference** - Standards and specifications
+8. **Troubleshooting** - Problem solving
 
-## 🤝 Contributing
+## 🔍 Search Tips
+
+- Use your browser's search (Ctrl+F / Cmd+F) to find specific topics
+- Check the [FAQ](./troubleshooting/faq.md) for common questions
+- Browse [Examples](./examples/) for use case inspiration
+- Refer to [API Reference](./api-reference/) for detailed API docs
+
+## 💡 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -368,11 +478,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-This package includes customizations and enhancements, including the exclusive **Visible Hours** feature, to better serve specific use cases.
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
 
 ## 👤 Author
 
@@ -387,11 +493,15 @@ This package includes customizations and enhancements, including the exclusive *
 - 💬 **Questions**: Open a discussion on GitHub
 - 📧 **Email**: Check GitHub profile for contact information
 
-## 🔗 Links
+## 🔗 External Resources
 
 - [GitHub Repository](https://github.com/heye-muqeet/scope-inspect-calendar)
 - [npm Package](https://www.npmjs.com/package/scope-inspect-calendar)
+- [RFC 5545 Specification](https://tools.ietf.org/html/rfc5545)
+- [rrule.js Documentation](https://github.com/jkbrzt/rrule)
 
 ---
 
-Made with ❤️ by Engr. Abdul Muqeet
+**Last Updated**: 2025-01-XX  
+**Version**: 1.1.2  
+**Status**: Active Development
