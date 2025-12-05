@@ -30,7 +30,7 @@ describe('iCalendar Export', () => {
       end: dayjs('2025-08-04T10:00:00.000Z'),
       description: 'A simple test meeting',
       location: 'Conference Room A',
-      uid: 'simple-1@ilamy.calendar',
+      uid: 'simple-1@scope-inspect.calendar',
     },
     {
       id: 'recurring-1',
@@ -44,7 +44,7 @@ describe('iCalendar Export', () => {
         byweekday: [RRule.MO],
         dtstart: dayjs('2025-08-04T14:00:00.000Z').toDate(),
       },
-      uid: 'recurring-1@ilamy.calendar',
+      uid: 'recurring-1@scope-inspect.calendar',
     },
     {
       id: 'all-day-1',
@@ -52,7 +52,7 @@ describe('iCalendar Export', () => {
       start: dayjs('2025-12-25T00:00:00.000Z'),
       end: dayjs('2025-12-26T00:00:00.000Z'),
       allDay: true,
-      uid: 'all-day-1@ilamy.calendar',
+      uid: 'all-day-1@scope-inspect.calendar',
     },
   ]
 
@@ -61,7 +61,7 @@ describe('iCalendar Export', () => {
 
     expect(ical).toContain('BEGIN:VCALENDAR')
     expect(ical).toContain('VERSION:2.0')
-    expect(ical).toContain('PRODID:-//ilamy//ilamy Calendar//EN')
+    expect(ical).toContain('PRODID:-//scope-inspect//ScopeInspect Calendar//EN')
     expect(ical).toContain('END:VCALENDAR')
   })
 
@@ -69,7 +69,7 @@ describe('iCalendar Export', () => {
     const ical = exportToICalendar([sampleEvents[0]])
 
     expect(ical).toContain('BEGIN:VEVENT')
-    expect(ical).toContain('UID:simple-1@ilamy.calendar')
+    expect(ical).toContain('UID:simple-1@scope-inspect.calendar')
     expect(ical).toContain('SUMMARY:Simple Meeting')
     expect(ical).toContain('DESCRIPTION:A simple test meeting')
     expect(ical).toContain('LOCATION:Conference Room A')
@@ -82,7 +82,7 @@ describe('iCalendar Export', () => {
     const ical = exportToICalendar([sampleEvents[1]])
 
     expect(ical).toContain('BEGIN:VEVENT')
-    expect(ical).toContain('UID:recurring-1@ilamy.calendar')
+    expect(ical).toContain('UID:recurring-1@scope-inspect.calendar')
     expect(ical).toContain('SUMMARY:Weekly Standup')
     expect(ical).toContain('RRULE:')
     expect(ical).toContain('FREQ=WEEKLY')
@@ -93,7 +93,7 @@ describe('iCalendar Export', () => {
     const ical = exportToICalendar([sampleEvents[2]])
 
     expect(ical).toContain('BEGIN:VEVENT')
-    expect(ical).toContain('UID:all-day-1@ilamy.calendar')
+    expect(ical).toContain('UID:all-day-1@scope-inspect.calendar')
     expect(ical).toContain('SUMMARY:Company Holiday')
     expect(ical).toContain('DTSTART;VALUE=DATE:20251225')
     expect(ical).toContain('DTEND;VALUE=DATE:20251226')
@@ -107,9 +107,9 @@ describe('iCalendar Export', () => {
     const eventCount = (ical.match(/BEGIN:VEVENT/g) || []).length
     expect(eventCount).toBe(3)
 
-    expect(ical).toContain('simple-1@ilamy.calendar')
-    expect(ical).toContain('recurring-1@ilamy.calendar')
-    expect(ical).toContain('all-day-1@ilamy.calendar')
+    expect(ical).toContain('simple-1@scope-inspect.calendar')
+    expect(ical).toContain('recurring-1@scope-inspect.calendar')
+    expect(ical).toContain('all-day-1@scope-inspect.calendar')
   })
 
   it('should escape special characters in text fields', () => {
@@ -119,7 +119,7 @@ describe('iCalendar Export', () => {
       start: dayjs('2025-08-04T09:00:00.000Z'),
       end: dayjs('2025-08-04T10:00:00.000Z'),
       description: 'Description with\nnewlines and; semicolons, commas',
-      uid: 'special-1@ilamy.calendar',
+      uid: 'special-1@scope-inspect.calendar',
     }
 
     const ical = exportToICalendar([eventWithSpecialChars])
@@ -142,7 +142,7 @@ describe('iCalendar Export', () => {
         dtstart: dayjs('2025-08-04T09:00:00.000Z').toDate(),
       },
       exdates: ['2025-08-05T09:00:00.000Z', '2025-08-07T09:00:00.000Z'],
-      uid: 'exdate-1@ilamy.calendar',
+      uid: 'exdate-1@scope-inspect.calendar',
     }
 
     const ical = exportToICalendar([eventWithExdates])
@@ -158,13 +158,13 @@ describe('iCalendar Export', () => {
       start: dayjs('2025-08-04T10:00:00.000Z'),
       end: dayjs('2025-08-04T11:00:00.000Z'),
       recurrenceId: '2025-08-04T09:00:00.000Z',
-      uid: 'recurring-1@ilamy.calendar',
+      uid: 'recurring-1@scope-inspect.calendar',
     }
 
     const ical = exportToICalendar([modifiedInstance])
 
     expect(ical).toContain('RECURRENCE-ID:20250804T090000Z')
-    expect(ical).toContain('UID:recurring-1@ilamy.calendar')
+    expect(ical).toContain('UID:recurring-1@scope-inspect.calendar')
   })
 
   it('should include timezone information', () => {
@@ -240,7 +240,7 @@ describe('iCalendar Export', () => {
     expect(ical).toContain('SUMMARY:Modified Weekly Meeting')
 
     // Single event should be included
-    expect(ical).toContain('UID:single-event@ilamy.calendar')
+    expect(ical).toContain('UID:single-event@scope-inspect.calendar')
     expect(ical).toContain('SUMMARY:One-time Meeting')
 
     // Generated instances should NOT be included (no separate UID events for them)
@@ -364,7 +364,7 @@ describe('UID Generation', () => {
   it('should generate UID from id if uid not provided', () => {
     const event = createEvent({ id: 'my-event-123' })
     const ical = exportToICalendar([event])
-    expect(ical).toContain('UID:my-event-123@ilamy.calendar')
+    expect(ical).toContain('UID:my-event-123@scope-inspect.calendar')
   })
 
   it('should generate unique UIDs for different events', () => {
@@ -375,9 +375,9 @@ describe('UID Generation', () => {
     ]
     const ical = exportToICalendar(events)
 
-    expect(ical).toContain('UID:event-1@ilamy.calendar')
-    expect(ical).toContain('UID:event-2@ilamy.calendar')
-    expect(ical).toContain('UID:event-3@ilamy.calendar')
+    expect(ical).toContain('UID:event-1@scope-inspect.calendar')
+    expect(ical).toContain('UID:event-2@scope-inspect.calendar')
+    expect(ical).toContain('UID:event-3@scope-inspect.calendar')
   })
 })
 
@@ -561,7 +561,7 @@ describe('Optional Fields', () => {
 describe('Calendar Metadata', () => {
   it('should use default calendar name', () => {
     const ical = exportToICalendar([createEvent()])
-    expect(ical).toContain('X-WR-CALNAME:ilamy Calendar')
+    expect(ical).toContain('X-WR-CALNAME:ScopeInspect Calendar')
   })
 
   it('should use custom calendar name', () => {
@@ -595,7 +595,7 @@ describe('Edge Cases', () => {
     const ical = exportToICalendar([minimalEvent])
 
     expect(ical).toContain('BEGIN:VEVENT')
-    expect(ical).toContain('UID:minimal@ilamy.calendar')
+    expect(ical).toContain('UID:minimal@scope-inspect.calendar')
     expect(ical).toContain('SUMMARY:Minimal')
     expect(ical).toContain('DTSTART:20250804T090000Z')
     expect(ical).toContain('DTEND:20250804T100000Z')

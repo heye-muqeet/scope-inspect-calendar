@@ -15,8 +15,8 @@ import '@/lib/configs/dayjs-config'
 import { DAY_MAX_EVENTS_DEFAULT, WEEK_DAYS_NUMBER_MAP } from '@/lib/constants'
 import { normalizeEvents, safeDate } from '@/lib'
 import type {
-  IlamyCalendarProps,
-  IlamyCalendarPropEvent,
+  ScopeInspectCalendarProps,
+  ScopeInspectCalendarPropEvent,
 } from '@/features/calendar/types'
 
 const CalendarContent: React.FC = () => {
@@ -84,7 +84,7 @@ const CalendarContent: React.FC = () => {
   )
 }
 
-export const IlamyCalendar: React.FC<IlamyCalendarProps> = ({
+export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
   events,
   firstDayOfWeek = 'sunday',
   initialView = 'month',
@@ -116,7 +116,7 @@ export const IlamyCalendar: React.FC<IlamyCalendarProps> = ({
 }) => {
   return (
     <CalendarProvider
-      events={normalizeEvents<IlamyCalendarPropEvent, CalendarEvent>(events)}
+      events={normalizeEvents<ScopeInspectCalendarPropEvent, CalendarEvent>(events)}
       firstDayOfWeek={WEEK_DAYS_NUMBER_MAP[firstDayOfWeek]}
       initialView={initialView}
       initialDate={safeDate(initialDate)}

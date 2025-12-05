@@ -1,10 +1,10 @@
 // Main calendar components
-export { IlamyCalendar } from './features/calendar/components/ilamy-calendar'
-export { IlamyResourceCalendar } from './features/resource-calendar/components/ilamy-resource-calendar/ilamy-resource-calendar'
+export { ScopeInspectCalendar } from './features/calendar/components/scope-inspect-calendar'
+export { ScopeInspectResourceCalendar } from './features/resource-calendar/components/scope-inspect-resource-calendar/scope-inspect-resource-calendar'
 
 // Public calendar context hooks
-export { useIlamyCalendarContext } from './features/calendar/contexts/calendar-context/context'
-export { useIlamyResourceCalendarContext } from './features/resource-calendar/contexts/resource-calendar-context/context'
+export { useScopeInspectCalendarContext } from './features/calendar/contexts/calendar-context/context'
+export { useScopeInspectResourceCalendarContext } from './features/resource-calendar/contexts/resource-calendar-context/context'
 
 // RRULE-based recurrence system
 export {
@@ -17,13 +17,13 @@ export type { RRuleOptions } from '@/features/recurrence/types'
 export type { CalendarEvent } from './components/types'
 export type { EventFormProps } from './components/event-form/event-form'
 export type {
-  IlamyCalendarProps,
+  ScopeInspectCalendarProps,
   CellClickInfo,
 } from './features/calendar/types'
-export type { IlamyResourceCalendarProps } from './features/resource-calendar/components/ilamy-resource-calendar'
+export type { ScopeInspectResourceCalendarProps } from './features/resource-calendar/components/scope-inspect-resource-calendar'
 export type { WeekDays } from './components/types'
-export type { UseIlamyCalendarContextReturn } from './features/calendar/contexts/calendar-context/context'
-export type { UseIlamyResourceCalendarContextReturn } from './features/resource-calendar/contexts/resource-calendar-context/context'
+export type { UseScopeInspectCalendarContextReturn } from './features/calendar/contexts/calendar-context/context'
+export type { UseScopeInspectResourceCalendarContextReturn } from './features/resource-calendar/contexts/resource-calendar-context/context'
 export type { CalendarView, TimeFormat } from './types'
 
 // Resource calendar types

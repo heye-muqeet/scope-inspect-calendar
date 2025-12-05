@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import dayjs from '@/lib/configs/dayjs-config'
-import { IlamyCalendar } from './ilamy-calendar'
+import { ScopeInspectCalendar } from './scope-inspect-calendar'
 import type { CalendarEvent } from '@/components/types'
 import type { EventFormProps } from '@/components/event-form/event-form'
 
@@ -52,7 +52,7 @@ const CustomEventForm = (props: EventFormProps) => {
   )
 }
 
-describe('IlamyCalendar', () => {
+describe('ScopeInspectCalendar', () => {
   describe('renderEventForm', () => {
     const createEvent = (
       overrides: Partial<CalendarEvent> = {}
@@ -77,7 +77,7 @@ describe('IlamyCalendar', () => {
     describe('props passed to custom form', () => {
       it('should render custom event form when renderEventForm is provided', () => {
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
             renderEventForm={(props) => <CustomEventForm {...props} />}
@@ -90,7 +90,7 @@ describe('IlamyCalendar', () => {
 
       it('should pass open=false when form is not open', () => {
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
             renderEventForm={(props) => <CustomEventForm {...props} />}
@@ -102,7 +102,7 @@ describe('IlamyCalendar', () => {
 
       it('should pass open=true and selectedEvent when cell is clicked', async () => {
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -133,7 +133,7 @@ describe('IlamyCalendar', () => {
         })
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[existingEvent]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -159,7 +159,7 @@ describe('IlamyCalendar', () => {
 
       it('should provide onClose that closes the form', async () => {
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -187,7 +187,7 @@ describe('IlamyCalendar', () => {
     describe('onAdd', () => {
       it('should add event to calendar when onAdd is called', async () => {
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -228,7 +228,7 @@ describe('IlamyCalendar', () => {
         let addEventFn: EventFormProps['onAdd']
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -280,7 +280,7 @@ describe('IlamyCalendar', () => {
         })
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[existingEvent]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -334,7 +334,7 @@ describe('IlamyCalendar', () => {
         let updateFn: EventFormProps['onUpdate']
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[existingEvent]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -384,7 +384,7 @@ describe('IlamyCalendar', () => {
         })
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[existingEvent]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -425,7 +425,7 @@ describe('IlamyCalendar', () => {
         })
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[existingEvent]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -463,7 +463,7 @@ describe('IlamyCalendar', () => {
         let addEventFn: EventFormProps['onAdd']
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="week"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -496,7 +496,7 @@ describe('IlamyCalendar', () => {
         let addEventFn: EventFormProps['onAdd']
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="day"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -529,7 +529,7 @@ describe('IlamyCalendar', () => {
         let addEventFn: EventFormProps['onAdd']
 
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}
@@ -584,7 +584,7 @@ describe('IlamyCalendar', () => {
     describe('default EventForm fallback', () => {
       it('should use default EventForm when renderEventForm is not provided', async () => {
         render(
-          <IlamyCalendar
+          <ScopeInspectCalendar
             events={[]}
             initialView="month"
             initialDate={dayjs('2025-01-15T00:00:00.000Z')}

@@ -459,7 +459,7 @@ describe('EventForm', () => {
     it('should pull RRULE from parent when editing an instance', () => {
       const parentEvent: CalendarEvent = {
         id: 'recurring-1',
-        uid: 'recurring-1@ilamy.calendar',
+        uid: 'recurring-1@scope-inspect.calendar',
         title: 'Weekly Meeting',
         start: dayjs('2025-08-15T10:00:00'),
         end: dayjs('2025-08-15T11:00:00'),
@@ -475,7 +475,7 @@ describe('EventForm', () => {
 
       const instanceEvent: CalendarEvent = {
         id: 'recurring-1_1',
-        uid: 'recurring-1@ilamy.calendar',
+        uid: 'recurring-1@scope-inspect.calendar',
         title: 'Weekly Meeting',
         start: dayjs('2025-08-17T10:00:00'), // Wednesday instance
         end: dayjs('2025-08-17T11:00:00'),

@@ -15,10 +15,10 @@ import type { CalendarView, TimeFormat } from '@/types'
  * for the start and end properties. The component will automatically convert these
  * to dayjs objects internally for consistent date handling.
  *
- * @interface IlamyCalendarPropEvent
+ * @interface ScopeInspectCalendarPropEvent
  * @extends {Omit<CalendarEvent, 'start' | 'end'>}
  */
-export interface IlamyCalendarPropEvent
+export interface ScopeInspectCalendarPropEvent
   extends Omit<CalendarEvent, 'start' | 'end'> {
   start: dayjs.Dayjs | Date | string
   end: dayjs.Dayjs | Date | string
@@ -37,11 +37,11 @@ export interface CellClickInfo {
   resourceId?: string | number
 }
 
-export interface IlamyCalendarProps {
+export interface ScopeInspectCalendarProps {
   /**
    * Array of events to display in the calendar.
    */
-  events?: IlamyCalendarPropEvent[]
+  events?: ScopeInspectCalendarPropEvent[]
   /**
    * The first day of the week to display in the calendar.
    * Can be 'sunday', 'monday', etc. Defaults to 'sunday'.

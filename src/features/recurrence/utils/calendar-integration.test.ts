@@ -8,7 +8,7 @@ import type { RRuleOptions } from '@/features/recurrence/types'
 describe('generateRecurringEvents - Calendar Provider Integration', () => {
   const baseEvent: CalendarEvent = {
     id: 'recurring-1',
-    uid: 'recurring-1@ilamy.calendar',
+    uid: 'recurring-1@scope-inspect.calendar',
     title: 'Weekly Meeting',
     start: dayjs('2025-01-06T09:00:00.000Z'), // Monday
     end: dayjs('2025-01-06T10:00:00.000Z'),
@@ -80,7 +80,7 @@ describe('generateRecurringEvents - Calendar Provider Integration', () => {
     expect(result).toHaveLength(7)
 
     // All instances should have the same generated UID (not unique per instance)
-    const expectedUID = `${eventWithoutUID.id}@ilamy.calendar`
+    const expectedUID = `${eventWithoutUID.id}@scope-inspect.calendar`
     result.forEach((instance) => {
       expect(instance.uid).toBe(expectedUID) // Same generated UID for all instances
       expect(instance.rrule).toBeUndefined() // No RRULE (identifies as instance)
@@ -120,7 +120,7 @@ describe('generateRecurringEvents - Calendar Provider Integration', () => {
   it('should handle daily recurring events', () => {
     const dailyEvent: CalendarEvent = {
       id: 'daily-1',
-      uid: 'daily-1@ilamy.calendar',
+      uid: 'daily-1@scope-inspect.calendar',
       title: 'Daily Standup',
       start: dayjs('2025-01-06T09:00:00.000Z'),
       end: dayjs('2025-01-06T09:30:00.000Z'),
@@ -159,7 +159,7 @@ describe('Monthly and Complex Patterns', () => {
   it('should handle monthly recurring events', () => {
     const monthlyEvent: CalendarEvent = {
       id: 'monthly-1',
-      uid: 'monthly-1@ilamy.calendar',
+      uid: 'monthly-1@scope-inspect.calendar',
       title: 'Monthly Review',
       start: dayjs('2025-01-06T14:00:00.000Z'),
       end: dayjs('2025-01-06T15:00:00.000Z'),
@@ -203,7 +203,7 @@ describe('Monthly and Complex Patterns', () => {
   it('should handle COUNT limits in RRULE', () => {
     const limitedEvent: CalendarEvent = {
       id: 'limited-1',
-      uid: 'limited-1@ilamy.calendar',
+      uid: 'limited-1@scope-inspect.calendar',
       title: 'Limited Series',
       start: dayjs('2025-01-06T09:00:00.000Z'),
       end: dayjs('2025-01-06T10:00:00.000Z'),
@@ -237,7 +237,7 @@ describe('Monthly and Complex Patterns', () => {
   it('should handle UNTIL limits in RRULE', () => {
     const untilEvent: CalendarEvent = {
       id: 'until-1',
-      uid: 'until-1@ilamy.calendar',
+      uid: 'until-1@scope-inspect.calendar',
       title: 'Until Series',
       start: dayjs('2025-01-06T09:00:00.000Z'),
       end: dayjs('2025-01-06T10:00:00.000Z'),
@@ -272,7 +272,7 @@ describe('Monthly and Complex Patterns', () => {
     // Long duration event (4 hours) that occurs daily
     const longDurationEvent: CalendarEvent = {
       id: 'long-duration-1',
-      uid: 'long-duration-1@ilamy.calendar',
+      uid: 'long-duration-1@scope-inspect.calendar',
       title: 'Long Meeting',
       start: dayjs('2025-01-06T08:00:00.000Z'), // Starts at 8 AM
       end: dayjs('2025-01-06T12:00:00.000Z'), // Ends at 12 PM (4 hour duration)
@@ -306,7 +306,7 @@ describe('Monthly and Complex Patterns', () => {
     // Short event that ends before our query range
     const shortEvent: CalendarEvent = {
       id: 'short-1',
-      uid: 'short-1@ilamy.calendar',
+      uid: 'short-1@scope-inspect.calendar',
       title: 'Short Meeting',
       start: dayjs('2025-01-06T08:00:00.000Z'), // 8 AM
       end: dayjs('2025-01-06T09:00:00.000Z'), // 9 AM (1 hour duration)
@@ -337,7 +337,7 @@ describe('Monthly and Complex Patterns', () => {
   it('should return empty array for events without RRULE', () => {
     const nonRecurringEvent: CalendarEvent = {
       id: 'single-1',
-      uid: 'single-1@ilamy.calendar',
+      uid: 'single-1@scope-inspect.calendar',
       title: 'Single Event',
       start: dayjs('2025-01-06T09:00:00.000Z'),
       end: dayjs('2025-01-06T10:00:00.000Z'),
@@ -356,7 +356,7 @@ describe('Monthly and Complex Patterns', () => {
   it('should handle invalid RRULE options gracefully', () => {
     const malformedEvent: CalendarEvent = {
       id: 'malformed-1',
-      uid: 'malformed-1@ilamy.calendar',
+      uid: 'malformed-1@scope-inspect.calendar',
       title: 'Invalid RRULE',
       start: dayjs('2025-01-06T09:00:00.000Z'),
       end: dayjs('2025-01-06T10:00:00.000Z'),

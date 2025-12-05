@@ -42,10 +42,10 @@ export const omitKeys = <T extends object, K extends keyof T>(
  *
  * @example
  * // Regular calendar events
- * const events = normalizeEvents<IlamyCalendarPropEvent, CalendarEvent>(propEvents)
+ * const events = normalizeEvents<ScopeInspectCalendarPropEvent, CalendarEvent>(propEvents)
  *
  * // Resource calendar events
- * const resourceEvents = normalizeEvents<IlamyResourceCalendarPropEvent, CalendarEvent>(propEvents)
+ * const resourceEvents = normalizeEvents<ScopeInspectResourceCalendarPropEvent, CalendarEvent>(propEvents)
  */
 export function normalizeEvents<
   TInput extends {

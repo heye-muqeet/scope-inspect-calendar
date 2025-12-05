@@ -3,7 +3,7 @@ import type { CellClickInfo } from '@/features/calendar/types'
 import { createContext, useContext } from 'react'
 import type {
   CalendarContextType,
-  UseIlamyCalendarContextReturn,
+  UseScopeInspectCalendarContextReturn,
 } from '@/features/calendar/contexts/calendar-context/context'
 import type { CalendarEvent } from '@/components/types'
 
@@ -45,8 +45,8 @@ export const useResourceCalendarContext = (): ResourceCalendarContextType => {
 /**
  * Simplified resource calendar context type for external use
  */
-export interface UseIlamyResourceCalendarContextReturn
-  extends UseIlamyCalendarContextReturn {
+export interface UseScopeInspectResourceCalendarContextReturn
+  extends UseScopeInspectCalendarContextReturn {
   readonly events: CalendarEvent[]
   readonly resources: Resource[]
   readonly getEventsForResource: (
@@ -54,12 +54,12 @@ export interface UseIlamyResourceCalendarContextReturn
   ) => CalendarEvent[]
 }
 
-export const useIlamyResourceCalendarContext =
-  (): UseIlamyResourceCalendarContextReturn => {
+export const useScopeInspectResourceCalendarContext =
+  (): UseScopeInspectResourceCalendarContextReturn => {
     const context = useContext(ResourceCalendarContext)
     if (context === undefined) {
       throw new Error(
-        'useIlamyResourceCalendarContext must be used within a ResourceCalendarProvider'
+        'useScopeInspectResourceCalendarContext must be used within a ResourceCalendarProvider'
       )
     }
     return {

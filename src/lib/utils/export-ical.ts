@@ -32,7 +32,7 @@ const formatDate = (date: dayjs.Dayjs, isAllDay = false): string => {
 }
 
 const getUID = (event: CalendarEvent): string => {
-  return event.uid || `${event.id}@ilamy.calendar`
+  return event.uid || `${event.id}@scope-inspect.calendar`
 }
 
 const formatRRule = (rruleOptions: unknown): string => {
@@ -105,7 +105,7 @@ const filterEvents = (events: CalendarEvent[]): CalendarEvent[] => {
 
 export const exportToICalendar = (
   events: CalendarEvent[],
-  calendarName = 'ilamy Calendar'
+  calendarName = 'ScopeInspect Calendar'
 ): string => {
   const name = escapeText(calendarName)
   const veventStrings = filterEvents(events).map(convertEventToVEvent)
@@ -113,7 +113,7 @@ export const exportToICalendar = (
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//ilamy//ilamy Calendar//EN',
+    'PRODID:-//scope-inspect//ScopeInspect Calendar//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${name}`,
@@ -127,7 +127,7 @@ export const exportToICalendar = (
 export const downloadICalendar = (
   events: CalendarEvent[],
   filename = 'calendar.ics',
-  calendarName = 'ilamy Calendar'
+  calendarName = 'ScopeInspect Calendar'
 ): void => {
   const blob = new Blob([exportToICalendar(events, calendarName)], {
     type: 'text/calendar;charset=utf-8',

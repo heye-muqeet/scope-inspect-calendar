@@ -69,7 +69,7 @@ export const generateRecurringEvents = ({
         const originalDuration = event.end.diff(event.start)
         const newEndTime = occurrenceDate.add(originalDuration, 'millisecond')
         const recurringEventId = `${event.id}_${index}`
-        const parentUID = event.uid || `${event.id}@ilamy.calendar`
+        const parentUID = event.uid || `${event.id}@scope-inspect.calendar`
 
         // Create the recurring event instance
         const recurringEvent: CalendarEvent = {
@@ -130,7 +130,7 @@ export const updateRecurringEvent = ({
 
   // Find the base recurring event
   const baseEventIndex = updatedEvents.findIndex((e) => {
-    const parentUid = e.uid || `${e.id}@ilamy.calendar`
+    const parentUid = e.uid || `${e.id}@scope-inspect.calendar`
     return parentUid === targetEvent.uid && e.rrule && !e.recurrenceId
   })
 
@@ -161,7 +161,7 @@ export const updateRecurringEvent = ({
         ...updates,
         id: modifiedEventId,
         recurrenceId: targetEventStartISO, // This marks it as a modified instance
-        uid: baseEvent.uid || `${baseEvent.id}@ilamy.calendar`, // Keep same UID as base event (iCalendar standard)
+        uid: baseEvent.uid || `${baseEvent.id}@scope-inspect.calendar`, // Keep same UID as base event (iCalendar standard)
         rrule: undefined, // Standalone events don't have RRULE
       } as CalendarEvent
       updatedEvents.push(modifiedEvent)
@@ -192,7 +192,7 @@ export const updateRecurringEvent = ({
       const newSeriesEndTime =
         updates.end || newSeriesStartTime.add(originalDuration)
       const newSeriesId = `${baseEvent.id}_following`
-      const newSeriesUID = `${newSeriesId}@ilamy.calendar`
+      const newSeriesUID = `${newSeriesId}@scope-inspect.calendar`
 
       const newSeriesEvent: CalendarEvent = {
         ...baseEvent,
@@ -246,7 +246,7 @@ export const deleteRecurringEvent = ({
 
   // Find the base recurring event
   const baseEventIndex = updatedEvents.findIndex((e) => {
-    const parentUid = e.uid || `${e.id}@ilamy.calendar`
+    const parentUid = e.uid || `${e.id}@scope-inspect.calendar`
     return parentUid === targetEvent.uid && e.rrule && !e.recurrenceId
   })
 

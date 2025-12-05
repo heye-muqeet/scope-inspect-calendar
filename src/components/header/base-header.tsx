@@ -46,8 +46,8 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
   const closeMobileMenu = () => setMobileMenuOpen(false)
 
   const handleExport = () => {
-    const filename = `ilamy-calendar-${new Date().toISOString().split('T')[0]}.ics`
-    downloadICalendar(rawEvents, filename, 'ilamy Calendar')
+    const filename = `scope-inspect-calendar-${new Date().toISOString().split('T')[0]}.ics`
+    downloadICalendar(rawEvents, filename, 'ScopeInspect Calendar')
     closeMobileMenu()
   }
 

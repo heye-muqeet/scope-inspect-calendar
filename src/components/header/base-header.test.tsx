@@ -32,7 +32,7 @@ describe('Header with Export Button', () => {
       title: 'Test Event',
       start: dayjs('2025-08-04T09:00:00.000Z'),
       end: dayjs('2025-08-04T10:00:00.000Z'),
-      uid: 'test-1@ilamy.calendar',
+      uid: 'test-1@scope-inspect.calendar',
     },
     {
       id: 'test-2',
@@ -92,7 +92,7 @@ describe('Header with Export Button', () => {
         }),
       ]),
       expect.stringMatching(/calendar-\d{4}-\d{2}-\d{2}\.ics/),
-      'ilamy Calendar'
+      'ScopeInspect Calendar'
     )
   })
 })

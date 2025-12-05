@@ -1,5 +1,5 @@
-import { IlamyCalendar } from '@/features/calendar/components/ilamy-calendar'
-import { IlamyResourceCalendar } from '@/features/resource-calendar/components/ilamy-resource-calendar/ilamy-resource-calendar'
+import { ScopeInspectCalendar } from '@/features/calendar/components/scope-inspect-calendar'
+import { ScopeInspectResourceCalendar } from '@/features/resource-calendar/components/scope-inspect-resource-calendar/scope-inspect-resource-calendar'
 import type { Resource } from '@/features/resource-calendar/types'
 import type { CalendarEvent, WeekDays } from '@/components/types'
 import type { CellClickInfo } from '@/features/calendar/types'
@@ -189,7 +189,7 @@ export function DemoPage() {
           Interactive Demo
         </h1>
         <p className="text-muted-foreground">
-          Try out the ilamy Calendar components with different configurations
+          Try out the ScopeInspect Calendar components with different configurations
         </p>
       </div>
 
@@ -281,7 +281,7 @@ export function DemoPage() {
               style={{ height: calendarHeight }}
             >
               {calendarType === 'regular' ? (
-                <IlamyCalendar
+                <ScopeInspectCalendar
                   key={calendarKey}
                   firstDayOfWeek={firstDayOfWeek}
                   initialView={initialView}
@@ -310,7 +310,7 @@ export function DemoPage() {
                   visibleHours={visibleHours}
                 />
               ) : (
-                <IlamyResourceCalendar
+                <ScopeInspectResourceCalendar
                   key={`resource-${calendarKey}`}
                   resources={demoResources}
                   events={showDemoEvents ? resourceEvents : []}

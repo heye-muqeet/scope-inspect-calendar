@@ -43,13 +43,11 @@
       }
     ],
 
-    // Performance rules
     "no-array-index-key": "warn",
     "prefer-array-find": "warn",
     "prefer-array-flat-map": "warn",
     "prefer-set-has": "warn",
 
-    // Correctness rules (React specific)
     "react/jsx-key": "error",
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-no-undef": "error",
@@ -60,7 +58,6 @@
     "react/exhaustive-deps": "warn",
     "react/jsx-no-target-blank": "warn",
 
-    // TypeScript specific
     "typescript/no-duplicate-enum-values": "error",
     "typescript/no-extra-non-null-assertion": "error",
     "typescript/no-misused-new": "error",
@@ -73,7 +70,6 @@
     "typescript/prefer-as-const": "error",
     "typescript/triple-slash-reference": "error",
 
-    // Unicorn rules for better code quality
     "unicorn/no-await-in-promise-methods": "error",
     "unicorn/no-empty-file": "error",
     "unicorn/no-invalid-fetch-options": "error",
@@ -88,7 +84,6 @@
     "unicorn/prefer-set-size": "error",
     "unicorn/prefer-string-starts-ends-with": "error",
 
-    // Accessibility rules for calendar UI
     "jsx-a11y/alt-text": "warn",
     "jsx-a11y/anchor-has-content": "warn",
     "jsx-a11y/anchor-is-valid": "warn",
@@ -108,20 +103,17 @@
     "jsx-a11y/role-supports-aria-props": "warn",
     "jsx-a11y/tabindex-no-positive": "warn",
 
-    // Import organization
     "import/no-duplicates": "error",
     "import/no-self-import": "error",
     "import/no-empty-named-blocks": "error",
     "import/consistent-type-specifier-style": "error",
 
-    // Suspicious code patterns
     "no-extra-bind": "warn",
     "no-unexpected-multiline": "warn",
     "no-unneeded-ternary": "warn",
     "no-useless-concat": "warn",
     "no-useless-constructor": "warn",
 
-    // Style improvements
     "curly": "warn",
     "prefer-object-spread": "warn",
     "prefer-exponentiation-operator": "warn",
@@ -132,14 +124,12 @@
     "no-negated-condition": "warn",
     "operator-assignment": "warn",
 
-    // Additional TypeScript style rules
     "typescript/array-type": "warn",
     "typescript/consistent-type-definitions": "warn",
     "typescript/prefer-function-type": "warn",
     "typescript/ban-ts-comment": "warn",
     "typescript/prefer-ts-expect-error": "warn",
 
-    // Modern JavaScript/TypeScript patterns
     "unicorn/prefer-array-flat": "warn",
     "unicorn/prefer-array-some": "warn",
     "unicorn/prefer-date-now": "warn",

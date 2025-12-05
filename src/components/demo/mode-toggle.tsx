@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 type Theme = 'dark' | 'light' | 'system'
 const defaultTheme: Theme = 'dark'
-const storageKey = 'ilamy-calendar-theme'
+const storageKey = 'scope-inspect-calendar-theme'
 
 export function ModeToggle() {
   const [theme, setTheme] = useState<Theme>(() => defaultTheme)

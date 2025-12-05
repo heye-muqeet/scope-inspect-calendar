@@ -358,7 +358,7 @@ describe('CalendarProvider - findParentRecurringEvent', () => {
 
     const recurringEvent: CalendarEvent = {
       id: 'weekly-meeting',
-      uid: 'weekly-meeting@ilamy.calendar',
+      uid: 'weekly-meeting@scope-inspect.calendar',
       title: 'Weekly Meeting',
       start: dayjs('2025-01-06T10:00:00.000Z'),
       end: dayjs('2025-01-06T11:00:00.000Z'),
@@ -432,7 +432,7 @@ describe('CalendarProvider - findParentRecurringEvent', () => {
 
     const recurringEvent: CalendarEvent = {
       id: 'daily-standup',
-      uid: 'daily-standup@ilamy.calendar',
+      uid: 'daily-standup@scope-inspect.calendar',
       title: 'Daily Standup',
       start: dayjs('2025-01-06T09:00:00.000Z'),
       end: dayjs('2025-01-06T09:30:00.000Z'),
@@ -496,7 +496,7 @@ describe('CalendarProvider - findParentRecurringEvent', () => {
 
     const recurringEvent: CalendarEvent = {
       id: 'team-meeting',
-      uid: 'team-meeting@ilamy.calendar',
+      uid: 'team-meeting@scope-inspect.calendar',
       title: 'Team Meeting',
       start: dayjs('2025-01-06T14:00:00.000Z'),
       end: dayjs('2025-01-06T15:00:00.000Z'),

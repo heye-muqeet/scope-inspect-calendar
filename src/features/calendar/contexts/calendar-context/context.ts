@@ -80,7 +80,7 @@ export const useCalendarContext = (): CalendarContextType => {
  * Simplified calendar context type for external use
  * Contains only the most commonly used calendar operations
  */
-export interface UseIlamyCalendarContextReturn {
+export interface UseScopeInspectCalendarContextReturn {
   readonly currentDate: dayjs.Dayjs
   readonly view: CalendarView
   readonly events: CalendarEvent[]
@@ -106,11 +106,11 @@ export interface UseIlamyCalendarContextReturn {
   readonly visibleHours?: VisibleHours
 }
 
-export const useIlamyCalendarContext = (): UseIlamyCalendarContextReturn => {
+export const useScopeInspectCalendarContext = (): UseScopeInspectCalendarContextReturn => {
   const context = useContext(CalendarContext)
   if (context === undefined) {
     throw new Error(
-      'useIlamyCalendarContext must be used within a CalendarProvider'
+      'useScopeInspectCalendarContext must be used within a CalendarProvider'
     )
   }
   return {

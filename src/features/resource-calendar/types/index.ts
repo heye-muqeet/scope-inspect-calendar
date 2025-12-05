@@ -1,27 +1,27 @@
 import type {
-  IlamyCalendarProps,
-  IlamyCalendarPropEvent,
+  ScopeInspectCalendarProps,
+  ScopeInspectCalendarPropEvent,
 } from '@/features/calendar/types'
 
 /**
  * Public-facing resource calendar event interface with flexible date types.
- * Similar to IlamyCalendarPropEvent but with resource assignment fields.
+ * Similar to ScopeInspectCalendarPropEvent but with resource assignment fields.
  * Dates can be provided as dayjs.Dayjs, Date, or string and will be normalized internally.
  *
- * @interface IlamyResourceCalendarPropEvent
- * @extends {IlamyCalendarPropEvent}
+ * @interface ScopeInspectResourceCalendarPropEvent
+ * @extends {ScopeInspectCalendarPropEvent}
  */
-export interface IlamyResourceCalendarPropEvent extends IlamyCalendarPropEvent {
+export interface ScopeInspectResourceCalendarPropEvent extends ScopeInspectCalendarPropEvent {
   /** Single resource assignment */
   resourceId?: string | number
   /** Multiple resource assignment (cross-resource events) */
   resourceIds?: (string | number)[]
 }
 
-export interface IlamyResourceCalendarProps
-  extends Omit<IlamyCalendarProps, 'events'> {
+export interface ScopeInspectResourceCalendarProps
+  extends Omit<ScopeInspectCalendarProps, 'events'> {
   /** Array of events to display */
-  events?: IlamyResourceCalendarPropEvent[]
+  events?: ScopeInspectResourceCalendarPropEvent[]
   /** Array of resources */
   resources?: Resource[]
   /** Custom render function for resources */

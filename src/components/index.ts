@@ -1,3 +1,3 @@
-export { IlamyCalendar } from '../features/calendar/components/ilamy-calendar'
+export { ScopeInspectCalendar } from '../features/calendar/components/scope-inspect-calendar'
 export { EventForm } from './event-form/event-form'
 export * from './types'

@@ -20,7 +20,7 @@ const createRecurringEvent = (
   overrides: Partial<CalendarEvent> = {}
 ): CalendarEvent => ({
   id: 'recurring-1',
-  uid: 'recurring-1@ilamy.calendar',
+  uid: 'recurring-1@scope-inspect.calendar',
   title: 'Weekly Meeting',
   start: dayjs('2025-01-06T10:00:00.000Z'),
   end: dayjs('2025-01-06T11:00:00.000Z'),
@@ -556,7 +556,7 @@ describe('useCalendarEngine', () => {
 
       const orphanEvent = createEvent({
         id: 'orphan',
-        uid: 'different-uid@ilamy.calendar',
+        uid: 'different-uid@scope-inspect.calendar',
       })
       const parent = result.current.findParentRecurringEvent(orphanEvent)
 

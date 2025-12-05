@@ -37,7 +37,7 @@ export function DemoUsage({
           </TabsList>
           <TabsContent value="jsx" className="relative">
             <pre className="p-4 rounded-md bg-white/30 dark:bg-black/40 overflow-x-auto text-xs border border-white/20 dark:border-white/5">
-              {`import { IlamyCalendar } from '@ilamy/calendar';
+              {`import { ScopeInspectCalendar } from 'scope-inspect-calendar';
 
 function MyCalendar() {
   const handleEventClick = (event) => {
@@ -53,7 +53,7 @@ function MyCalendar() {
   };
 
   return (
-    <IlamyCalendar
+    <ScopeInspectCalendar
       firstDayOfWeek="${firstDayOfWeek}"
       events={myEvents}
       locale="${locale}"
@@ -69,7 +69,7 @@ function MyCalendar() {
           </TabsContent>
           <TabsContent value="tsx" className="relative">
             <pre className="p-4 rounded-md bg-white/30 dark:bg-black/40 overflow-x-auto text-xs border border-white/20 dark:border-white/5">
-              {`import { IlamyCalendar, CalendarEvent } from '@ilamy/calendar';
+              {`import { ScopeInspectCalendar, CalendarEvent } from 'scope-inspect-calendar';
 
 function MyCalendar() {
   const handleEventClick = (event: CalendarEvent) => {
@@ -85,7 +85,7 @@ function MyCalendar() {
   };
 
   return (
-    <IlamyCalendar
+    <ScopeInspectCalendar
       firstDayOfWeek="${firstDayOfWeek}"
       events={myEvents}
       locale="${locale}"

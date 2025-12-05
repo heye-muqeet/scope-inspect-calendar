@@ -68,7 +68,7 @@ bun add scope-inspect-calendar
 ## 🚀 Quick Start
 
 ```tsx
-import { IlamyCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { CalendarEvent } from 'scope-inspect-calendar'
 
 function App() {
@@ -82,7 +82,7 @@ function App() {
   ]
 
   return (
-    <IlamyCalendar
+    <ScopeInspectCalendar
       events={events}
       visibleHours={{ startTime: 9, endTime: 17 }}
     />
@@ -95,8 +95,8 @@ function App() {
 ### Basic Calendar
 
 ```tsx
-import { IlamyCalendar } from 'scope-inspect-calendar'
-;<IlamyCalendar
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+;<ScopeInspectCalendar
   events={events}
   initialView="month"
   onEventClick={(event) => console.log('Event clicked:', event)}
@@ -108,10 +108,10 @@ import { IlamyCalendar } from 'scope-inspect-calendar'
 The `visibleHours` prop controls which time range is displayed on the calendar's vertical time scale. This is **completely independent** from `businessHours`, which controls when events can be created or edited.
 
 ```tsx
-import { IlamyCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 
 // Show only business hours (9 AM to 5 PM)
-<IlamyCalendar
+<ScopeInspectCalendar
   events={events}
   visibleHours={{
     startTime: 9,  // 9:00 AM
@@ -120,7 +120,7 @@ import { IlamyCalendar } from 'scope-inspect-calendar'
 />
 
 // Show morning hours only (6 AM to 12 PM)
-<IlamyCalendar
+<ScopeInspectCalendar
   events={events}
   visibleHours={{
     startTime: 6,
@@ -129,7 +129,7 @@ import { IlamyCalendar } from 'scope-inspect-calendar'
 />
 
 // Show afternoon/evening hours (12 PM to 10 PM)
-<IlamyCalendar
+<ScopeInspectCalendar
   events={events}
   visibleHours={{
     startTime: 12,
@@ -138,7 +138,7 @@ import { IlamyCalendar } from 'scope-inspect-calendar'
 />
 
 // Default: Show all 24 hours (if not specified)
-<IlamyCalendar events={events} />
+<ScopeInspectCalendar events={events} />
 ```
 
 ### Visible Hours vs Business Hours
@@ -151,7 +151,7 @@ import { IlamyCalendar } from 'scope-inspect-calendar'
 You can use them together:
 
 ```tsx
-<IlamyCalendar
+<ScopeInspectCalendar
   events={events}
   // Display only 8 AM to 6 PM
   visibleHours={{ startTime: 8, endTime: 18 }}
@@ -167,14 +167,14 @@ You can use them together:
 ### Resource Calendar
 
 ```tsx
-import { IlamyResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
 
 const resources = [
   { id: '1', name: 'Room A' },
   { id: '2', name: 'Room B' },
 ]
 
-<IlamyResourceCalendar
+<ScopeInspectResourceCalendar
   resources={resources}
   events={events}
   visibleHours={{ startTime: 9, endTime: 17 }}
@@ -184,7 +184,7 @@ const resources = [
 ### Recurring Events
 
 ```tsx
-import { IlamyCalendar, RRule } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar, RRule } from 'scope-inspect-calendar'
 
 const recurringEvent: CalendarEvent = {
   id: '1',
@@ -198,12 +198,12 @@ const recurringEvent: CalendarEvent = {
   },
 }
 
-<IlamyCalendar events={[recurringEvent]} />
+<ScopeInspectCalendar events={[recurringEvent]} />
 ```
 
 ## 📚 API Reference
 
-### IlamyCalendar Props
+### ScopeInspectCalendar Props
 
 | Prop                 | Type                                  | Default     | Description                                                                     |
 | -------------------- | ------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
@@ -275,7 +275,7 @@ interface BusinessHours {
 ### Custom Event Rendering
 
 ```tsx
-<IlamyCalendar
+<ScopeInspectCalendar
   events={events}
   renderEvent={(event) => (
     <div className="custom-event">
@@ -304,11 +304,11 @@ The calendar uses Tailwind CSS and CSS variables for theming. Override CSS varia
 ### Using Calendar Context
 
 ```tsx
-import { useIlamyCalendarContext } from 'scope-inspect-calendar'
+import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function CustomComponent() {
   const { currentDate, view, events, setView, nextPeriod, prevPeriod } =
-    useIlamyCalendarContext()
+    useScopeInspectCalendarContext()
 
   return (
     <div>
@@ -336,7 +336,7 @@ Full TypeScript support with comprehensive type definitions:
 ```typescript
 import type {
   CalendarEvent,
-  IlamyCalendarProps,
+  ScopeInspectCalendarProps,
   VisibleHours,
   BusinessHours,
   CalendarView,
