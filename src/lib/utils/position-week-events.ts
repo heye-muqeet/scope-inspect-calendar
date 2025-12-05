@@ -105,7 +105,7 @@ export const getPositionedEvents = ({
     }
 
     // Clamp to visible range: if event starts before, use first column; if ends after, use last column
-    const startCol = startColRaw >= 0 ? startColRaw : 0
+    const startCol = Math.max(startColRaw, 0)
     const endCol = endColRaw >= 0 ? endColRaw : dayCount - 1
 
     // Ensure valid range

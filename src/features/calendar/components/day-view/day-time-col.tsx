@@ -1,5 +1,4 @@
 import { useCalendarContext } from '@/features/calendar/contexts/calendar-context/context'
-import dayjs from '@/lib/configs/dayjs-config'
 import { useMemo } from 'react'
 import { getVisibleHours } from '@/features/calendar/utils/visible-hours'
 

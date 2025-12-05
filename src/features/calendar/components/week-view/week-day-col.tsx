@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import dayjs from '@/lib/configs/dayjs-config'
+import type dayjs from '@/lib/configs/dayjs-config'
 import React, { useMemo } from 'react'
 import { DayEventsLayer } from '../day-view/day-events-layer'
 import { DroppableCell } from '@/components/droppable-cell'

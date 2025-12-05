@@ -2,7 +2,6 @@ import { useCalendarContext } from '@/features/calendar/contexts/calendar-contex
 import dayjs from '@/lib/configs/dayjs-config'
 import { useMemo } from 'react'
 import type { CalendarEvent } from '@/components/types'
-import { getVisibleHoursCount } from '@/features/calendar/utils/visible-hours'
 
 interface PositionedEvent extends CalendarEvent {
   left: number // Left position in percentage
@@ -71,7 +70,6 @@ export const useProcessedDayEvents = ({ day }: UseProcessedDayEventsProps) => {
           // If the event ends on the next day, set end time to 24 hours
           endTime = 24
         }
-        const totalDuration = endTime - startTime
 
         // Check if event overlaps with visible hours
         if (endTime <= visibleStartTime || startTime >= visibleEndTime) {
@@ -139,7 +137,6 @@ export const useProcessedDayEvents = ({ day }: UseProcessedDayEventsProps) => {
           endTime = 24
         }
 
-        const totalDuration = endTime - startTime
 
         // Check if event overlaps with visible hours
         if (endTime <= visibleStartTime || startTime >= visibleEndTime) {
