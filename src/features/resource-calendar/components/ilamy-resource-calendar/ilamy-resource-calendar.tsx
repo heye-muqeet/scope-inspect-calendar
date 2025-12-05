@@ -9,7 +9,9 @@ import { DAY_MAX_EVENTS_DEFAULT, WEEK_DAYS_NUMBER_MAP } from '@/lib/constants'
 import { safeDate, normalizeEvents } from '@/lib/utils'
 import type { CalendarEvent } from '@/components/types'
 
-export const ScopeInspectResourceCalendar: React.FC<ScopeInspectResourceCalendarProps> = ({
+export const ScopeInspectResourceCalendar: React.FC<
+  ScopeInspectResourceCalendarProps
+> = ({
   events = [],
   resources = [],
   firstDayOfWeek = 'sunday',
@@ -43,9 +45,10 @@ export const ScopeInspectResourceCalendar: React.FC<ScopeInspectResourceCalendar
 }) => {
   return (
     <ResourceCalendarProvider
-      events={normalizeEvents<ScopeInspectResourceCalendarPropEvent, CalendarEvent>(
-        events
-      )}
+      events={normalizeEvents<
+        ScopeInspectResourceCalendarPropEvent,
+        CalendarEvent
+      >(events)}
       resources={resources}
       firstDayOfWeek={WEEK_DAYS_NUMBER_MAP[firstDayOfWeek]}
       initialView={initialView}

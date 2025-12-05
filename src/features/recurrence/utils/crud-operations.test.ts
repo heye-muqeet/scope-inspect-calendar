@@ -235,7 +235,9 @@ describe('updateRecurringEvent', () => {
       expect(newSeries?.start.isSame(dayjs('2025-01-20T14:00:00'))).toEqual(
         true
       )
-      expect(newSeries?.uid).toBe('recurring-1_following@scope-inspect.calendar')
+      expect(newSeries?.uid).toBe(
+        'recurring-1_following@scope-inspect.calendar'
+      )
       expect(newSeries?.recurrenceId).toBeUndefined()
     })
 

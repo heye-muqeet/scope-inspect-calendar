@@ -116,7 +116,9 @@ export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
 }) => {
   return (
     <CalendarProvider
-      events={normalizeEvents<ScopeInspectCalendarPropEvent, CalendarEvent>(events)}
+      events={normalizeEvents<ScopeInspectCalendarPropEvent, CalendarEvent>(
+        events
+      )}
       firstDayOfWeek={WEEK_DAYS_NUMBER_MAP[firstDayOfWeek]}
       initialView={initialView}
       initialDate={safeDate(initialDate)}

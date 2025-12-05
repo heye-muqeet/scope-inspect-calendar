@@ -338,7 +338,8 @@ export const useCalendarEngine = (
       const targetUID = event.uid
       return (
         currentEvents.find(
-          (e) => (e.uid || `${e.id}@scope-inspect.calendar`) === targetUID && e.rrule
+          (e) =>
+            (e.uid || `${e.id}@scope-inspect.calendar`) === targetUID && e.rrule
         ) || null
       )
     },

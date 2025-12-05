@@ -189,7 +189,8 @@ export function DemoPage() {
           Interactive Demo
         </h1>
         <p className="text-muted-foreground">
-          Try out the ScopeInspect Calendar components with different configurations
+          Try out the ScopeInspect Calendar components with different
+          configurations
         </p>
       </div>
 

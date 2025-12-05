@@ -106,33 +106,34 @@ export interface UseScopeInspectCalendarContextReturn {
   readonly visibleHours?: VisibleHours
 }
 
-export const useScopeInspectCalendarContext = (): UseScopeInspectCalendarContextReturn => {
-  const context = useContext(CalendarContext)
-  if (context === undefined) {
-    throw new Error(
-      'useScopeInspectCalendarContext must be used within a CalendarProvider'
-    )
+export const useScopeInspectCalendarContext =
+  (): UseScopeInspectCalendarContextReturn => {
+    const context = useContext(CalendarContext)
+    if (context === undefined) {
+      throw new Error(
+        'useScopeInspectCalendarContext must be used within a CalendarProvider'
+      )
+    }
+    return {
+      currentDate: context.currentDate,
+      view: context.view,
+      events: context.events,
+      isEventFormOpen: context.isEventFormOpen,
+      selectedEvent: context.selectedEvent,
+      selectedDate: context.selectedDate,
+      firstDayOfWeek: context.firstDayOfWeek,
+      setCurrentDate: context.setCurrentDate,
+      selectDate: context.selectDate,
+      setView: context.setView,
+      nextPeriod: context.nextPeriod,
+      prevPeriod: context.prevPeriod,
+      today: context.today,
+      addEvent: context.addEvent,
+      updateEvent: context.updateEvent,
+      deleteEvent: context.deleteEvent,
+      openEventForm: context.openEventForm,
+      closeEventForm: context.closeEventForm,
+      businessHours: context.businessHours,
+      visibleHours: context.visibleHours,
+    } as const
   }
-  return {
-    currentDate: context.currentDate,
-    view: context.view,
-    events: context.events,
-    isEventFormOpen: context.isEventFormOpen,
-    selectedEvent: context.selectedEvent,
-    selectedDate: context.selectedDate,
-    firstDayOfWeek: context.firstDayOfWeek,
-    setCurrentDate: context.setCurrentDate,
-    selectDate: context.selectDate,
-    setView: context.setView,
-    nextPeriod: context.nextPeriod,
-    prevPeriod: context.prevPeriod,
-    today: context.today,
-    addEvent: context.addEvent,
-    updateEvent: context.updateEvent,
-    deleteEvent: context.deleteEvent,
-    openEventForm: context.openEventForm,
-    closeEventForm: context.closeEventForm,
-    businessHours: context.businessHours,
-    visibleHours: context.visibleHours,
-  } as const
-}

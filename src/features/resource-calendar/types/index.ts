@@ -11,7 +11,8 @@ import type {
  * @interface ScopeInspectResourceCalendarPropEvent
  * @extends {ScopeInspectCalendarPropEvent}
  */
-export interface ScopeInspectResourceCalendarPropEvent extends ScopeInspectCalendarPropEvent {
+export interface ScopeInspectResourceCalendarPropEvent
+  extends ScopeInspectCalendarPropEvent {
   /** Single resource assignment */
   resourceId?: string | number
   /** Multiple resource assignment (cross-resource events) */

@@ -154,7 +154,10 @@ describe('ScopeInspectResourceCalendar', () => {
 
   it('should render with resources and events', () => {
     render(
-      <ScopeInspectResourceCalendar resources={mockResources} events={mockEvents} />
+      <ScopeInspectResourceCalendar
+        resources={mockResources}
+        events={mockEvents}
+      />
     )
 
     // Should render the calendar header
@@ -185,7 +188,10 @@ describe('ScopeInspectResourceCalendar', () => {
 
   it('should handle initialView prop', () => {
     render(
-      <ScopeInspectResourceCalendar initialView="week" resources={mockResources} />
+      <ScopeInspectResourceCalendar
+        initialView="week"
+        resources={mockResources}
+      />
     )
 
     expect(screen.getByTestId('calendar-header')).toBeInTheDocument()
@@ -327,7 +333,10 @@ describe('ScopeInspectResourceCalendar', () => {
 
   it('should handle resource-specific events correctly', () => {
     render(
-      <ScopeInspectResourceCalendar resources={mockResources} events={mockEvents} />
+      <ScopeInspectResourceCalendar
+        resources={mockResources}
+        events={mockEvents}
+      />
     )
 
     // Should render without errors when events have resourceId and resourceIds
