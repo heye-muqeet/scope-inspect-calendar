@@ -374,20 +374,24 @@ Comprehensive documentation is available in the [`docs`](./docs) directory:
 ### API Reference
 
 #### Components
+
 - **[ScopeInspectCalendar](./docs/api-reference/components/scope-inspect-calendar.md)** - Main calendar component
 - **[ScopeInspectResourceCalendar](./docs/api-reference/components/scope-inspect-resource-calendar.md)** - Resource calendar component
 
 #### Hooks
+
 - **[useScopeInspectCalendarContext](./docs/api-reference/hooks/use-scope-inspect-calendar-context.md)** - Calendar context hook
 - **[useScopeInspectResourceCalendarContext](./docs/api-reference/hooks/use-scope-inspect-resource-calendar-context.md)** - Resource calendar context hook
 
 #### Types
+
 - **[CalendarEvent](./docs/api-reference/types/calendar-event.md)** - Event data structure
 - **[Resource](./docs/api-reference/types/resource.md)** - Resource data structure
 - **[Props](./docs/api-reference/types/props.md)** - Component props types
 - **[Utilities](./docs/api-reference/types/utilities.md)** - Utility types
 
 #### Utilities
+
 - **[exportToICalendar](./docs/api-reference/utilities/export-icalendar.md)** - Export to iCalendar format
 - **[downloadICalendar](./docs/api-reference/utilities/export-icalendar.md)** - Download .ics file
 - **[generateRecurringEvents](./docs/api-reference/utilities/recurrence-handler.md)** - Generate recurring events
