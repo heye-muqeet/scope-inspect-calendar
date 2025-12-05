@@ -1,10 +1,10 @@
 {
   "name": "scope-inspect-calendar",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "A full-featured React calendar component library built with Shadcn-Ui, Tailwind CSS, and TypeScript.",
-  "author": "Sujeet Kc",
+  "author": "Abdul Muqeet",
   "license": "MIT",
-  "homepage": "https://github.com/heye-muqeet/scope-inspect-calendar",
+  "homepage": "https://github.com/heye-muqeet/scope-inspect-calendar#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heye-muqeet/scope-inspect-calendar.git"
