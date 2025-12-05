@@ -78,6 +78,34 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+# Step 5.1: Clean package.json for main branch (remove dev scripts and devDependencies)
+Write-Host "Cleaning package.json for package-only branch..." -ForegroundColor Yellow
+
+try {
+    # Read package.json
+    $packageJsonContent = Get-Content "package.json" -Raw
+    $packageJson = $packageJsonContent | ConvertFrom-Json
+
+    # Remove dev scripts (keep only empty scripts object)
+    $packageJson.scripts = @{}
+
+    # Remove devDependencies
+    if ($packageJson.PSObject.Properties.Name -contains "devDependencies") {
+        $packageJson.PSObject.Properties.Remove("devDependencies")
+    }
+
+    # Convert back to JSON with proper formatting (indented)
+    $packageJsonJson = $packageJson | ConvertTo-Json -Depth 10
+
+    # Write cleaned package.json (ensure proper formatting)
+    $packageJsonJson.TrimEnd() | Set-Content "package.json" -Encoding UTF8
+
+    Write-Host "✓ Cleaned package.json (removed dev scripts and devDependencies)" -ForegroundColor Green
+} catch {
+    Write-Host "Warning: Failed to clean package.json: $_" -ForegroundColor Yellow
+    Write-Host "Continuing with original package.json..." -ForegroundColor Yellow
+}
+
 # Step 6: Stage files
 Write-Host "Staging files..." -ForegroundColor Yellow
 git add dist/ LICENSE README.md package.json

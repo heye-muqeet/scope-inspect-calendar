@@ -52,6 +52,47 @@ git checkout main
 echo "Copying build files from development..."
 git checkout development -- dist/ LICENSE README.md package.json
 
+# Step 5.1: Clean package.json for main branch (remove dev scripts and devDependencies)
+echo "Cleaning package.json for package-only branch..."
+
+# Check if node/npm is available for JSON manipulation
+if command -v node &> /dev/null; then
+    # Use node to clean package.json
+    node -e "
+    const fs = require('fs');
+    const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    pkg.scripts = {};
+    delete pkg.devDependencies;
+    fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+    " && echo "✓ Cleaned package.json (removed dev scripts and devDependencies)" || echo "Warning: Failed to clean package.json. Continuing with original..."
+elif command -v python3 &> /dev/null; then
+    # Fallback to python if node is not available
+    python3 << 'PYTHON_SCRIPT'
+import json
+import sys
+
+try:
+    with open('package.json', 'r') as f:
+        pkg = json.load(f)
+    
+    pkg['scripts'] = {}
+    if 'devDependencies' in pkg:
+        del pkg['devDependencies']
+    
+    with open('package.json', 'w') as f:
+        json.dump(pkg, f, indent=2)
+        f.write('\n')
+    
+    print("✓ Cleaned package.json (removed dev scripts and devDependencies)")
+except Exception as e:
+    print(f"Warning: Failed to clean package.json: {e}")
+    print("Continuing with original package.json...")
+PYTHON_SCRIPT
+else
+    echo "Warning: Neither node nor python3 found. Cannot clean package.json automatically."
+    echo "Please manually remove dev scripts and devDependencies from package.json"
+fi
+
 # Step 6: Stage files
 echo "Staging files..."
 git add dist/ LICENSE README.md package.json
