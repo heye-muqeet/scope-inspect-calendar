@@ -32,3 +32,9 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# Documentation guides (kept locally, not tracked in git)
+VISIBLE_HOURS_IMPLEMENTATION_PLAN.md
+PACKAGE_PUBLISHING_GUIDE.md
+NPM_PUBLIC_PUBLISHING_GUIDE.md
+CALENDAR_MIGRATION_GUIDE.md
