@@ -97,21 +97,21 @@ describe('ScopeInspectResourceCalendar', () => {
   const mockResources: Resource[] = [
     {
       id: 'resource-1',
-      title: 'Conference Room A',
+      name: 'Conference Room A',
       color: '#3B82F6',
       backgroundColor: '#EFF6FF',
       position: 1,
     },
     {
       id: 'resource-2',
-      title: 'Conference Room B',
+      name: 'Conference Room B',
       color: '#EF4444',
       backgroundColor: '#FEF2F2',
       position: 2,
     },
     {
       id: 'resource-3',
-      title: 'Meeting Room C',
+      name: 'Meeting Room C',
       color: '#10B981',
       backgroundColor: '#ECFDF5',
       position: 3,

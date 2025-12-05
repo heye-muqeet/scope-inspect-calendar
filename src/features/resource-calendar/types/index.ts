@@ -35,8 +35,8 @@ export interface ScopeInspectResourceCalendarProps
 export interface Resource {
   /** Unique identifier for the resource */
   id: string | number
-  /** Display title of the resource */
-  title: string
+  /** Display name of the resource */
+  name: string
   /**
    * Color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
    * @example "#3b82f6", "blue-500", "rgb(59, 130, 246)"

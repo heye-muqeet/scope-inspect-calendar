@@ -33,7 +33,7 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
 
   const rows = visibleResources.map((resource) => ({
     id: resource.id,
-    title: resource.title,
+    name: resource.name,
     resource: resource,
     cells: days.map((day) => ({
       label: day.format('D'),
@@ -73,7 +73,7 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
                 {renderResource ? (
                   renderResource(row.resource)
                 ) : (
-                  <div className="break-words text-sm">{row.title}</div>
+                  <div className="break-words text-sm">{row.name}</div>
                 )}
               </div>
 

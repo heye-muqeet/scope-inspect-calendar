@@ -9,13 +9,13 @@ import type { BusinessHours, CalendarEvent, WeekDays } from '@/components/types'
 const mockResources: Resource[] = [
   {
     id: 'res-1',
-    title: 'Room A',
+    name: 'Room A',
     color: '#3B82F6',
     backgroundColor: '#EFF6FF',
   },
   {
     id: 'res-2',
-    title: 'Room B',
+    name: 'Room B',
     color: '#EF4444',
     backgroundColor: '#FEF2F2',
   },

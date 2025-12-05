@@ -39,3 +39,6 @@ export type {
   TranslatorFunction,
 } from './lib/translations/types'
 export { defaultTranslations } from './lib/translations/default'
+
+// iCalendar export utilities
+export { exportToICalendar, downloadICalendar } from './lib/utils/export-ical'

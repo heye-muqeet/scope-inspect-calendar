@@ -44,28 +44,28 @@ const handleDateChange = (date: dayjs.Dayjs) => {
 const demoResources: Resource[] = [
   {
     id: 'room-a',
-    title: 'Conference Room A',
+    name: 'Conference Room A',
     color: '#1e40af',
     backgroundColor: '#dbeafe',
     position: 1,
   },
   {
     id: 'room-b',
-    title: 'Conference Room B',
+    name: 'Conference Room B',
     color: '#059669',
     backgroundColor: '#d1fae5',
     position: 2,
   },
   {
     id: 'room-c',
-    title: 'Meeting Room C',
+    name: 'Meeting Room C',
     color: '#7c2d12',
     backgroundColor: '#fed7aa',
     position: 3,
   },
   {
     id: 'equipment-1',
-    title: 'Projector #1',
+    name: 'Projector #1',
     color: '#7c3aed',
     backgroundColor: '#ede9fe',
     position: 4,
@@ -251,7 +251,7 @@ export function DemoPage() {
                       className="w-3 h-3 rounded"
                       style={{ backgroundColor: resource.color }}
                     />
-                    <span>{resource.title}</span>
+                    <span>{resource.name}</span>
                   </div>
                 ))}
               </div>

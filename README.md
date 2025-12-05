@@ -323,10 +323,13 @@ function CustomComponent() {
 ### Exporting Events to iCalendar
 
 ```tsx
-import { exportToICS } from 'scope-inspect-calendar'
+import { exportToICalendar, downloadICalendar } from 'scope-inspect-calendar'
 
-const icsContent = exportToICS(events)
-// Download or share the .ics file
+// Get iCalendar string
+const icsContent = exportToICalendar(events, 'My Calendar')
+
+// Or download directly
+downloadICalendar(events, 'my-calendar.ics', 'My Calendar')
 ```
 
 ## 📝 TypeScript Support
