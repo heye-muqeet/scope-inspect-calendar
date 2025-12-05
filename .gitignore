@@ -1,0 +1,42 @@
+#########################################################
+#               For Package-Only Branch                 #
+#########################################################
+
+*
+!dist/
+!dist/**
+!LICENSE
+!README.md
+!package.json
+!.gitignore
+
+#########################################################
+#               For Development Branch                  #
+#########################################################
+# node_modules
+# out
+# dist
+# *.tgz
+# coverage
+# *.lcov
+# logs
+# _.log
+# report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+# .env
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# .env.local
+# .eslintcache
+# .cache
+# *.tsbuildinfo
+# .idea
+# .DS_Store
+# VISIBLE_HOURS_IMPLEMENTATION_PLAN.md
+# PACKAGE_PUBLISHING_GUIDE.md
+# NPM_PUBLIC_PUBLISHING_GUIDE.md
+# CALENDAR_MIGRATION_GUIDE.md
+# OIDC_SETUP_GUIDE
+# GITHUB_PACKAGES_GUIDE.md_GUIDE.md
+# GITHUB_PACKAGES_GUIDE.md
+
