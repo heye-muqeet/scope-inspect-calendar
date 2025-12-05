@@ -100,7 +100,7 @@ try {
     # Write cleaned package.json (ensure proper formatting)
     $packageJsonJson.TrimEnd() | Set-Content "package.json" -Encoding UTF8
 
-    Write-Host "✓ Cleaned package.json (removed dev scripts and devDependencies)" -ForegroundColor Green
+    Write-Host "[OK] Cleaned package.json (removed dev scripts and devDependencies)" -ForegroundColor Green
 } catch {
     Write-Host "Warning: Failed to clean package.json: $_" -ForegroundColor Yellow
     Write-Host "Continuing with original package.json..." -ForegroundColor Yellow
@@ -150,4 +150,3 @@ Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
 Write-Host "Success! Main branch updated." -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
-
