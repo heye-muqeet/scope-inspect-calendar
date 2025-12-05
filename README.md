@@ -96,7 +96,6 @@ function App() {
 
 ```tsx
 import { IlamyCalendar } from 'scope-inspect-calendar'
-
 ;<IlamyCalendar
   events={events}
   initialView="month"

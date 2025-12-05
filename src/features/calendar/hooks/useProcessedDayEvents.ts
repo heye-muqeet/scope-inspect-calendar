@@ -137,7 +137,6 @@ export const useProcessedDayEvents = ({ day }: UseProcessedDayEventsProps) => {
           endTime = 24
         }
 
-
         // Check if event overlaps with visible hours
         if (endTime <= visibleStartTime || startTime >= visibleEndTime) {
           continue // Event is completely outside visible hours
