@@ -54,31 +54,49 @@ if (-not (Test-Path "dist")) {
 Write-Host "Build successful!" -ForegroundColor Green
 Write-Host ""
 
-# Step 4: Switch to main branch
+# Step 4: Store current directory and copy dist folder to temp location
+Write-Host "Preparing build files..." -ForegroundColor Yellow
+$tempDist = Join-Path $env:TEMP "scope-inspect-calendar-dist-$(Get-Date -Format 'yyyyMMddHHmmss')"
+if (Test-Path $tempDist) {
+    Remove-Item -Path $tempDist -Recurse -Force
+}
+Copy-Item -Path "dist" -Destination $tempDist -Recurse -Force
+Write-Host "Build files prepared in temp location" -ForegroundColor Green
+
+# Step 5: Switch to main branch
 Write-Host "Switching to main branch..." -ForegroundColor Yellow
 git checkout main
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error: Failed to checkout main branch!" -ForegroundColor Red
+    Remove-Item -Path $tempDist -Recurse -Force -ErrorAction SilentlyContinue
+    git checkout development
     exit 1
 }
 
-# Step 5: Copy files from development
-Write-Host "Copying build files from development..." -ForegroundColor Yellow
+# Step 6: Copy files to main branch
+Write-Host "Copying build files to main branch..." -ForegroundColor Yellow
 
 # Remove existing dist if it exists
 if (Test-Path "dist") {
     Remove-Item -Path "dist" -Recurse -Force
 }
 
-# Copy files from development branch
-git checkout development -- dist/ LICENSE README.md package.json
+# Copy dist from temp location
+Copy-Item -Path $tempDist -Destination "dist" -Recurse -Force
+
+# Copy other files from development branch (these are tracked in git)
+git checkout development -- LICENSE README.md package.json
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error: Failed to copy files from development!" -ForegroundColor Red
+    Remove-Item -Path $tempDist -Recurse -Force -ErrorAction SilentlyContinue
     git checkout development
     exit 1
 }
 
-# Step 5.1: Clean package.json for main branch (remove dev scripts and devDependencies)
+# Clean up temp directory
+Remove-Item -Path $tempDist -Recurse -Force -ErrorAction SilentlyContinue
+
+# Step 7: Clean package.json for main branch (remove dev scripts and devDependencies)
 Write-Host "Cleaning package.json for package-only branch..." -ForegroundColor Yellow
 
 try {
@@ -106,7 +124,7 @@ try {
     Write-Host "Continuing with original package.json..." -ForegroundColor Yellow
 }
 
-# Step 6: Stage files
+# Step 8: Stage files
 Write-Host "Staging files..." -ForegroundColor Yellow
 git add dist/ LICENSE README.md package.json
 if ($LASTEXITCODE -ne 0) {
@@ -115,7 +133,7 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Step 7: Check if there are changes to commit
+# Step 9: Check if there are changes to commit
 $status = git status --short
 if ([string]::IsNullOrWhiteSpace($status)) {
     Write-Host "No changes to commit. Build files are already up to date." -ForegroundColor Yellow
@@ -123,7 +141,7 @@ if ([string]::IsNullOrWhiteSpace($status)) {
     exit 0
 }
 
-# Step 8: Commit
+# Step 10: Commit
 Write-Host "Committing changes..." -ForegroundColor Yellow
 git commit -m $CommitMessage --no-verify
 if ($LASTEXITCODE -ne 0) {
@@ -132,7 +150,7 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Step 9: Push to main
+# Step 11: Push to main
 Write-Host "Pushing to origin/main..." -ForegroundColor Yellow
 git push origin main
 if ($LASTEXITCODE -ne 0) {
@@ -142,7 +160,7 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Step 10: Switch back to development
+# Step 12: Switch back to development
 Write-Host "Switching back to development branch..." -ForegroundColor Yellow
 git checkout development
 
