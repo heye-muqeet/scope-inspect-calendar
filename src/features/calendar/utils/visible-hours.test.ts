@@ -256,4 +256,3 @@ describe('getVisibleHoursCount', () => {
     expect(getVisibleHoursCount(config)).toBe(24) // Clamped to 0-24
   })
 })
-

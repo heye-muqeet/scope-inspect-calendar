@@ -1,4 +1,8 @@
-import type { CalendarEvent, BusinessHours, VisibleHours } from '@/components/types'
+import type {
+  CalendarEvent,
+  BusinessHours,
+  VisibleHours,
+} from '@/components/types'
 import type { EventFormProps } from '@/components/event-form/event-form'
 import type { CellClickInfo } from '@/features/calendar/types'
 import type { RecurrenceEditOptions } from '@/features/recurrence/types'

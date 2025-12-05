@@ -94,20 +94,20 @@ export const getPositionedEvents = ({
     const adjustedEnd =
       gridType === 'hour' ? event.end.subtract(1, 'minute') : event.end
     const eventEnd = dayjs.min(adjustedEnd.startOf(gridType), lastDay)
-    
+
     // Find column indices - use helper for hour grid type
     const startColRaw = findColumnIndex(eventStart)
     const endColRaw = findColumnIndex(eventEnd)
-    
+
     // If event is completely outside visible range, skip it
     if (startColRaw < 0 && endColRaw < 0) {
       continue
     }
-    
+
     // Clamp to visible range: if event starts before, use first column; if ends after, use last column
     const startCol = startColRaw >= 0 ? startColRaw : 0
     const endCol = endColRaw >= 0 ? endColRaw : dayCount - 1
-    
+
     // Ensure valid range
     if (startCol >= dayCount || endCol < 0 || startCol > endCol) {
       continue
@@ -214,15 +214,15 @@ export const getPositionedEvents = ({
   // Step 2: Fill gaps with single-day events
   for (const event of sortedSingleDay) {
     const eventStart = dayjs.max(event.start.startOf(gridType), firstDay)
-    
+
     // Find column index - use helper for hour grid type
     const colRaw = findColumnIndex(eventStart)
-    
+
     // If event is outside visible range, skip it
     if (colRaw < 0) {
       continue
     }
-    
+
     // Clamp col to valid grid bounds to prevent accessing undefined grid positions
     const col = Math.max(0, Math.min(dayCount - 1, colRaw))
 

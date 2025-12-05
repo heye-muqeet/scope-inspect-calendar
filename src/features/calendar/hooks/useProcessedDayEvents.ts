@@ -72,25 +72,26 @@ export const useProcessedDayEvents = ({ day }: UseProcessedDayEventsProps) => {
           endTime = 24
         }
         const totalDuration = endTime - startTime
-        
+
         // Check if event overlaps with visible hours
         if (endTime <= visibleStartTime || startTime >= visibleEndTime) {
           continue // Event is completely outside visible hours
         }
-        
+
         // Calculate visible portion of the event
         const visibleStart = Math.max(startTime, visibleStartTime)
         const visibleEnd = Math.min(endTime, visibleEndTime)
         const visibleDuration = visibleEnd - visibleStart
-        
+
         // Calculate top position relative to visible hours (0% if starts before visible hours)
-        const top = startTime < visibleStartTime
-          ? 0
-          : ((startTime - visibleStartTime) / visibleSpan) * 100
-        
+        const top =
+          startTime < visibleStartTime
+            ? 0
+            : ((startTime - visibleStartTime) / visibleSpan) * 100
+
         // Calculate height based on visible portion
         const height = (visibleDuration / visibleSpan) * 100
-        
+
         processedEvents.push({ ...event, left: 0, width: 100, top, height })
         continue
       }
@@ -139,22 +140,23 @@ export const useProcessedDayEvents = ({ day }: UseProcessedDayEventsProps) => {
         }
 
         const totalDuration = endTime - startTime
-        
+
         // Check if event overlaps with visible hours
         if (endTime <= visibleStartTime || startTime >= visibleEndTime) {
           continue // Event is completely outside visible hours
         }
-        
+
         // Calculate visible portion of the event
         const visibleStart = Math.max(startTime, visibleStartTime)
         const visibleEnd = Math.min(endTime, visibleEndTime)
         const visibleDuration = visibleEnd - visibleStart
-        
+
         // Calculate top position relative to visible hours (0% if starts before visible hours)
-        const top = startTime < visibleStartTime
-          ? 0
-          : ((startTime - visibleStartTime) / visibleSpan) * 100
-        
+        const top =
+          startTime < visibleStartTime
+            ? 0
+            : ((startTime - visibleStartTime) / visibleSpan) * 100
+
         // Calculate height based on visible portion
         const height = (visibleDuration / visibleSpan) * 100
 
@@ -187,7 +189,13 @@ export const useProcessedDayEvents = ({ day }: UseProcessedDayEventsProps) => {
     }
 
     return processedEvents
-  }, [day, getEventsForDateRange, visibleStartTime, visibleEndTime, visibleSpan])
+  }, [
+    day,
+    getEventsForDateRange,
+    visibleStartTime,
+    visibleEndTime,
+    visibleSpan,
+  ])
 
   return todayEvents
 }

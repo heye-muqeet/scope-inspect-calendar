@@ -7,6 +7,7 @@ A powerful, full-featured React calendar component library built with TypeScript
 ## 🎯 Key Features
 
 ### Core Features
+
 - 🗓️ **Multiple Views**: Month, Week, Day, and Year views with smooth transitions
 - 📊 **Resource Calendar**: Visualize and manage events across multiple resources with timeline layout
 - 🎯 **Drag & Drop**: Move events between dates and time slots with collision detection
@@ -42,6 +43,7 @@ A powerful, full-featured React calendar component library built with TypeScript
 **Visible Hours** is a unique customization that allows you to control which time range is displayed on the calendar's vertical time scale, independent of business hours. This feature is perfect for focusing on specific time periods (e.g., business hours, working shifts) without affecting event creation or editing capabilities.
 
 **Key Benefits:**
+
 - 🎯 **Focus on Relevant Times**: Show only the hours that matter to your users
 - 🔄 **Independent from Business Hours**: Display settings are separate from interaction rules
 - 📊 **Better UX**: Reduce visual clutter by hiding irrelevant time slots
@@ -95,7 +97,7 @@ function App() {
 ```tsx
 import { IlamyCalendar } from 'scope-inspect-calendar'
 
-<IlamyCalendar
+;<IlamyCalendar
   events={events}
   initialView="month"
   onEventClick={(event) => console.log('Event clicked:', event)}
@@ -158,7 +160,7 @@ You can use them together:
   businessHours={{
     daysOfWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
     startTime: 9,
-    endTime: 17
+    endTime: 17,
   }}
 />
 ```
@@ -204,22 +206,22 @@ const recurringEvent: CalendarEvent = {
 
 ### IlamyCalendar Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `events` | `CalendarEvent[]` | `[]` | Array of events to display |
-| `visibleHours` | `VisibleHours` | `undefined` | **Exclusive feature**: Controls which time range is displayed on the time scale |
-| `businessHours` | `BusinessHours` | `undefined` | Controls when events can be created/edited |
-| `initialView` | `CalendarView` | `'month'` | Initial calendar view |
-| `firstDayOfWeek` | `WeekDays` | `'sunday'` | First day of the week |
-| `onEventClick` | `(event: CalendarEvent) => void` | - | Callback when event is clicked |
-| `onCellClick` | `(info: CellClickInfo) => void` | - | Callback when cell is clicked |
-| `onEventAdd` | `(event: CalendarEvent) => void` | - | Callback when event is added |
-| `onEventUpdate` | `(event: CalendarEvent) => void` | - | Callback when event is updated |
-| `onEventDelete` | `(event: CalendarEvent) => void` | - | Callback when event is deleted |
-| `locale` | `string` | `'en'` | Locale for date/time formatting |
-| `timeFormat` | `'12-hour' \| '24-hour'` | `'12-hour'` | Time display format |
-| `disableDragAndDrop` | `boolean` | `false` | Disable drag and drop |
-| `renderEvent` | `(event: CalendarEvent) => ReactNode` | - | Custom event renderer |
+| Prop                 | Type                                  | Default     | Description                                                                     |
+| -------------------- | ------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
+| `events`             | `CalendarEvent[]`                     | `[]`        | Array of events to display                                                      |
+| `visibleHours`       | `VisibleHours`                        | `undefined` | **Exclusive feature**: Controls which time range is displayed on the time scale |
+| `businessHours`      | `BusinessHours`                       | `undefined` | Controls when events can be created/edited                                      |
+| `initialView`        | `CalendarView`                        | `'month'`   | Initial calendar view                                                           |
+| `firstDayOfWeek`     | `WeekDays`                            | `'sunday'`  | First day of the week                                                           |
+| `onEventClick`       | `(event: CalendarEvent) => void`      | -           | Callback when event is clicked                                                  |
+| `onCellClick`        | `(info: CellClickInfo) => void`       | -           | Callback when cell is clicked                                                   |
+| `onEventAdd`         | `(event: CalendarEvent) => void`      | -           | Callback when event is added                                                    |
+| `onEventUpdate`      | `(event: CalendarEvent) => void`      | -           | Callback when event is updated                                                  |
+| `onEventDelete`      | `(event: CalendarEvent) => void`      | -           | Callback when event is deleted                                                  |
+| `locale`             | `string`                              | `'en'`      | Locale for date/time formatting                                                 |
+| `timeFormat`         | `'12-hour' \| '24-hour'`              | `'12-hour'` | Time display format                                                             |
+| `disableDragAndDrop` | `boolean`                             | `false`     | Disable drag and drop                                                           |
+| `renderEvent`        | `(event: CalendarEvent) => ReactNode` | -           | Custom event renderer                                                           |
 
 ### VisibleHours Interface
 
@@ -231,7 +233,7 @@ interface VisibleHours {
    * @default 0
    */
   startTime?: number
-  
+
   /**
    * End time for visible hours in 24-hour format (0-24).
    * Hours at or after this time will not be displayed.
@@ -242,6 +244,7 @@ interface VisibleHours {
 ```
 
 **Examples:**
+
 - `{ startTime: 9, endTime: 17 }` - Show 9 AM to 5 PM
 - `{ startTime: 0, endTime: 12 }` - Show midnight to noon
 - `{ startTime: 18, endTime: 24 }` - Show 6 PM to midnight
@@ -255,12 +258,12 @@ interface BusinessHours {
    * Days of the week when business hours apply
    */
   daysOfWeek?: WeekDays[]
-  
+
   /**
    * Start time in 24-hour format (0-24)
    */
   startTime?: number
-  
+
   /**
    * End time in 24-hour format (0-24)
    */
@@ -305,14 +308,8 @@ The calendar uses Tailwind CSS and CSS variables for theming. Override CSS varia
 import { useIlamyCalendarContext } from 'scope-inspect-calendar'
 
 function CustomComponent() {
-  const {
-    currentDate,
-    view,
-    events,
-    setView,
-    nextPeriod,
-    prevPeriod,
-  } = useIlamyCalendarContext()
+  const { currentDate, view, events, setView, nextPeriod, prevPeriod } =
+    useIlamyCalendarContext()
 
   return (
     <div>

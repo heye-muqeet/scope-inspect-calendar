@@ -5,7 +5,10 @@ import { DayEventsLayer } from '../day-view/day-events-layer'
 import { DroppableCell } from '@/components/droppable-cell'
 import { useCalendarContext } from '@/features/calendar/contexts/calendar-context/context'
 import { isBusinessHour } from '@/features/calendar/utils/business-hours'
-import { getVisibleHours, getVisibleHoursCount } from '@/features/calendar/utils/visible-hours'
+import {
+  getVisibleHours,
+  getVisibleHoursCount,
+} from '@/features/calendar/utils/visible-hours'
 
 interface WeekDayColProps {
   day: dayjs.Dayjs // The specific day this column represents
@@ -15,10 +18,7 @@ export const WeekDayCol: React.FC<WeekDayColProps> = ({ day }) => {
   const { businessHours, visibleHours } = useCalendarContext()
 
   // Get visible hours based on configuration
-  const hours = useMemo(
-    () => getVisibleHours(visibleHours),
-    [visibleHours]
-  )
+  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
 
   const visibleHoursCount = useMemo(
     () => getVisibleHoursCount(visibleHours),
@@ -30,6 +30,7 @@ export const WeekDayCol: React.FC<WeekDayColProps> = ({ day }) => {
       data-testid={`week-day-col-${day.format('YYYY-MM-DD')}`}
       className="col-span-1 relative border-r"
       style={{
+        gridRow: `1 / ${visibleHoursCount + 1}`,
         gridTemplateRows: `repeat(${visibleHoursCount}, 60px)`,
         display: 'grid',
       }}

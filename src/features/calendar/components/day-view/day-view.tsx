@@ -18,10 +18,7 @@ const DayView = () => {
   const { currentDate, businessHours, visibleHours } = useCalendarContext()
 
   // Get visible hours based on configuration
-  const hours = useMemo(
-    () => getVisibleHours(visibleHours),
-    [visibleHours]
-  )
+  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
 
   const visibleHoursCount = useMemo(
     () => getVisibleHoursCount(visibleHours),

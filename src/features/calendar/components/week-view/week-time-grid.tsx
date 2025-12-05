@@ -20,10 +20,7 @@ export const WeekTimeGrid: React.FC = () => {
   const weekDays = getWeekDays(currentDate, firstDayOfWeek)
 
   // Get visible hours based on configuration
-  const hours = useMemo(
-    () => getVisibleHours(visibleHours),
-    [visibleHours]
-  )
+  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
 
   const visibleHoursCount = useMemo(
     () => getVisibleHoursCount(visibleHours),
@@ -48,9 +45,9 @@ export const WeekTimeGrid: React.FC = () => {
   return (
     <div
       data-testid="week-time-grid"
-      className="relative h-full grid grid-cols-[auto_repeat(7,1fr)]"
+      className="relative grid grid-cols-[auto_repeat(7,1fr)]"
       style={{
-        gridTemplateRows: `repeat(${visibleHoursCount}, minmax(60px, 1fr))`,
+        gridTemplateRows: `repeat(${visibleHoursCount}, 60px)`,
       }}
     >
       {/* Time labels column - fixed */}
@@ -58,6 +55,7 @@ export const WeekTimeGrid: React.FC = () => {
         data-testid="week-time-labels"
         className="z-10 col-span-1 w-16 border-x"
         style={{
+          gridRow: `1 / ${visibleHoursCount + 1}`,
           gridTemplateRows: `repeat(${visibleHoursCount}, 60px)`,
           display: 'grid',
         }}

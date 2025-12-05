@@ -67,10 +67,7 @@ interface DemoCalendarSettingsProps {
     startTime: number
     endTime: number
   }
-  setVisibleHours: (value: {
-    startTime: number
-    endTime: number
-  }) => void
+  setVisibleHours: (value: { startTime: number; endTime: number }) => void
   showDemoEvents: boolean
   setShowDemoEvents: (value: boolean) => void
   // Resource calendar specific props
@@ -339,7 +336,17 @@ export function DemoCalendarSettings({
                   Days of Week
                 </label>
                 <div className="grid grid-cols-2 gap-2">
-                  {(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as WeekDays[]).map((day) => (
+                  {(
+                    [
+                      'monday',
+                      'tuesday',
+                      'wednesday',
+                      'thursday',
+                      'friday',
+                      'saturday',
+                      'sunday',
+                    ] as WeekDays[]
+                  ).map((day) => (
                     <div key={day} className="flex items-center space-x-2">
                       <Checkbox
                         id={`business-day-${day}`}
@@ -353,7 +360,9 @@ export function DemoCalendarSettings({
                           } else {
                             setBusinessHours({
                               ...businessHours,
-                              daysOfWeek: businessHours.daysOfWeek.filter((d) => d !== day),
+                              daysOfWeek: businessHours.daysOfWeek.filter(
+                                (d) => d !== day
+                              ),
                             })
                           }
                         }}
@@ -420,7 +429,8 @@ export function DemoCalendarSettings({
               Visible Hours
             </label>
             <div className="text-xs text-muted-foreground mb-3">
-              Controls which time range is displayed on the calendar's vertical time scale. This is independent from business hours.
+              Controls which time range is displayed on the calendar's vertical
+              time scale. This is independent from business hours.
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>

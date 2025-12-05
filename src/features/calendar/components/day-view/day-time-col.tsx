@@ -11,10 +11,7 @@ export const DayTimeCol: React.FC<DayTimeColProps> = ({ className }) => {
   const { currentLocale, timeFormat, visibleHours } = useCalendarContext()
 
   // Get visible hours based on configuration
-  const hours = useMemo(
-    () => getVisibleHours(visibleHours),
-    [visibleHours]
-  )
+  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
 
   return (
     <div

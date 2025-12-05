@@ -2,7 +2,11 @@ import type dayjs from '@/lib/configs/dayjs-config'
 import React, { useCallback, useMemo } from 'react'
 import type { ReactNode } from 'react'
 import { CalendarContext } from './context'
-import type { CalendarEvent, BusinessHours, VisibleHours } from '@/components/types'
+import type {
+  CalendarEvent,
+  BusinessHours,
+  VisibleHours,
+} from '@/components/types'
 import type { EventFormProps } from '@/components/event-form/event-form'
 import type { CellClickInfo } from '@/features/calendar/types'
 import type { Translations, TranslatorFunction } from '@/lib/translations/types'

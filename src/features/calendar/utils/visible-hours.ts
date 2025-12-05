@@ -8,9 +8,7 @@ import dayjs from '@/lib/configs/dayjs-config'
  * @param visibleHours - Optional visible hours configuration
  * @returns Array of dayjs objects representing visible hours
  */
-export function getVisibleHours(
-  visibleHours?: VisibleHours
-): dayjs.Dayjs[] {
+export function getVisibleHours(visibleHours?: VisibleHours): dayjs.Dayjs[] {
   // Default: show all 24 hours if not configured
   const startTime = visibleHours?.startTime ?? 0
   const endTime = visibleHours?.endTime ?? 24
@@ -76,4 +74,3 @@ export function getVisibleHoursCount(visibleHours?: VisibleHours): number {
 
   return Math.max(0, validEnd - validStart)
 }
-
