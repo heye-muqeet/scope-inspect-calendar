@@ -399,4 +399,3 @@ If the calendar renders correctly, your setup is complete!
 - [Installation](./installation.md)
 - [Quick Start](./quick-start.md)
 - [Basic Usage](./basic-usage.md)
-

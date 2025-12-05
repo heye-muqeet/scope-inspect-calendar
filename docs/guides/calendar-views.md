@@ -91,6 +91,7 @@ Default: `3`
 ### Event Display
 
 In Month View, events are displayed as:
+
 - **Event indicators**: Small colored bars or dots
 - **Event titles**: Truncated to fit in day cells
 - **All-day events**: Shown at the top of the day cell
@@ -183,8 +184,8 @@ Controls which time range is displayed (exclusive feature):
   events={events}
   initialView="week"
   visibleHours={{
-    startTime: 9,  // Show from 9 AM
-    endTime: 17    // Show until 5 PM
+    startTime: 9, // Show from 9 AM
+    endTime: 17, // Show until 5 PM
   }}
 />
 ```
@@ -192,6 +193,7 @@ Controls which time range is displayed (exclusive feature):
 ### Event Display
 
 In Week View, events are displayed as:
+
 - **Time-based blocks**: Events span their exact start/end times
 - **Overlapping events**: Side-by-side when times overlap
 - **All-day events**: In a dedicated row at the top
@@ -259,12 +261,14 @@ The Day View focuses on a single day with maximum detail. Ideal for detailed dai
 ### Configuration
 
 Same configuration options as Week View:
+
 - `timeFormat` - Time display format
 - `visibleHours` - Time range to display
 
 ### Event Display
 
 In Day View, events are displayed similarly to Week View but with:
+
 - **Full day width**: Events span the full width of the day column
 - **Maximum detail**: More space for event information
 - **Better readability**: Easier to see event details
@@ -320,15 +324,13 @@ The Year View provides an annual overview, showing all 12 months in a grid layou
 ### Usage
 
 ```tsx
-<ScopeInspectCalendar
-  events={events}
-  initialView="year"
-/>
+<ScopeInspectCalendar events={events} initialView="year" />
 ```
 
 ### Event Display
 
 In Year View, events are displayed as:
+
 - **Density indicators**: Visual representation of event density
 - **Month highlights**: Months with events are highlighted
 - **Click to navigate**: Click a month to switch to Month View
@@ -360,10 +362,7 @@ function YearViewExample() {
 
   return (
     <div style={{ height: '600px' }}>
-      <ScopeInspectCalendar
-        events={events}
-        initialView="year"
-      />
+      <ScopeInspectCalendar events={events} initialView="year" />
     </div>
   )
 }
@@ -387,14 +386,17 @@ setView('week')
 Some props are more relevant to specific views:
 
 ### Month View
+
 - `dayMaxEvents` - Control event overflow
 
 ### Week/Day View
+
 - `timeFormat` - Time display format
 - `visibleHours` - Time range to display
 - `businessHours` - Business hours configuration
 
 ### All Views
+
 - `firstDayOfWeek` - Week start day
 - `locale` - Locale for date formatting
 - `onViewChange` - Callback when view changes
@@ -409,10 +411,7 @@ const handleViewChange = (view: CalendarView) => {
   // Save to analytics, update state, etc.
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onViewChange={handleViewChange}
-/>
+;<ScopeInspectCalendar events={events} onViewChange={handleViewChange} />
 ```
 
 ## Programmatic View Control
@@ -423,7 +422,7 @@ Access view controls via the context hook:
 import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function CustomControls() {
-  const { view, setView, nextPeriod, prevPeriod, today } = 
+  const { view, setView, nextPeriod, prevPeriod, today } =
     useScopeInspectCalendarContext()
 
   return (
@@ -468,4 +467,3 @@ function CustomControls() {
 - [Visible Hours](./visible-hours.md) - Controlling time display (Week/Day views)
 - [Business Hours](./business-hours.md) - Business hours configuration
 - [API Reference](../api-reference/components/scope-inspect-calendar.md) - Complete API docs
-

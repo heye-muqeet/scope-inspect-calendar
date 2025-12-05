@@ -346,6 +346,81 @@ import type {
 } from 'scope-inspect-calendar'
 ```
 
+## 📚 Documentation
+
+Comprehensive documentation is available in the [`docs`](./docs) directory:
+
+### Getting Started
+
+- **[Installation](./docs/getting-started/installation.md)** - Install the package and dependencies
+- **[Quick Start](./docs/getting-started/quick-start.md)** - Create your first calendar in minutes
+- **[Basic Usage](./docs/getting-started/basic-usage.md)** - Learn the fundamentals
+- **[Project Setup](./docs/getting-started/project-setup.md)** - Configure Tailwind CSS and TypeScript
+
+### Guides
+
+- **[Calendar Views](./docs/guides/calendar-views.md)** - Month, Week, Day, and Year views
+- **[Event Management](./docs/guides/event-management.md)** - Add, edit, and delete events
+- **[Drag & Drop](./docs/guides/drag-and-drop.md)** - Move events with drag and drop
+- **[Recurring Events](./docs/guides/recurring-events.md)** - RFC 5545 recurring events
+- **[Resource Calendar](./docs/guides/resource-calendar.md)** - Multi-resource scheduling
+- **[Visible Hours](./docs/guides/visible-hours.md)** - Control displayed time range (Exclusive Feature)
+- **[Business Hours](./docs/guides/business-hours.md)** - Configure business hours
+- **[Internationalization](./docs/guides/internationalization.md)** - 100+ locales support
+- **[Theming & Styling](./docs/guides/theming-and-styling.md)** - Customize appearance
+- **[Custom Rendering](./docs/guides/custom-rendering.md)** - Custom event and resource rendering
+- **[Performance Optimization](./docs/guides/performance-optimization.md)** - Best practices
+
+### API Reference
+
+#### Components
+- **[ScopeInspectCalendar](./docs/api-reference/components/scope-inspect-calendar.md)** - Main calendar component
+- **[ScopeInspectResourceCalendar](./docs/api-reference/components/scope-inspect-resource-calendar.md)** - Resource calendar component
+
+#### Hooks
+- **[useScopeInspectCalendarContext](./docs/api-reference/hooks/use-scope-inspect-calendar-context.md)** - Calendar context hook
+- **[useScopeInspectResourceCalendarContext](./docs/api-reference/hooks/use-scope-inspect-resource-calendar-context.md)** - Resource calendar context hook
+
+#### Types
+- **[CalendarEvent](./docs/api-reference/types/calendar-event.md)** - Event data structure
+- **[Resource](./docs/api-reference/types/resource.md)** - Resource data structure
+- **[Props](./docs/api-reference/types/props.md)** - Component props types
+- **[Utilities](./docs/api-reference/types/utilities.md)** - Utility types
+
+#### Utilities
+- **[exportToICalendar](./docs/api-reference/utilities/export-icalendar.md)** - Export to iCalendar format
+- **[downloadICalendar](./docs/api-reference/utilities/export-icalendar.md)** - Download .ics file
+- **[generateRecurringEvents](./docs/api-reference/utilities/recurrence-handler.md)** - Generate recurring events
+- **[isRecurringEvent](./docs/api-reference/utilities/recurrence-handler.md)** - Check if event is recurring
+
+### Advanced Topics
+
+- **[Custom Event Form](./docs/advanced/custom-event-form.md)** - Customize the event form
+- **[State Management](./docs/advanced/state-management.md)** - Integrate with state management
+- **[Integration Patterns](./docs/advanced/integration-patterns.md)** - Framework integrations
+- **[Extending the Calendar](./docs/advanced/extending-the-calendar.md)** - Advanced customization
+- **[Testing](./docs/advanced/testing.md)** - Testing strategies
+
+### Examples
+
+- **[Basic Calendar](./docs/examples/basic-calendar.md)** - Simple calendar implementation
+- **[Resource Booking](./docs/examples/resource-booking.md)** - Room/equipment booking system
+- **[Team Scheduling](./docs/examples/team-scheduling.md)** - Team availability and scheduling
+- **[Event Management App](./docs/examples/event-management-app.md)** - Full-featured event app
+- **[Full-Featured Demo](./docs/examples/full-featured-demo.md)** - All features combined
+
+### Reference
+
+- **[RFC 5545](./docs/reference/rfc-5545.md)** - iCalendar standard reference
+- **[rrule.js](./docs/reference/rrule.js.md)** - Recurrence rule library
+- **[Translation Usage](./docs/reference/translation-usage.md)** - Internationalization guide
+
+### Troubleshooting
+
+- **[Common Issues](./docs/troubleshooting/common-issues.md)** - Solutions to common problems
+- **[FAQ](./docs/troubleshooting/faq.md)** - Frequently asked questions
+- **[Debugging](./docs/troubleshooting/debugging.md)** - Debug strategies
+
 ## 🧪 Testing
 
 ```bash

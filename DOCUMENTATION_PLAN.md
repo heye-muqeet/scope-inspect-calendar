@@ -94,6 +94,7 @@ docs/
 ### Core Features
 
 #### 1. **Calendar Views** (Priority: High)
+
 - **Month View**
   - Day cells with event indicators
   - Week navigation
@@ -114,12 +115,14 @@ docs/
   - Event density visualization
 
 **Documentation Needs:**
+
 - View switching
 - View-specific props
 - Custom view rendering
 - View transitions and animations
 
 #### 2. **Event Management** (Priority: High)
+
 - Event creation
 - Event editing
 - Event deletion
@@ -131,6 +134,7 @@ docs/
 - Event colors and styling
 
 **Documentation Needs:**
+
 - Event data structure (CalendarEvent)
 - Event lifecycle
 - Event form API
@@ -138,6 +142,7 @@ docs/
 - Event validation rules
 
 #### 3. **Drag & Drop** (Priority: High)
+
 - Drag events between dates
 - Drag events between time slots
 - Collision detection
@@ -146,12 +151,14 @@ docs/
 - Drag callbacks and validation
 
 **Documentation Needs:**
+
 - DnD configuration
 - Drag constraints
 - Custom drag behavior
 - Performance considerations
 
 #### 4. **Recurring Events (RFC 5545)** (Priority: High)
+
 - RRULE patterns (Daily, Weekly, Monthly, Yearly)
 - Complex recurrence rules
 - Exception dates (EXDATE)
@@ -164,6 +171,7 @@ docs/
 - Recurrence dialog
 
 **Documentation Needs:**
+
 - RRULE syntax and examples
 - RecurrenceEditOptions
 - generateRecurringEvents utility
@@ -172,6 +180,7 @@ docs/
 - Common recurrence scenarios
 
 #### 5. **Resource Calendar** (Priority: High)
+
 - Resource interface
 - Resource assignment (single/multiple)
 - Cross-resource events
@@ -181,6 +190,7 @@ docs/
 - Resource filtering
 
 **Documentation Needs:**
+
 - Resource data structure
 - Resource calendar vs regular calendar
 - Resource event assignment
@@ -188,6 +198,7 @@ docs/
 - Resource calendar examples
 
 #### 6. **Visible Hours** (Priority: High - Exclusive Feature)
+
 - Display time range control
 - Independent from business hours
 - Performance benefits
@@ -195,6 +206,7 @@ docs/
 - Configuration examples
 
 **Documentation Needs:**
+
 - VisibleHours interface
 - Use cases and examples
 - Performance impact
@@ -202,6 +214,7 @@ docs/
 - Comparison with business hours
 
 #### 7. **Business Hours** (Priority: Medium)
+
 - Business hours configuration
 - Day-of-week restrictions
 - Time range restrictions
@@ -209,12 +222,14 @@ docs/
 - Interaction restrictions
 
 **Documentation Needs:**
+
 - BusinessHours interface
 - Visual indicators
 - Interaction rules
 - Use cases
 
 #### 8. **Internationalization (i18n)** (Priority: Medium)
+
 - Locale support (100+ locales)
 - Translation system
 - Custom translations
@@ -223,6 +238,7 @@ docs/
 - Date/time formatting
 
 **Documentation Needs:**
+
 - Supported locales
 - Translation keys
 - Custom translation setup
@@ -230,6 +246,7 @@ docs/
 - Translation examples
 
 #### 9. **iCalendar Export** (Priority: Medium)
+
 - RFC 5545 compliance
 - Export to .ics files
 - Recurring event export
@@ -237,6 +254,7 @@ docs/
 - Download functionality
 
 **Documentation Needs:**
+
 - exportToICalendar function
 - downloadICalendar function
 - Supported properties
@@ -244,6 +262,7 @@ docs/
 - Compatibility notes
 
 #### 10. **Styling & Theming** (Priority: Medium)
+
 - Tailwind CSS integration
 - CSS variables
 - Custom event rendering
@@ -253,6 +272,7 @@ docs/
 - Responsive design
 
 **Documentation Needs:**
+
 - Theme configuration
 - CSS variable reference
 - Custom rendering examples
@@ -260,6 +280,7 @@ docs/
 - Dark mode support
 
 #### 11. **Performance** (Priority: Medium)
+
 - On-demand recurring event generation
 - Efficient date calculations
 - Minimal re-renders
@@ -267,18 +288,21 @@ docs/
 - Large dataset handling
 
 **Documentation Needs:**
+
 - Performance tips
 - Optimization strategies
 - Best practices
 - Performance benchmarks
 
 #### 12. **TypeScript Support** (Priority: High)
+
 - Type definitions
 - Type safety
 - IntelliSense support
 - Type exports
 
 **Documentation Needs:**
+
 - Type reference
 - Type usage examples
 - TypeScript best practices
@@ -290,24 +314,28 @@ docs/
 ### 1. Getting Started
 
 #### Installation
+
 - Package installation (npm, yarn, pnpm, bun)
 - Peer dependencies
 - Version requirements
 - Framework setup (Next.js, Astro, Vite, etc.)
 
 #### Quick Start
+
 - Minimal example
 - Basic calendar setup
 - First event
 - Common configurations
 
 #### Basic Usage
+
 - Component import
 - Props overview
 - Event data structure
 - Basic callbacks
 
 #### Project Setup
+
 - Tailwind CSS configuration
 - TypeScript setup
 - Framework-specific setup
@@ -316,6 +344,7 @@ docs/
 ### 2. Guides
 
 #### Calendar Views Guide
+
 - View types overview
 - View switching
 - View-specific features
@@ -323,6 +352,7 @@ docs/
 - View transitions
 
 #### Event Management Guide
+
 - Creating events
 - Editing events
 - Deleting events
@@ -331,6 +361,7 @@ docs/
 - Event form customization
 
 #### Drag & Drop Guide
+
 - Enabling drag & drop
 - Drag constraints
 - Drop zones
@@ -339,6 +370,7 @@ docs/
 - Resource calendar DnD
 
 #### Recurring Events Guide
+
 - Creating recurring events
 - Recurrence patterns
 - Editing recurring events
@@ -347,6 +379,7 @@ docs/
 - Common patterns
 
 #### Resource Calendar Guide (Update Existing)
+
 - Resource setup
 - Resource assignment
 - Cross-resource events
@@ -355,6 +388,7 @@ docs/
 - Resource rendering
 
 #### Visible Hours Guide (NEW)
+
 - What are visible hours?
 - Configuration
 - Use cases
@@ -363,12 +397,14 @@ docs/
 - Best practices
 
 #### Business Hours Guide
+
 - Configuration
 - Visual indicators
 - Interaction rules
 - Use cases
 
 #### Internationalization Guide
+
 - Locale setup
 - Translation system
 - Custom translations
@@ -376,6 +412,7 @@ docs/
 - Date/time formatting
 
 #### Theming & Styling Guide
+
 - CSS variables
 - Custom rendering
 - Color customization
@@ -383,6 +420,7 @@ docs/
 - Dark mode
 
 #### Custom Rendering Guide
+
 - Custom event rendering
 - Custom resource rendering
 - Custom header
@@ -390,6 +428,7 @@ docs/
 - Render props pattern
 
 #### Performance Optimization Guide
+
 - Best practices
 - Optimization strategies
 - Large dataset handling
@@ -400,6 +439,7 @@ docs/
 #### Components
 
 **ScopeInspectCalendar**
+
 - Props reference (complete)
 - Event handlers
 - Render props
@@ -407,6 +447,7 @@ docs/
 - TypeScript types
 
 **ScopeInspectResourceCalendar**
+
 - Props reference (complete)
 - Resource-specific props
 - Event handlers
@@ -416,12 +457,14 @@ docs/
 #### Hooks
 
 **useScopeInspectCalendarContext**
+
 - Return type
 - Available methods
 - Usage examples
 - Best practices
 
 **useScopeInspectResourceCalendarContext**
+
 - Return type
 - Resource-specific methods
 - Usage examples
@@ -430,29 +473,34 @@ docs/
 #### Types
 
 **CalendarEvent**
+
 - All properties
 - Property descriptions
 - Examples
 - Type relationships
 
 **Resource**
+
 - All properties
 - Property descriptions
 - Examples
 
 **ScopeInspectCalendarProps**
+
 - All props
 - Prop descriptions
 - Default values
 - Examples
 
 **ScopeInspectResourceCalendarProps**
+
 - All props
 - Prop descriptions
 - Default values
 - Examples
 
 **Utility Types**
+
 - CellClickInfo
 - VisibleHours
 - BusinessHours
@@ -464,6 +512,7 @@ docs/
 #### Utilities
 
 **exportToICalendar**
+
 - Function signature
 - Parameters
 - Return value
@@ -471,17 +520,20 @@ docs/
 - RFC 5545 compliance
 
 **downloadICalendar**
+
 - Function signature
 - Parameters
 - Examples
 
 **generateRecurringEvents**
+
 - Function signature
 - Parameters
 - Return value
 - Examples
 
 **isRecurringEvent**
+
 - Function signature
 - Parameters
 - Return value
@@ -490,30 +542,35 @@ docs/
 ### 4. Advanced Topics
 
 #### Custom Event Form
+
 - EventFormProps
 - Custom form implementation
 - Form validation
 - Examples
 
 #### State Management
+
 - Context API usage
 - External state integration
 - State synchronization
 - Best practices
 
 #### Integration Patterns
+
 - React Router integration
 - State management libraries
 - Backend integration
 - Real-time updates
 
 #### Extending the Calendar
+
 - Custom components
 - Plugin system (if applicable)
 - Advanced customization
 - Examples
 
 #### Testing
+
 - Testing strategies
 - Test utilities
 - Mock data
@@ -522,28 +579,33 @@ docs/
 ### 5. Examples
 
 #### Basic Calendar
+
 - Simple calendar
 - With events
 - With callbacks
 - With styling
 
 #### Resource Booking
+
 - Room booking system
 - Equipment scheduling
 - Resource management
 
 #### Team Scheduling
+
 - Team availability
 - Shift management
 - Multi-resource scheduling
 
 #### Event Management App
+
 - Full-featured example
 - CRUD operations
 - Recurring events
 - Export functionality
 
 #### Full-Featured Demo
+
 - All features combined
 - Best practices
 - Production-ready example
@@ -551,12 +613,14 @@ docs/
 ### 6. Migration
 
 #### From ilamy Calendar
+
 - Breaking changes
 - Migration steps
 - Code examples
 - Common issues
 
 #### Upgrading
+
 - Version migration guides
 - Breaking changes per version
 - Upgrade steps
@@ -564,16 +628,19 @@ docs/
 ### 7. Reference
 
 #### RFC 5545 (Existing - Review)
+
 - Standard reference
 - Compliance notes
 - Implementation details
 
 #### rrule.js (Existing - Review)
+
 - Library reference
 - Pattern syntax
 - Examples
 
 #### Translation Usage (Existing - Update)
+
 - Translation keys
 - Custom translations
 - Examples
@@ -581,6 +648,7 @@ docs/
 ### 8. Troubleshooting
 
 #### Common Issues
+
 - Installation issues
 - Build issues
 - Runtime errors
@@ -588,11 +656,13 @@ docs/
 - Styling issues
 
 #### FAQ
+
 - Frequently asked questions
 - Common use cases
 - Best practices
 
 #### Debugging
+
 - Debug strategies
 - Common pitfalls
 - Debug tools
@@ -603,6 +673,7 @@ docs/
 ## 🎨 Documentation Style Guide
 
 ### Writing Style
+
 - **Clear and Concise**: Use simple language, avoid jargon
 - **Code-First**: Show code examples early
 - **Progressive**: Start simple, build complexity
@@ -610,6 +681,7 @@ docs/
 - **Accurate**: Keep examples tested and working
 
 ### Code Examples
+
 - Always include working code
 - Use TypeScript for type safety
 - Include imports
@@ -618,6 +690,7 @@ docs/
 - Include error handling where relevant
 
 ### Format Standards
+
 - Use Markdown
 - Consistent heading hierarchy
 - Code blocks with language tags
@@ -626,6 +699,7 @@ docs/
 - Diagrams where helpful (Mermaid)
 
 ### Structure Standards
+
 - Table of contents for long docs
 - Clear section headings
 - Cross-references
@@ -637,6 +711,7 @@ docs/
 ## 📝 Documentation Checklist
 
 ### Phase 1: Core Documentation (Priority)
+
 - [ ] Getting Started guide
 - [ ] API Reference for main components
 - [ ] Basic usage examples
@@ -645,6 +720,7 @@ docs/
 - [ ] TypeScript types reference
 
 ### Phase 2: Feature Documentation (High Priority)
+
 - [ ] Recurring events guide
 - [ ] Resource calendar guide (update)
 - [ ] Visible hours guide (NEW)
@@ -653,6 +729,7 @@ docs/
 - [ ] Internationalization guide
 
 ### Phase 3: Advanced Documentation (Medium Priority)
+
 - [ ] Custom rendering guide
 - [ ] Theming & styling guide
 - [ ] Performance optimization guide
@@ -660,6 +737,7 @@ docs/
 - [ ] Integration patterns
 
 ### Phase 4: Reference & Troubleshooting (Lower Priority)
+
 - [ ] Complete API reference
 - [ ] Migration guides
 - [ ] Troubleshooting guide
@@ -671,6 +749,7 @@ docs/
 ## 🔄 Documentation Maintenance
 
 ### Update Triggers
+
 - New feature releases
 - Breaking changes
 - Bug fixes affecting behavior
@@ -678,12 +757,14 @@ docs/
 - User feedback
 
 ### Review Process
+
 - Code review includes doc updates
 - Regular documentation audits
 - User feedback integration
 - Example code testing
 
 ### Versioning
+
 - Version-specific documentation
 - Migration guides for breaking changes
 - Changelog integration
@@ -694,6 +775,7 @@ docs/
 ## 📊 Documentation Metrics
 
 ### Success Criteria
+
 - All public APIs documented
 - All features have examples
 - Zero broken code examples
@@ -702,6 +784,7 @@ docs/
 - Regular updates
 
 ### Quality Checks
+
 - Code examples tested
 - Links verified
 - Typo checking
@@ -725,6 +808,7 @@ docs/
 ## 📌 Notes
 
 ### Existing Documentation
+
 - `docs/resource-calendar.md` - Needs update for ScopeInspect naming
 - `docs/export-ical.md` - Needs update for ScopeInspect naming
 - `docs/translation-usage.md` - Needs update for ScopeInspect naming
@@ -732,6 +816,7 @@ docs/
 - `docs/rrule.js.md` - Review and update if needed
 
 ### New Documentation Needed
+
 - Visible Hours guide (exclusive feature)
 - Complete API reference
 - Migration guide from ilamy
@@ -739,6 +824,7 @@ docs/
 - Troubleshooting guide
 
 ### Documentation Tools
+
 - Markdown for content
 - Code examples in TypeScript/TSX
 - Mermaid for diagrams (if needed)
@@ -749,4 +835,3 @@ docs/
 **Last Updated**: 2025-01-XX  
 **Status**: Planning Phase  
 **Next Review**: After initial documentation creation
-

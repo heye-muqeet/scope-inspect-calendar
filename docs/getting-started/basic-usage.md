@@ -56,10 +56,7 @@ const handleEventClick = (event: CalendarEvent) => {
   console.log('Event clicked:', event.title)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onEventClick={handleEventClick}
-/>
+;<ScopeInspectCalendar events={events} onEventClick={handleEventClick} />
 ```
 
 #### `onEventAdd`
@@ -72,10 +69,7 @@ const handleEventAdd = (event: CalendarEvent) => {
   console.log('Event added:', event)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onEventAdd={handleEventAdd}
-/>
+;<ScopeInspectCalendar events={events} onEventAdd={handleEventAdd} />
 ```
 
 #### `onEventUpdate`
@@ -88,10 +82,7 @@ const handleEventUpdate = (event: CalendarEvent) => {
   console.log('Event updated:', event)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onEventUpdate={handleEventUpdate}
-/>
+;<ScopeInspectCalendar events={events} onEventUpdate={handleEventUpdate} />
 ```
 
 #### `onEventDelete`
@@ -104,10 +95,7 @@ const handleEventDelete = (event: CalendarEvent) => {
   console.log('Event deleted:', event)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onEventDelete={handleEventDelete}
-/>
+;<ScopeInspectCalendar events={events} onEventDelete={handleEventDelete} />
 ```
 
 #### `onCellClick`
@@ -119,10 +107,7 @@ const handleCellClick = (info: CellClickInfo) => {
   console.log('Cell clicked:', info.start, info.end)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onCellClick={handleCellClick}
-/>
+;<ScopeInspectCalendar events={events} onCellClick={handleCellClick} />
 ```
 
 #### `onViewChange`
@@ -134,10 +119,7 @@ const handleViewChange = (view: CalendarView) => {
   console.log('View changed to:', view)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onViewChange={handleViewChange}
-/>
+;<ScopeInspectCalendar events={events} onViewChange={handleViewChange} />
 ```
 
 #### `onDateChange`
@@ -149,10 +131,7 @@ const handleDateChange = (date: dayjs.Dayjs) => {
   console.log('Date changed to:', date.format('YYYY-MM-DD'))
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onDateChange={handleDateChange}
-/>
+;<ScopeInspectCalendar events={events} onDateChange={handleDateChange} />
 ```
 
 ## Event Data Structure
@@ -229,11 +208,11 @@ function App() {
   }
 
   const handleEventUpdate = (event: CalendarEvent) => {
-    setEvents(events.map(e => e.id === event.id ? event : e))
+    setEvents(events.map((e) => (e.id === event.id ? event : e)))
   }
 
   const handleEventDelete = (event: CalendarEvent) => {
-    setEvents(events.filter(e => e.id !== event.id))
+    setEvents(events.filter((e) => e.id !== event.id))
   }
 
   return (
@@ -252,9 +231,9 @@ function App() {
 ```tsx
 <ScopeInspectCalendar
   events={events}
-  disableCellClick={true}    // Disable cell clicks
-  disableEventClick={true}   // Disable event clicks
-  disableDragAndDrop={true}  // Disable drag & drop
+  disableCellClick={true} // Disable cell clicks
+  disableEventClick={true} // Disable event clicks
+  disableDragAndDrop={true} // Disable drag & drop
 />
 ```
 
@@ -270,10 +249,7 @@ const renderEvent = (event: CalendarEvent) => {
   )
 }
 
-<ScopeInspectCalendar
-  events={events}
-  renderEvent={renderEvent}
-/>
+;<ScopeInspectCalendar events={events} renderEvent={renderEvent} />
 ```
 
 ### Locale Configuration
@@ -281,9 +257,9 @@ const renderEvent = (event: CalendarEvent) => {
 ```tsx
 <ScopeInspectCalendar
   events={events}
-  locale="en"           // Set locale
+  locale="en" // Set locale
   firstDayOfWeek="monday" // Set week start
-  timeFormat="24-hour"  // 12-hour or 24-hour
+  timeFormat="24-hour" // 12-hour or 24-hour
 />
 ```
 
@@ -344,11 +320,11 @@ function CalendarApp() {
   }
 
   const handleEventUpdate = (event: CalendarEvent) => {
-    setEvents(events.map(e => e.id === event.id ? event : e))
+    setEvents(events.map((e) => (e.id === event.id ? event : e)))
   }
 
   const handleEventDelete = (event: CalendarEvent) => {
-    setEvents(events.filter(e => e.id !== event.id))
+    setEvents(events.filter((e) => e.id !== event.id))
   }
 
   return (
@@ -383,4 +359,3 @@ export default CalendarApp
 - [Quick Start](./quick-start.md)
 - [Project Setup](./project-setup.md)
 - [Calendar Views Guide](../guides/calendar-views.md)
-

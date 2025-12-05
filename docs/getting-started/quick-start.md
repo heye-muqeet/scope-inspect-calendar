@@ -118,6 +118,7 @@ export default App
 ### Events
 
 Events are the core data structure. Each event must have:
+
 - `id`: Unique identifier
 - `title`: Display name
 - `start`: Start date/time
@@ -126,6 +127,7 @@ Events are the core data structure. Each event must have:
 ### Views
 
 The calendar supports four views:
+
 - `month` - Monthly calendar view (default)
 - `week` - Weekly view with time slots
 - `day` - Single day view
@@ -160,10 +162,7 @@ const handleEventClick = (event: CalendarEvent) => {
   alert(`Clicked: ${event.title}`)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onEventClick={handleEventClick}
-/>
+;<ScopeInspectCalendar events={events} onEventClick={handleEventClick} />
 ```
 
 ### Adding Events
@@ -174,10 +173,7 @@ const handleEventAdd = (event: CalendarEvent) => {
   console.log('New event:', event)
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onEventAdd={handleEventAdd}
-/>
+;<ScopeInspectCalendar events={events} onEventAdd={handleEventAdd} />
 ```
 
 ### Custom Initial View
@@ -215,4 +211,3 @@ const handleEventAdd = (event: CalendarEvent) => {
 - [Project Setup](./project-setup.md)
 - [Basic Usage](./basic-usage.md)
 - [API Reference](../api-reference/components/scope-inspect-calendar.md)
-

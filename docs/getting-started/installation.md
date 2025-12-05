@@ -114,13 +114,12 @@ If using Create React App, you may need to configure Tailwind CSS manually or us
 
 ## Version Compatibility
 
-| ScopeInspect Calendar | React | React DOM | Tailwind CSS |
-|----------------------|-------|-----------|--------------|
-| 1.1.x                | ^19.1.0 | ^19.1.0   | ^4.1.11      |
+| ScopeInspect Calendar | React   | React DOM | Tailwind CSS |
+| --------------------- | ------- | --------- | ------------ |
+| 1.1.x                 | ^19.1.0 | ^19.1.0   | ^4.1.11      |
 
 ## Related Documentation
 
 - [Quick Start Guide](./quick-start.md)
 - [Project Setup](./project-setup.md)
 - [Basic Usage](./basic-usage.md)
-
