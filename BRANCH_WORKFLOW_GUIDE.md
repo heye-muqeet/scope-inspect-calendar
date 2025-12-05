@@ -10,14 +10,18 @@ This project uses a two-branch strategy:
 ## Branch Structure
 
 ### Development Branch
+
 Contains:
+
 - All source files (`src/`, `examples/`, `docs/`, etc.)
 - Configuration files (`.tsconfig.json`, `bunup.config.ts`, etc.)
 - Development dependencies and tools
 - Full `.gitignore` for development
 
 ### Main Branch (Package-Only)
+
 Contains only:
+
 - `dist/` - Built package files
 - `LICENSE` - License file
 - `README.md` - Package documentation
@@ -60,6 +64,7 @@ git push origin development
 Create a script `update-main.sh` (or `update-main.ps1` for Windows):
 
 **For Windows (PowerShell):**
+
 ```powershell
 # update-main.ps1
 Write-Host "Building package..."
@@ -90,6 +95,7 @@ Write-Host "Done! Main branch updated."
 ```
 
 **For Unix/Mac (Bash):**
+
 ```bash
 #!/bin/bash
 # update-main.sh
@@ -168,11 +174,13 @@ git checkout development
 ### Build and Update Main (One-liner)
 
 **Windows PowerShell:**
+
 ```powershell
 git checkout development; bun run build; git checkout main; git checkout development -- dist/ LICENSE README.md package.json; git add dist/ LICENSE README.md package.json; git commit -m "chore: update build files"; git push origin main; git checkout development
 ```
 
 **Unix/Mac:**
+
 ```bash
 git checkout development && bun run build && git checkout main && git checkout development -- dist/ LICENSE README.md package.json && git add dist/ LICENSE README.md package.json && git commit -m "chore: update build files" && git push origin main && git checkout development
 ```
@@ -189,6 +197,7 @@ git checkout development && bun run build && git checkout main && git checkout d
 ## Troubleshooting
 
 ### Issue: Main branch has extra files
+
 ```bash
 # Clean main branch (removes all non-package files)
 git checkout main
@@ -200,6 +209,7 @@ git push origin main --force
 ```
 
 ### Issue: Build files are outdated
+
 ```bash
 # Rebuild and update
 git checkout development
@@ -259,4 +269,3 @@ git checkout development
 - Never commit source files to main branch
 - Always verify build before updating main
 - Consider using GitHub Actions or CI/CD to automate this process
-

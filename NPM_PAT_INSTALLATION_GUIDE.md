@@ -63,6 +63,7 @@ This is the **recommended method** that allows you to commit `.npmrc` to git saf
 ### Why Use Environment Variables?
 
 ✅ **Benefits:**
+
 - `.npmrc` can be committed to git (no tokens in files)
 - Tokens stored securely in environment variables
 - Team members use their own tokens
@@ -78,11 +79,13 @@ Set the `GITHUB_TOKEN` environment variable with your Personal Access Token.
 #### Windows (PowerShell)
 
 **For current session only:**
+
 ```powershell
 $env:GITHUB_TOKEN = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 **Permanently (User-level - Recommended):**
+
 ```powershell
 [System.Environment]::SetEnvironmentVariable('GITHUB_TOKEN', 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'User')
 ```
@@ -100,6 +103,7 @@ setx GITHUB_TOKEN "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 #### Linux/Mac
 
 **For current session:**
+
 ```bash
 export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
@@ -107,12 +111,14 @@ export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 **Permanently (add to shell profile):**
 
 **For Bash:**
+
 ```bash
 echo 'export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 **For Zsh:**
+
 ```bash
 echo 'export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"' >> ~/.zshrc
 source ~/.zshrc
@@ -121,11 +127,13 @@ source ~/.zshrc
 #### Verify Environment Variable is Set
 
 **Windows PowerShell:**
+
 ```powershell
 echo $env:GITHUB_TOKEN
 ```
 
 **Linux/Mac:**
+
 ```bash
 echo $GITHUB_TOKEN
 ```
@@ -145,11 +153,13 @@ Create a `.npmrc` file in your **project root** directory with this content:
 **Create the file:**
 
 **Windows (PowerShell):**
+
 ```powershell
 echo "//github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=`${GITHUB_TOKEN}" > .npmrc
 ```
 
 **Linux/Mac:**
+
 ```bash
 echo "//github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=\${GITHUB_TOKEN}" > .npmrc
 ```
@@ -163,6 +173,7 @@ Create a new file named `.npmrc` in your project root with exactly this content:
 ```
 
 **Important Notes:**
+
 - The `${GITHUB_TOKEN}` syntax tells npm to read from the environment variable
 - **DO NOT** replace `${GITHUB_TOKEN}` with your actual token
 - This file is **safe to commit to git** because it contains no actual tokens
@@ -180,6 +191,7 @@ git push
 ```
 
 **✅ This is safe because:**
+
 - No actual token is in the file
 - Each developer sets their own `GITHUB_TOKEN` environment variable
 - CI/CD can use secrets for the environment variable
@@ -197,6 +209,7 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main
 ```
 
 npm will automatically:
+
 1. Read `.npmrc` file
 2. Find `${GITHUB_TOKEN}` reference
 3. Replace it with the value from your environment variable
@@ -213,12 +226,12 @@ npm install git+https://YOUR_TOKEN@github.com/heye-muqeet/scope-inspect-calendar
 ```
 
 **This method exposes the token in:**
+
 - Command history
 - `package.json` (if saved)
 - `package-lock.json`
 
 **Not recommended!**
-
 
 ---
 
@@ -227,6 +240,7 @@ npm install git+https://YOUR_TOKEN@github.com/heye-muqeet/scope-inspect-calendar
 ### Option 1: Password Manager (Recommended)
 
 Store your PAT in a password manager:
+
 - **1Password**
 - **LastPass**
 - **Bitwarden**
@@ -235,14 +249,17 @@ Store your PAT in a password manager:
 ### Option 2: System Keychain
 
 **Windows:**
+
 - Use **Windows Credential Manager**
 - Store as "Generic Credential"
 
 **Mac:**
+
 - Use **Keychain Access**
 - Store as "Internet Password"
 
 **Linux:**
+
 - Use **libsecret** or **GNOME Keyring**
 
 ### Option 3: Encrypted File
@@ -298,6 +315,7 @@ Each team member needs to:
 4. **Run `npm install`** - it will automatically use their token from environment variable
 
 **Each team member:**
+
 - Uses their own GitHub account
 - Creates their own PAT
 - Sets their own `GITHUB_TOKEN` environment variable
@@ -329,19 +347,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      
+
       - name: Configure npm for private repo
         run: |
           echo "//github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run tests
         run: npm test
 ```
@@ -360,7 +378,7 @@ install:
     - echo "//github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=$GITHUB_TOKEN" >> .npmrc
     - npm install
   variables:
-    GITHUB_TOKEN: $GITHUB_TOKEN  # Set in GitLab CI/CD variables
+    GITHUB_TOKEN: $GITHUB_TOKEN # Set in GitLab CI/CD variables
 ```
 
 **Jenkins:**
@@ -460,12 +478,14 @@ After installation, your `package.json` will have:
 ### Issue: "Repository not found" or "404 Not Found"
 
 **Causes:**
+
 - Token doesn't have `repo` scope
 - Token is expired
 - Repository is private and token doesn't have access
 - Wrong repository URL
 
 **Solutions:**
+
 1. Verify token has `repo` scope in GitHub settings
 2. Check token expiration date
 3. Ensure you have access to the repository
@@ -474,11 +494,13 @@ After installation, your `package.json` will have:
 ### Issue: "Authentication failed"
 
 **Causes:**
+
 - Invalid token
 - Token revoked
 - Wrong token format
 
 **Solutions:**
+
 1. Generate a new token
 2. Verify token format: `ghp_` followed by 36 characters
 3. Check token hasn't been revoked in GitHub settings
@@ -486,6 +508,7 @@ After installation, your `package.json` will have:
 ### Issue: "Token exposed in package-lock.json"
 
 **Solution:**
+
 - This shouldn't happen with `.npmrc` method
 - If using URL method, switch to `.npmrc`
 - If already exposed, rotate the token immediately
@@ -493,11 +516,13 @@ After installation, your `package.json` will have:
 ### Issue: "Cannot find module 'scope-inspect-calendar'"
 
 **Causes:**
+
 - Package not installed
 - Wrong branch specified
 - Build files missing in main branch
 
 **Solutions:**
+
 1. Run `npm install` again
 2. Verify you're using `#main` branch
 3. Check that `dist/` folder exists in main branch
@@ -505,6 +530,7 @@ After installation, your `package.json` will have:
 ### Issue: Environment variable not working
 
 **Solutions:**
+
 1. **Verify variable is set:**
    - Linux/Mac: `echo $GITHUB_TOKEN`
    - Windows PowerShell: `echo $env:GITHUB_TOKEN`
@@ -520,6 +546,7 @@ After installation, your `package.json` will have:
    - NOT: `_authToken=ghp_xxx...` (actual token)
 
 4. **Check npm can read environment variable:**
+
    ```bash
    # Test if npm can access it
    npm config get //github.com/heye-muqeet/scope-inspect-calendar.git:_authToken
@@ -593,8 +620,8 @@ npm info scope-inspect-calendar
 
 ```javascript
 // test.js
-const { IlamyCalendar } = require('scope-inspect-calendar');
-console.log('Package installed successfully!');
+const { IlamyCalendar } = require('scope-inspect-calendar')
+console.log('Package installed successfully!')
 ```
 
 Run: `node test.js`
@@ -648,7 +675,8 @@ git commit -m "chore: add npmrc configuration"
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main
 ```
 
-**Important:** 
+**Important:**
+
 - ✅ `.npmrc` with `${GITHUB_TOKEN}` is **safe to commit**
 - ❌ `.npmrc` with actual token (`ghp_xxx...`) should **NOT be committed**
 - ✅ Each developer sets their own `GITHUB_TOKEN` environment variable
@@ -675,6 +703,7 @@ npm update scope-inspect-calendar
 6. **Install package** normally - npm will read token from environment variable
 
 **Key Benefits:**
+
 - ✅ `.npmrc` can be committed to git (no tokens in files)
 - ✅ Each developer uses their own token via environment variable
 - ✅ CI/CD can use secrets for environment variables
@@ -682,11 +711,12 @@ npm update scope-inspect-calendar
 - ✅ Team shares the same `.npmrc` file
 
 **What gets committed:**
+
 ```
 //github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=${GITHUB_TOKEN}
 ```
 
 **What stays secure:**
+
 - Actual token is only in environment variable (not in any file)
 - Each developer/CI system sets their own `GITHUB_TOKEN`
-
