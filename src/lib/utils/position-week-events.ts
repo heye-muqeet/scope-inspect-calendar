@@ -42,7 +42,16 @@ export const getPositionedEvents = ({
       // Find the matching hour in the days array
       const eventHour = eventTime.startOf('hour')
       const index = days.findIndex((day) => day.isSame(eventHour, 'hour'))
-      return index >= 0 ? index : -1
+      if (index >= 0) {
+        return index
+      }
+      // Fallback: if days array contains day-level entries, find the day that contains this hour
+      const dayIndex = days.findIndex((day) => day.isSame(eventHour, 'day'))
+      if (dayIndex >= 0) {
+        // Return the day index (for hour grid with day-level days array, use day as column)
+        return dayIndex
+      }
+      return -1
     }
     // For day grid type, use the original calculation
     return eventTime.diff(firstDay, gridType)
