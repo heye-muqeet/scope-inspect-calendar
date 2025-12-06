@@ -1,6 +1,131 @@
 # Basic Usage
 
-Learn the fundamentals of using ScopeInspect Calendar, including props, callbacks, and common patterns.
+Learn the fundamentals of using ScopeInspect Calendar, including setup, props, callbacks, and common patterns.
+
+## Basic Setup
+
+Before using ScopeInspect Calendar, you need to configure Tailwind CSS and optionally Day.js. Follow these essential setup steps:
+
+### 1. Configure Tailwind CSS
+
+Since ScopeInspect Calendar is built with Tailwind CSS v4, you need to register the source path in your CSS file to ensure all component styles are included.
+
+**In your main CSS file** (e.g., `src/index.css`, `src/app/globals.css`, or `src/styles/global.css`):
+
+```css
+@import 'tailwindcss';
+@source "../node_modules/scope-inspect-calendar/dist";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+> **Note**: The `@source` directive tells Tailwind to scan the calendar package for classes and include them in your build. This is especially important since `node_modules` are typically ignored by Tailwind by default.
+
+**For Tailwind CSS v4 with Vite** (Next.js, Astro, Vite projects):
+
+```css
+@import 'tailwindcss';
+@source "../node_modules/scope-inspect-calendar/dist";
+```
+
+**For traditional Tailwind CSS setup**, ensure the package is included in your `tailwind.config.js`:
+
+```js
+export default {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/scope-inspect-calendar/dist/**/*.{js,ts,jsx,tsx}',
+  ],
+}
+```
+
+### 2. Configure Day.js (Optional)
+
+If you are using Day.js and have installed it as a dependency in your project, you might need to extend the plugins that are required for this library.
+
+**Create a dayjs configuration file** (e.g., `src/lib/dayjs-config.ts` or `src/configs/dayjs-config.ts`):
+
+```typescript
+import dayjs from 'dayjs'
+import weekday from 'dayjs/plugin/weekday.js'
+import weekOfYear from 'dayjs/plugin/weekOfYear.js'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js'
+import isBetween from 'dayjs/plugin/isBetween.js'
+import minMax from 'dayjs/plugin/minMax.js'
+import timezone from 'dayjs/plugin/timezone.js'
+import utc from 'dayjs/plugin/utc.js'
+import localeData from 'dayjs/plugin/localeData.js'
+
+// Extend dayjs with plugins
+dayjs.extend(weekday)
+dayjs.extend(weekOfYear)
+dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isBetween)
+dayjs.extend(minMax)
+dayjs.extend(timezone)
+dayjs.extend(utc)
+dayjs.extend(localeData)
+
+export default dayjs
+```
+
+> **Note**: The minimum required plugins are `isSameOrAfter`, `isSameOrBefore`, `timezone`, and `utc`. However, the calendar uses additional plugins for enhanced functionality. If you're using the calendar with Date objects or ISO strings only, you may only need the minimum plugins.
+
+**Then import it in your app** (before using the calendar):
+
+```tsx
+// Import dayjs config early in your app
+import './lib/dayjs-config'
+
+// Or import it in your main entry file
+import './configs/dayjs-config'
+```
+
+> **Note**: These plugins are required for proper date handling and timezone support within the calendar component. If you're using the calendar with Date objects or ISO strings, this step is optional.
+
+### 3. Import and Use the Calendar
+
+Now you can start using the calendar with minimal configuration:
+
+```tsx
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+
+export default function MyCalendar() {
+  return (
+    <div className="p-6" style={{ height: '600px' }}>
+      <ScopeInspectCalendar />
+    </div>
+  )
+}
+```
+
+**With events:**
+
+```tsx
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+import type { CalendarEvent } from 'scope-inspect-calendar'
+
+export default function MyCalendar() {
+  const events: CalendarEvent[] = [
+    {
+      id: '1',
+      title: 'Team Meeting',
+      start: new Date('2025-01-15T10:00:00'),
+      end: new Date('2025-01-15T11:00:00'),
+    },
+  ]
+
+  return (
+    <div className="p-6" style={{ height: '600px' }}>
+      <ScopeInspectCalendar events={events} />
+    </div>
+  )
+}
+```
 
 ## Component Props
 

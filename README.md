@@ -92,6 +92,44 @@ function App() {
 
 ## 📖 Usage
 
+### Setup
+
+Before using ScopeInspect Calendar, configure Tailwind CSS and optionally Day.js.
+
+#### Configure Tailwind CSS
+
+Since ScopeInspect Calendar is built with Tailwind CSS v4, register the source path in your CSS file:
+
+```css
+@import 'tailwindcss';
+@source "../node_modules/scope-inspect-calendar/dist";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+> **Note**: The `@source` directive tells Tailwind to scan the calendar package for classes. This is important since `node_modules` are typically ignored by Tailwind by default.
+
+#### Configure Day.js (Optional)
+
+If using Day.js, extend the required plugins:
+
+```typescript
+import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js'
+import timezone from 'dayjs/plugin/timezone.js'
+import utc from 'dayjs/plugin/utc.js'
+
+dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore)
+dayjs.extend(timezone)
+dayjs.extend(utc)
+```
+
+> **Note**: These plugins are required for proper date handling and timezone support. If using Date objects or ISO strings only, this step is optional.
+
 ### Basic Calendar
 
 ```tsx
