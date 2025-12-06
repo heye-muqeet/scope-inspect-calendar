@@ -35,7 +35,7 @@ const resources: Resource[] = [
   },
   {
     id: 'room-b',
-    title: 'Conference Room B',
+    name: 'Conference Room B',
     color: '#EF4444',
     backgroundColor: '#FEF2F2',
   },
@@ -73,8 +73,8 @@ interface Resource {
   /** Unique identifier for the resource */
   id: string | number
 
-  /** Display title of the resource */
-  title: string
+  /** Display name of the resource */
+  name: string
 
   /**
    * Color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
@@ -101,13 +101,13 @@ The resource calendar supports custom colors and backgrounds for each resource:
 const resources: Resource[] = [
   {
     id: 'designer',
-    title: 'Design Team',
+    name: 'Design Team',
     color: '#8B5CF6', // Purple text
     backgroundColor: '#F5F3FF', // Light purple background
   },
   {
     id: 'engineer',
-    title: 'Engineering Team',
+    name: 'Engineering Team',
     color: '#10B981', // Green text
     backgroundColor: '#ECFDF5', // Light green background
   },
@@ -182,7 +182,7 @@ const event: CalendarEvent = {
 The `ScopeInspectResourceCalendar` component extends all props from `ScopeInspectCalendar` with resource-specific additions:
 
 ```typescript
-interface IlamyResourceCalendarProps extends IlamyCalendarProps {
+interface ScopeInspectResourceCalendarProps extends ScopeInspectCalendarProps {
   /** Array of events to display */
   events?: CalendarEvent[]
 
@@ -210,18 +210,18 @@ interface IlamyResourceCalendarProps extends IlamyCalendarProps {
 | `onEventUpdate`      | `(event: CalendarEvent) => void`    | `undefined` | Event update callback                                                |
 | `onEventDelete`      | `(eventId: string) => void`         | `undefined` | Event delete callback                                                |
 
-For all inherited props, see the [standard calendar documentation](https://ilamy.dev/docs/calendar).
+For all inherited props, see the [ScopeInspectCalendar API Reference](./api-reference/components/scope-inspect-calendar.md).
 
 ## Context API
 
 The Resource Calendar provides a specialized context with resource-specific utilities.
 
-### useIlamyResourceCalendarContext
+### useScopeInspectResourceCalendarContext
 
 Access the resource calendar context from within custom components:
 
 ```tsx
-import { useIlamyResourceCalendarContext } from '@ilamy/calendar'
+import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
 
 function CustomComponent() {
   const {
@@ -233,7 +233,7 @@ function CustomComponent() {
     updateEvent,
     deleteEvent,
     getEventsForResource,
-  } = useIlamyResourceCalendarContext()
+  } = useScopeInspectResourceCalendarContext()
 
   const roomAEvents = getEventsForResource('room-a')
 
@@ -244,7 +244,7 @@ function CustomComponent() {
 ### Context Methods
 
 ```typescript
-interface UseIlamyResourceCalendarContextReturn {
+interface UseScopeInspectResourceCalendarContextReturn {
   // Standard calendar properties
   readonly currentDate: Dayjs
   readonly view: CalendarView
@@ -286,7 +286,7 @@ The Resource Calendar supports three views, each displaying resources in horizon
 Timeline view showing resources as rows and days as columns:
 
 ```tsx
-<IlamyResourceCalendar
+<ScopeInspectResourceCalendar
   resources={resources}
   events={events}
   initialView="month"
@@ -305,7 +305,7 @@ Features:
 Detailed timeline with hourly time slots:
 
 ```tsx
-<IlamyResourceCalendar
+<ScopeInspectResourceCalendar
   resources={resources}
   events={events}
   initialView="week"
@@ -325,7 +325,7 @@ Features:
 Focused single-day view with maximum detail:
 
 ```tsx
-<IlamyResourceCalendar
+<ScopeInspectResourceCalendar
   resources={resources}
   events={events}
   initialView="day"
@@ -363,7 +363,7 @@ const crossResourceEvent: CalendarEvent = {
 
 Cross-resource events are displayed across all assigned resource rows:
 
-```
+```text
 ┌─────────────┬─────────────────────────────────┐
 │ Room A      │ ████ Quarterly Review ████      │
 ├─────────────┼─────────────────────────────────┤
@@ -376,10 +376,10 @@ Cross-resource events are displayed across all assigned resource rows:
 ### Working with Cross-Resource Events
 
 ```tsx
-import { useIlamyResourceCalendarContext } from '@ilamy/calendar'
+import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
 
 function EventManager() {
-  const { events, resources } = useIlamyResourceCalendarContext()
+  const { events, resources } = useScopeInspectResourceCalendarContext()
 
   // Find all cross-resource events
   const crossResourceEvents = events.filter(
@@ -413,8 +413,8 @@ Customize how resources are displayed using the `renderResource` prop:
 ### Basic Custom Rendering
 
 ```tsx
-import { IlamyResourceCalendar } from '@ilamy/calendar'
-import type { Resource } from '@ilamy/calendar'
+import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import type { Resource } from 'scope-inspect-calendar'
 
 const CustomResourceRenderer = (resource: Resource) => (
   <div className="flex items-center gap-2 p-2">
@@ -422,7 +422,7 @@ const CustomResourceRenderer = (resource: Resource) => (
       className="h-3 w-3 rounded-full"
       style={{ backgroundColor: resource.color }}
     />
-    <span className="font-semibold">{resource.title}</span>
+    <span className="font-semibold">{resource.name}</span>
   </div>
 )
 
@@ -441,13 +441,13 @@ function App() {
 
 ```tsx
 const AdvancedResourceRenderer = (resource: Resource) => {
-  const { getEventsForResource } = useIlamyResourceCalendarContext()
+  const { getEventsForResource } = useScopeInspectResourceCalendarContext()
   const eventCount = getEventsForResource(resource.id).length
 
   return (
     <div className="flex flex-col gap-1 p-2">
       <div className="flex items-center justify-between">
-        <span className="font-bold">{resource.title}</span>
+        <span className="font-bold">{resource.name}</span>
         <span className="text-xs text-muted-foreground">
           {eventCount} events
         </span>
@@ -481,7 +481,7 @@ const IconResourceRenderer = (resource: Resource) => {
         {getResourceIcon(resource.id)}
       </div>
       <div className="flex flex-col">
-        <span className="font-medium">{resource.title}</span>
+        <span className="font-medium">{resource.name}</span>
         {resource.backgroundColor && (
           <span className="text-xs" style={{ color: resource.color }}>
             Available
@@ -505,7 +505,7 @@ Customize resource appearance with color and backgroundColor:
 const resources: Resource[] = [
   {
     id: 'vip-room',
-    title: 'VIP Conference Room',
+    name: 'VIP Conference Room',
     color: '#F59E0B', // Amber text
     backgroundColor: '#FEF3C7', // Light amber background
   },
@@ -517,7 +517,7 @@ const resources: Resource[] = [
 Apply custom styles using Tailwind CSS or custom CSS:
 
 ```tsx
-<IlamyResourceCalendar
+<ScopeInspectResourceCalendar
   resources={resources}
   events={events}
   viewHeaderClassName="bg-gradient-to-r from-blue-500 to-purple-500"
@@ -531,7 +531,7 @@ Style events differently based on their resource:
 
 ```tsx
 const CustomEventRenderer = (event: CalendarEvent) => {
-  const { getResourceById } = useIlamyResourceCalendarContext()
+  const { getResourceById } = useScopeInspectResourceCalendarContext()
   const resource = event.resourceId
     ? getResourceById(event.resourceId)
     : undefined
@@ -550,7 +550,7 @@ const CustomEventRenderer = (event: CalendarEvent) => {
   )
 }
 
-;<IlamyResourceCalendar
+;<ScopeInspectResourceCalendar
   resources={resources}
   events={events}
   renderEvent={CustomEventRenderer}
@@ -562,8 +562,8 @@ const CustomEventRenderer = (event: CalendarEvent) => {
 ### Room Booking System
 
 ```tsx
-import { IlamyResourceCalendar } from '@ilamy/calendar'
-import type { CalendarEvent, CellClickInfo, Resource } from '@ilamy/calendar'
+import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import type { CalendarEvent, CellClickInfo, Resource } from 'scope-inspect-calendar'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 
@@ -573,21 +573,21 @@ const RoomBookingCalendar = () => {
   const rooms: Resource[] = [
     {
       id: 'conf-a',
-      title: 'Conference Room A (10 people)',
+      name: 'Conference Room A (10 people)',
       color: '#3B82F6',
       backgroundColor: '#EFF6FF',
       position: 1,
     },
     {
       id: 'conf-b',
-      title: 'Conference Room B (20 people)',
+      name: 'Conference Room B (20 people)',
       color: '#EF4444',
       backgroundColor: '#FEF2F2',
       position: 2,
     },
     {
       id: 'board-room',
-      title: 'Board Room (8 people)',
+      name: 'Board Room (8 people)',
       color: '#8B5CF6',
       backgroundColor: '#F5F3FF',
       position: 3,
@@ -635,19 +635,19 @@ const TeamScheduleCalendar = () => {
   const teamMembers: Resource[] = [
     {
       id: 'alice',
-      title: 'Alice Johnson - Senior Developer',
+      name: 'Alice Johnson - Senior Developer',
       color: '#3B82F6',
       backgroundColor: '#EFF6FF',
     },
     {
       id: 'bob',
-      title: 'Bob Smith - Product Manager',
+      name: 'Bob Smith - Product Manager',
       color: '#EF4444',
       backgroundColor: '#FEF2F2',
     },
     {
       id: 'carol',
-      title: 'Carol Williams - Designer',
+      name: 'Carol Williams - Designer',
       color: '#8B5CF6',
       backgroundColor: '#F5F3FF',
     },
@@ -701,19 +701,19 @@ const EquipmentScheduleCalendar = () => {
   const equipment: Resource[] = [
     {
       id: 'projector-1',
-      title: 'HD Projector #1',
+      name: 'HD Projector #1',
       color: '#F59E0B',
       backgroundColor: '#FEF3C7',
     },
     {
       id: 'projector-2',
-      title: 'HD Projector #2',
+      name: 'HD Projector #2',
       color: '#F59E0B',
       backgroundColor: '#FEF3C7',
     },
     {
       id: 'camera-1',
-      title: 'Video Camera #1',
+      name: 'Video Camera #1',
       color: '#EC4899',
       backgroundColor: '#FCE7F3',
     },
@@ -726,7 +726,7 @@ const EquipmentScheduleCalendar = () => {
         style={{ backgroundColor: resource.color }}
       />
       <div className="flex flex-col">
-        <span className="text-sm font-semibold">{resource.title}</span>
+        <span className="text-sm font-semibold">{resource.name}</span>
         <span className="text-xs text-muted-foreground">Available</span>
       </div>
     </div>
@@ -754,12 +754,12 @@ const EquipmentScheduleCalendar = () => {
 ```tsx
 const resources: Resource[] = [
   // Group 1: Small rooms
-  { id: 'small-1', title: 'Small Room 1', position: 1 },
-  { id: 'small-2', title: 'Small Room 2', position: 2 },
+  { id: 'small-1', name: 'Small Room 1', position: 1 },
+  { id: 'small-2', name: 'Small Room 2', position: 2 },
 
   // Group 2: Large rooms
-  { id: 'large-1', title: 'Large Room 1', position: 3 },
-  { id: 'large-2', title: 'Large Room 2', position: 4 },
+  { id: 'large-1', name: 'Large Room 1', position: 3 },
+  { id: 'large-2', name: 'Large Room 2', position: 4 },
 ]
 ```
 
@@ -789,7 +789,7 @@ const validateEvent = (
 
 ```tsx
 const MemoizedResourceEvents = React.memo(({ resourceId }: Props) => {
-  const { getEventsForResource } = useIlamyResourceCalendarContext()
+  const { getEventsForResource } = useScopeInspectResourceCalendarContext()
   const events = React.useMemo(
     () => getEventsForResource(resourceId),
     [resourceId, getEventsForResource]
@@ -810,7 +810,7 @@ const MemoizedResourceEvents = React.memo(({ resourceId }: Props) => {
 const resources: Resource[] = [
   {
     id: 'room-1',
-    title: 'Conference Room A (Capacity: 10)',
+    name: 'Conference Room A (Capacity: 10)',
     color: '#3B82F6',
   },
 ]
@@ -849,7 +849,7 @@ const handleEventUpdate = (updatedEvent: CalendarEvent) => {
 ```tsx
 describe('ResourceCalendar', () => {
   it('should filter events by resource', () => {
-    const { getEventsForResource } = useIlamyResourceCalendarContext()
+    const { getEventsForResource } = useScopeInspectResourceCalendarContext()
     const roomAEvents = getEventsForResource('room-a')
     expect(roomAEvents).toHaveLength(3)
   })
@@ -878,7 +878,7 @@ const LocalizedResourceCalendar = () => {
 }
 ```
 
-See the [Translation Usage Guide](./translation-usage.md) for comprehensive i18n documentation.
+See the [Internationalization Guide](./guides/internationalization.md) for comprehensive i18n documentation.
 
 ## Advanced Features
 
@@ -909,15 +909,15 @@ const recurringMeeting: CalendarEvent = {
 Export resource calendar events to iCalendar format:
 
 ```tsx
-import { downloadICalendar } from '@ilamy/calendar'
+import { downloadICalendar } from 'scope-inspect-calendar'
 
 const handleExport = () => {
-  const { events } = useIlamyResourceCalendarContext()
+  const { events } = useScopeInspectResourceCalendarContext()
   downloadICalendar(events, 'resource-schedule.ics')
 }
 ```
 
-See the [iCalendar Export Guide](./export-ical.md) for more details.
+See the [iCalendar Export Guide](./guides/ical-export.md) for more details.
 
 ## TypeScript Support
 
@@ -928,14 +928,14 @@ import type {
   Resource,
   CalendarEvent,
   CellClickInfo,
-  IlamyResourceCalendarProps,
-  UseIlamyResourceCalendarContextReturn,
-} from '@ilamy/calendar'
+  ScopeInspectResourceCalendarProps,
+  UseScopeInspectResourceCalendarContextReturn,
+} from 'scope-inspect-calendar'
 
 // Type-safe resource definition
 const typedResource: Resource = {
   id: 'room-a',
-  title: 'Conference Room A',
+  name: 'Conference Room A',
   color: '#3B82F6',
   backgroundColor: '#EFF6FF',
 }
@@ -1010,9 +1010,9 @@ const visibleResources = resources.filter((r) => visibleResourceIds.has(r.id))
 
 For issues, feature requests, or questions:
 
-- GitHub Issues: [github.com/ilamy/calendar/issues](https://github.com/ilamy/calendar/issues)
-- Documentation: [ilamy.dev](https://ilamy.dev)
+- GitHub Issues: [github.com/heye-muqeet/scope-inspect-calendar/issues](https://github.com/heye-muqeet/scope-inspect-calendar/issues)
+- Documentation: [README.md](../README.md)
 
 ---
 
-Built with ❤️ by the ilamy team
+Built with ❤️ by Engr. Abdul Muqeet
