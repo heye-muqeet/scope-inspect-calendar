@@ -396,6 +396,7 @@ If the calendar renders correctly, your setup is complete!
 
 ## Related Documentation
 
+- **[README.md](../../README.md)** - Main documentation index
 - [Installation](./installation.md)
 - [Quick Start](./quick-start.md)
 - [Basic Usage](./basic-usage.md)

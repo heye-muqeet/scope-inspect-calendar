@@ -463,7 +463,7 @@ function CustomControls() {
 
 ## Related Documentation
 
-- [Event Management](./event-management.md) - Managing events across views
-- [Visible Hours](./visible-hours.md) - Controlling time display (Week/Day views)
-- [Business Hours](./business-hours.md) - Business hours configuration
+- **[README.md](../../README.md)** - Main documentation index
+- [Basic Usage](../getting-started/basic-usage.md) - Usage fundamentals
 - [API Reference](../api-reference/components/scope-inspect-calendar.md) - Complete API docs
+- [Theming & Styling](./theming-and-styling.md) - Customize calendar appearance

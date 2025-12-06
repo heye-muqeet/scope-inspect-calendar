@@ -1,38 +1,67 @@
-# scope-inspect-calendar
+# ScopeInspect Calendar
 
-A powerful, full-featured React calendar component library built with TypeScript, Tailwind CSS, and modern React patterns. This package includes customizations and enhancements, including the exclusive **Visible Hours** feature.
+<div align="center">
 
 ![Calendar Preview](https://github.com/user-attachments/assets/d289f034-0d26-4a1c-a997-dfa1ad26aa7a)
+
+**A powerful, full-featured React calendar component library built with TypeScript, Tailwind CSS, and modern React patterns.**
+
+[![React](https://img.shields.io/badge/React-19.1.0+-61DAFB?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.11+-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+[Installation](#-installation) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Examples](#-examples)
+
+</div>
+
+---
+
+## ✨ Overview
+
+ScopeInspect Calendar is a comprehensive React calendar component library that provides everything you need to build sophisticated scheduling applications. Built with modern web technologies and best practices, it offers a rich feature set while maintaining excellent performance and developer experience.
+
+### Why ScopeInspect Calendar?
+
+- 🎯 **Production-Ready**: Battle-tested in real-world applications
+- 🚀 **Performance Optimized**: Efficient rendering and minimal re-renders
+- 🎨 **Highly Customizable**: Tailwind CSS theming and custom rendering
+- 📱 **Fully Responsive**: Works seamlessly on desktop, tablet, and mobile
+- 🔒 **Type-Safe**: Full TypeScript support with comprehensive type definitions
+- 🌍 **Internationalized**: 100+ locales with dayjs integration
+- ⚡ **Modern Stack**: Built with React 19, Tailwind CSS v4, and latest best practices
+
+---
 
 ## 🎯 Key Features
 
 ### Core Features
 
-- 🗓️ **Multiple Views**: Month, Week, Day, and Year views with smooth transitions
-- 📊 **Resource Calendar**: Visualize and manage events across multiple resources with timeline layout
-- 🎯 **Drag & Drop**: Move events between dates and time slots with collision detection
-- 🔄 **RFC 5545 Recurring Events**: Full RRULE support with Google Calendar-style operations
-  - **RRULE Patterns**: Daily, Weekly, Monthly, Yearly with complex frequencies
-  - **Smart Operations**: Edit "this event", "this and following", or "all events"
-  - **Exception Handling**: EXDATE exclusions and modified instance support
-  - **rrule.js Integration**: Battle-tested library for robust recurrence generation
-- 📤 **iCalendar Export**: RFC 5545 compliant .ics file export with proper recurring event handling
-- 🌍 **Internationalization**: 100+ locales with dayjs and configurable week start days
-- 🎨 **Customizable Styling**:
+- **🗓️ Multiple Views**: Month, Week, Day, and Year views with smooth transitions
+- **📊 Resource Calendar**: Visualize and manage events across multiple resources with timeline layout
+- **🎯 Drag & Drop**: Move events between dates and time slots with collision detection
+- **🔄 RFC 5545 Recurring Events**: Full RRULE support with Google Calendar-style operations
+  - RRULE Patterns: Daily, Weekly, Monthly, Yearly with complex frequencies
+  - Smart Operations: Edit "this event", "this and following", or "all events"
+  - Exception Handling: EXDATE exclusions and modified instance support
+  - rrule.js Integration: Battle-tested library for robust recurrence generation
+- **📤 iCalendar Export**: RFC 5545 compliant .ics file export with proper recurring event handling
+- **🌍 Internationalization**: 100+ locales with dayjs and configurable week start days
+- **🎨 Customizable Styling**:
   - Flexible theming with Tailwind CSS and CSS variables
   - Custom event rendering with render props
   - Configurable colors, fonts, and spacing
-- ⚡ **Performance Optimized**:
+- **⚡ Performance Optimized**:
   - On-demand recurring event generation
   - Efficient date range calculations
   - Minimal re-renders with optimized React patterns
-- 📱 **Responsive Design**: Adaptive layouts for desktop, tablet, and mobile
-- 🔧 **Developer Experience**:
+- **📱 Responsive Design**: Adaptive layouts for desktop, tablet, and mobile
+- **🔧 Developer Experience**:
   - Full TypeScript support with comprehensive type definitions
   - IntelliSense and autocompletion
   - Extensive JSDoc documentation
   - Test-driven development with 100% test coverage
-- 🎛️ **Advanced Event Management**:
+- **🎛️ Advanced Event Management**:
   - All-day events with proper timezone handling
   - Multi-day events with smart positioning
   - Event validation and error handling
@@ -49,56 +78,61 @@ A powerful, full-featured React calendar component library built with TypeScript
 - 📊 **Better UX**: Reduce visual clutter by hiding irrelevant time slots
 - ⚡ **Performance**: Fewer DOM nodes when showing fewer hours
 
+---
+
 ## 📦 Installation
 
-```bash
-# Using npm
-npm install scope-inspect-calendar
+> **Note**: This package is distributed as a **private GitHub repository**. You'll need a Personal Access Token (PAT) to install it.
 
-# Using yarn
-yarn add scope-inspect-calendar
+### Prerequisites
 
-# Using pnpm
-pnpm add scope-inspect-calendar
+- GitHub account with access to the private repository
+- npm (version 6.0.0 or higher) or compatible package manager
+- Node.js installed
+- React 19.1.0+ and React DOM 19.1.0+
+- Tailwind CSS 4.1.11+ and tailwindcss-animate 1.0.7+
 
-# Using bun
-bun add scope-inspect-calendar
-```
+### Quick Installation
+
+1. **Create a GitHub Personal Access Token** with `repo` scope
+2. **Set environment variable**:
+   ```bash
+   # Windows PowerShell
+   $env:GITHUB_TOKEN = "ghp_your_token_here"
+   
+   # Linux/Mac
+   export GITHUB_TOKEN="ghp_your_token_here"
+   ```
+3. **Create `.npmrc` file** in your project root:
+   ```
+   //github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=${GITHUB_TOKEN}
+   ```
+4. **Install the package**:
+   ```bash
+   npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main
+   ```
+5. **Install peer dependencies**:
+   ```bash
+   npm install react@^19.1.0 react-dom@^19.1.0 tailwindcss@^4.1.11 tailwindcss-animate@^1.0.7
+   ```
+
+### Detailed Installation Guide
+
+For complete step-by-step instructions, including:
+- Creating and managing Personal Access Tokens
+- Setting up environment variables permanently
+- Team setup and CI/CD configuration
+- Troubleshooting common issues
+
+👉 **[See the complete Installation Guide](./docs/getting-started/installation.md)**
+
+---
 
 ## 🚀 Quick Start
 
-```tsx
-import { ScopeInspectCalendar } from 'scope-inspect-calendar'
-import type { CalendarEvent } from 'scope-inspect-calendar'
+### 1. Configure Tailwind CSS
 
-function App() {
-  const events: CalendarEvent[] = [
-    {
-      id: '1',
-      title: 'Meeting',
-      start: new Date('2025-01-15T10:00:00'),
-      end: new Date('2025-01-15T11:00:00'),
-    },
-  ]
-
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      visibleHours={{ startTime: 9, endTime: 17 }}
-    />
-  )
-}
-```
-
-## 📖 Usage
-
-### Setup
-
-Before using ScopeInspect Calendar, configure Tailwind CSS and optionally Day.js.
-
-#### Configure Tailwind CSS
-
-Since ScopeInspect Calendar is built with Tailwind CSS v4, register the source path in your CSS file:
+Add the `@source` directive to your main CSS file:
 
 ```css
 @import 'tailwindcss';
@@ -109,100 +143,43 @@ Since ScopeInspect Calendar is built with Tailwind CSS v4, register the source p
 @tailwind utilities;
 ```
 
-> **Note**: The `@source` directive tells Tailwind to scan the calendar package for classes. This is important since `node_modules` are typically ignored by Tailwind by default.
-
-#### Configure Day.js (Optional)
-
-If using Day.js, extend the required plugins:
-
-```typescript
-import dayjs from 'dayjs'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js'
-import timezone from 'dayjs/plugin/timezone.js'
-import utc from 'dayjs/plugin/utc.js'
-
-dayjs.extend(isSameOrAfter)
-dayjs.extend(isSameOrBefore)
-dayjs.extend(timezone)
-dayjs.extend(utc)
-```
-
-> **Note**: These plugins are required for proper date handling and timezone support. If using Date objects or ISO strings only, this step is optional.
-
-### Basic Calendar
+### 2. Basic Calendar
 
 ```tsx
 import { ScopeInspectCalendar } from 'scope-inspect-calendar'
-;<ScopeInspectCalendar
-  events={events}
-  initialView="month"
-  onEventClick={(event) => console.log('Event clicked:', event)}
-/>
+import type { CalendarEvent } from 'scope-inspect-calendar'
+
+function App() {
+  const events: CalendarEvent[] = [
+    {
+      id: '1',
+      title: 'Team Meeting',
+      start: new Date('2025-01-15T10:00:00'),
+      end: new Date('2025-01-15T11:00:00'),
+    },
+  ]
+
+  return (
+    <div style={{ height: '600px' }}>
+      <ScopeInspectCalendar
+        events={events}
+        onEventClick={(event) => console.log('Event clicked:', event)}
+      />
+    </div>
+  )
+}
 ```
 
-### Visible Hours Configuration
-
-The `visibleHours` prop controls which time range is displayed on the calendar's vertical time scale. This is **completely independent** from `businessHours`, which controls when events can be created or edited.
-
-```tsx
-import { ScopeInspectCalendar } from 'scope-inspect-calendar'
-
-// Show only business hours (9 AM to 5 PM)
-<ScopeInspectCalendar
-  events={events}
-  visibleHours={{
-    startTime: 9,  // 9:00 AM
-    endTime: 17    // 5:00 PM
-  }}
-/>
-
-// Show morning hours only (6 AM to 12 PM)
-<ScopeInspectCalendar
-  events={events}
-  visibleHours={{
-    startTime: 6,
-    endTime: 12
-  }}
-/>
-
-// Show afternoon/evening hours (12 PM to 10 PM)
-<ScopeInspectCalendar
-  events={events}
-  visibleHours={{
-    startTime: 12,
-    endTime: 22
-  }}
-/>
-
-// Default: Show all 24 hours (if not specified)
-<ScopeInspectCalendar events={events} />
-```
-
-### Visible Hours vs Business Hours
-
-**Important**: `visibleHours` and `businessHours` serve different purposes:
-
-- **`visibleHours`**: Controls **what is displayed** on the time scale (UI only)
-- **`businessHours`**: Controls **when interactions are allowed** (event creation/editing restrictions)
-
-You can use them together:
+### 3. With Visible Hours (Exclusive Feature)
 
 ```tsx
 <ScopeInspectCalendar
   events={events}
-  // Display only 8 AM to 6 PM
-  visibleHours={{ startTime: 8, endTime: 18 }}
-  // But allow event creation/editing only during 9 AM to 5 PM
-  businessHours={{
-    daysOfWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
-    startTime: 9,
-    endTime: 17,
-  }}
+  visibleHours={{ startTime: 9, endTime: 17 }} // Show 9 AM to 5 PM
 />
 ```
 
-### Resource Calendar
+### 4. Resource Calendar
 
 ```tsx
 import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
@@ -219,19 +196,56 @@ const resources = [
 />
 ```
 
+---
+
+## 📖 Usage Examples
+
+### Basic Calendar with Events
+
+```tsx
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+import type { CalendarEvent } from 'scope-inspect-calendar'
+
+const events: CalendarEvent[] = [
+  {
+    id: '1',
+    title: 'Meeting',
+    start: new Date('2025-01-15T10:00:00'),
+    end: new Date('2025-01-15T11:00:00'),
+    backgroundColor: '#3b82f6',
+    color: 'white',
+  },
+]
+
+function App() {
+  return (
+    <ScopeInspectCalendar
+      events={events}
+      initialView="month"
+      onEventClick={(event) => console.log('Clicked:', event)}
+      onEventAdd={(event) => console.log('Added:', event)}
+      onEventUpdate={(event) => console.log('Updated:', event)}
+      onEventDelete={(event) => console.log('Deleted:', event)}
+    />
+  )
+}
+```
+
 ### Recurring Events
 
 ```tsx
-import { ScopeInspectCalendar, RRule } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+import { RRule } from 'rrule'
+import type { CalendarEvent } from 'scope-inspect-calendar'
 
 const recurringEvent: CalendarEvent = {
   id: '1',
-  title: 'Weekly Meeting',
+  title: 'Weekly Team Standup',
   start: new Date('2025-01-15T10:00:00'),
-  end: new Date('2025-01-15T11:00:00'),
-  recurrence: {
+  end: new Date('2025-01-15T10:30:00'),
+  rrule: {
     freq: RRule.WEEKLY,
-    byweekday: [RRule.MO],
+    byweekday: [RRule.MO, RRule.WE, RRule.FR],
     dtstart: new Date('2025-01-15T10:00:00'),
   },
 }
@@ -239,126 +253,45 @@ const recurringEvent: CalendarEvent = {
 <ScopeInspectCalendar events={[recurringEvent]} />
 ```
 
-## 📚 API Reference
-
-### ScopeInspectCalendar Props
-
-| Prop                 | Type                                  | Default     | Description                                                                     |
-| -------------------- | ------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
-| `events`             | `CalendarEvent[]`                     | `[]`        | Array of events to display                                                      |
-| `visibleHours`       | `VisibleHours`                        | `undefined` | **Exclusive feature**: Controls which time range is displayed on the time scale |
-| `businessHours`      | `BusinessHours`                       | `undefined` | Controls when events can be created/edited                                      |
-| `initialView`        | `CalendarView`                        | `'month'`   | Initial calendar view                                                           |
-| `firstDayOfWeek`     | `WeekDays`                            | `'sunday'`  | First day of the week                                                           |
-| `onEventClick`       | `(event: CalendarEvent) => void`      | -           | Callback when event is clicked                                                  |
-| `onCellClick`        | `(info: CellClickInfo) => void`       | -           | Callback when cell is clicked                                                   |
-| `onEventAdd`         | `(event: CalendarEvent) => void`      | -           | Callback when event is added                                                    |
-| `onEventUpdate`      | `(event: CalendarEvent) => void`      | -           | Callback when event is updated                                                  |
-| `onEventDelete`      | `(event: CalendarEvent) => void`      | -           | Callback when event is deleted                                                  |
-| `locale`             | `string`                              | `'en'`      | Locale for date/time formatting                                                 |
-| `timeFormat`         | `'12-hour' \| '24-hour'`              | `'12-hour'` | Time display format                                                             |
-| `disableDragAndDrop` | `boolean`                             | `false`     | Disable drag and drop                                                           |
-| `renderEvent`        | `(event: CalendarEvent) => ReactNode` | -           | Custom event renderer                                                           |
-
-### VisibleHours Interface
-
-```typescript
-interface VisibleHours {
-  /**
-   * Start time for visible hours in 24-hour format (0-24).
-   * Hours before this time will not be displayed.
-   * @default 0
-   */
-  startTime?: number
-
-  /**
-   * End time for visible hours in 24-hour format (0-24).
-   * Hours at or after this time will not be displayed.
-   * @default 24
-   */
-  endTime?: number
-}
-```
-
-**Examples:**
-
-- `{ startTime: 9, endTime: 17 }` - Show 9 AM to 5 PM
-- `{ startTime: 0, endTime: 12 }` - Show midnight to noon
-- `{ startTime: 18, endTime: 24 }` - Show 6 PM to midnight
-- `undefined` - Show all 24 hours (default)
-
-### BusinessHours Interface
-
-```typescript
-interface BusinessHours {
-  /**
-   * Days of the week when business hours apply
-   */
-  daysOfWeek?: WeekDays[]
-
-  /**
-   * Start time in 24-hour format (0-24)
-   */
-  startTime?: number
-
-  /**
-   * End time in 24-hour format (0-24)
-   */
-  endTime?: number
-}
-```
-
-## 🎨 Customization
-
 ### Custom Event Rendering
 
 ```tsx
 <ScopeInspectCalendar
   events={events}
   renderEvent={(event) => (
-    <div className="custom-event">
+    <div className="custom-event p-2 rounded shadow">
       <strong>{event.title}</strong>
-      <span>{event.start.format('HH:mm')}</span>
+      <span className="text-sm">{event.start.format('HH:mm')}</span>
     </div>
   )}
 />
 ```
-
-### Custom Styling
-
-The calendar uses Tailwind CSS and CSS variables for theming. Override CSS variables to customize colors:
-
-```css
-:root {
-  --calendar-primary: #3b82f6;
-  --calendar-secondary: #8b5cf6;
-  --calendar-background: #ffffff;
-  --calendar-border: #e5e7eb;
-}
-```
-
-## 🔧 Advanced Usage
 
 ### Using Calendar Context
 
 ```tsx
 import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
-function CustomComponent() {
-  const { currentDate, view, events, setView, nextPeriod, prevPeriod } =
+function CustomHeader() {
+  const { currentDate, view, setView, nextPeriod, prevPeriod } =
     useScopeInspectCalendarContext()
 
   return (
-    <div>
-      <button onClick={prevPeriod}>Previous</button>
+    <div className="flex items-center gap-4">
+      <button onClick={prevPeriod}>←</button>
       <span>{currentDate.format('MMMM YYYY')}</span>
-      <button onClick={nextPeriod}>Next</button>
+      <button onClick={nextPeriod}>→</button>
+      <select value={view} onChange={(e) => setView(e.target.value)}>
+        <option value="month">Month</option>
+        <option value="week">Week</option>
+        <option value="day">Day</option>
+      </select>
     </div>
   )
 }
 ```
 
-### Exporting Events to iCalendar
+### Export to iCalendar
 
 ```tsx
 import { exportToICalendar, downloadICalendar } from 'scope-inspect-calendar'
@@ -370,19 +303,7 @@ const icsContent = exportToICalendar(events, 'My Calendar')
 downloadICalendar(events, 'my-calendar.ics', 'My Calendar')
 ```
 
-## 📝 TypeScript Support
-
-Full TypeScript support with comprehensive type definitions:
-
-```typescript
-import type {
-  CalendarEvent,
-  ScopeInspectCalendarProps,
-  VisibleHours,
-  BusinessHours,
-  CalendarView,
-} from 'scope-inspect-calendar'
-```
+---
 
 ## 📚 Documentation
 
@@ -390,7 +311,7 @@ Comprehensive documentation is available in the [`docs`](./docs) directory:
 
 ### Getting Started
 
-- **[Installation](./docs/getting-started/installation.md)** - Install the package and dependencies
+- **[Installation](./docs/getting-started/installation.md)** - Complete installation guide with PAT setup
 - **[Quick Start](./docs/getting-started/quick-start.md)** - Create your first calendar in minutes
 - **[Basic Usage](./docs/getting-started/basic-usage.md)** - Learn the fundamentals
 - **[Project Setup](./docs/getting-started/project-setup.md)** - Configure Tailwind CSS and TypeScript
@@ -398,16 +319,12 @@ Comprehensive documentation is available in the [`docs`](./docs) directory:
 ### Guides
 
 - **[Calendar Views](./docs/guides/calendar-views.md)** - Month, Week, Day, and Year views
-- **[Event Management](./docs/guides/event-management.md)** - Add, edit, and delete events
-- **[Drag & Drop](./docs/guides/drag-and-drop.md)** - Move events with drag and drop
-- **[Recurring Events](./docs/guides/recurring-events.md)** - RFC 5545 recurring events
-- **[Resource Calendar](./docs/guides/resource-calendar.md)** - Multi-resource scheduling
-- **[Visible Hours](./docs/guides/visible-hours.md)** - Control displayed time range (Exclusive Feature)
-- **[Business Hours](./docs/guides/business-hours.md)** - Configure business hours
+- **[Recurring Events](./docs/guides/recurring-events.md)** - RFC 5545 recurring events with RRULE
+- **[Resource Calendar](./docs/resource-calendar.md)** - Multi-resource scheduling
 - **[Internationalization](./docs/guides/internationalization.md)** - 100+ locales support
 - **[Theming & Styling](./docs/guides/theming-and-styling.md)** - Customize appearance
 - **[Custom Rendering](./docs/guides/custom-rendering.md)** - Custom event and resource rendering
-- **[Performance Optimization](./docs/guides/performance-optimization.md)** - Best practices
+- **[iCalendar Export](./docs/guides/ical-export.md)** - Export events to .ics format
 
 ### API Reference
 
@@ -421,47 +338,67 @@ Comprehensive documentation is available in the [`docs`](./docs) directory:
 - **[useScopeInspectCalendarContext](./docs/api-reference/hooks/use-scope-inspect-calendar-context.md)** - Calendar context hook
 - **[useScopeInspectResourceCalendarContext](./docs/api-reference/hooks/use-scope-inspect-resource-calendar-context.md)** - Resource calendar context hook
 
-#### Types
-
-- **[CalendarEvent](./docs/api-reference/types/calendar-event.md)** - Event data structure
-- **[Resource](./docs/api-reference/types/resource.md)** - Resource data structure
-- **[Props](./docs/api-reference/types/props.md)** - Component props types
-- **[Utilities](./docs/api-reference/types/utilities.md)** - Utility types
-
-#### Utilities
-
-- **[exportToICalendar](./docs/api-reference/utilities/export-icalendar.md)** - Export to iCalendar format
-- **[downloadICalendar](./docs/api-reference/utilities/export-icalendar.md)** - Download .ics file
-- **[generateRecurringEvents](./docs/api-reference/utilities/recurrence-handler.md)** - Generate recurring events
-- **[isRecurringEvent](./docs/api-reference/utilities/recurrence-handler.md)** - Check if event is recurring
-
-### Advanced Topics
-
-- **[Custom Event Form](./docs/advanced/custom-event-form.md)** - Customize the event form
-- **[State Management](./docs/advanced/state-management.md)** - Integrate with state management
-- **[Integration Patterns](./docs/advanced/integration-patterns.md)** - Framework integrations
-- **[Extending the Calendar](./docs/advanced/extending-the-calendar.md)** - Advanced customization
-- **[Testing](./docs/advanced/testing.md)** - Testing strategies
-
-### Examples
-
-- **[Basic Calendar](./docs/examples/basic-calendar.md)** - Simple calendar implementation
-- **[Resource Booking](./docs/examples/resource-booking.md)** - Room/equipment booking system
-- **[Team Scheduling](./docs/examples/team-scheduling.md)** - Team availability and scheduling
-- **[Event Management App](./docs/examples/event-management-app.md)** - Full-featured event app
-- **[Full-Featured Demo](./docs/examples/full-featured-demo.md)** - All features combined
-
 ### Reference
 
 - **[RFC 5545](./docs/reference/rfc-5545.md)** - iCalendar standard reference
 - **[rrule.js](./docs/reference/rrule.js.md)** - Recurrence rule library
-- **[Translation Usage](./docs/reference/translation-usage.md)** - Internationalization guide
 
 ### Troubleshooting
 
-- **[Common Issues](./docs/troubleshooting/common-issues.md)** - Solutions to common problems
 - **[FAQ](./docs/troubleshooting/faq.md)** - Frequently asked questions
-- **[Debugging](./docs/troubleshooting/debugging.md)** - Debug strategies
+
+---
+
+## 🎨 Customization
+
+### Theming with Tailwind CSS
+
+The calendar uses Tailwind CSS v4 and ships no CSS. Customize colors using CSS variables:
+
+```css
+:root {
+  --calendar-primary: #3b82f6;
+  --calendar-secondary: #8b5cf6;
+  --calendar-background: #ffffff;
+  --calendar-border: #e5e7eb;
+}
+```
+
+See the [Theming & Styling Guide](./docs/guides/theming-and-styling.md) for complete customization options.
+
+### Custom Event Colors
+
+```tsx
+const events: CalendarEvent[] = [
+  {
+    id: '1',
+    title: 'Meeting',
+    start: new Date('2025-01-15T10:00:00'),
+    end: new Date('2025-01-15T11:00:00'),
+    backgroundColor: '#3b82f6', // Custom background
+    color: 'white', // Custom text color
+  },
+]
+```
+
+---
+
+## 🔧 TypeScript Support
+
+Full TypeScript support with comprehensive type definitions:
+
+```typescript
+import type {
+  CalendarEvent,
+  ScopeInspectCalendarProps,
+  VisibleHours,
+  BusinessHours,
+  CalendarView,
+  Resource,
+} from 'scope-inspect-calendar'
+```
+
+---
 
 ## 🧪 Testing
 
@@ -473,6 +410,8 @@ npm test
 npm run test:coverage
 ```
 
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -483,13 +422,19 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
+
 ## 🙏 Acknowledgments
 
 This package includes customizations and enhancements, including the exclusive **Visible Hours** feature, to better serve specific use cases.
+
+---
 
 ## 👤 Author
 
@@ -498,17 +443,26 @@ This package includes customizations and enhancements, including the exclusive *
 - GitHub: [@heye-muqeet](https://github.com/heye-muqeet)
 - Repository: [scope-inspect-calendar](https://github.com/heye-muqeet/scope-inspect-calendar)
 
+---
+
 ## 📞 Support
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/heye-muqeet/scope-inspect-calendar/issues)
 - 💬 **Questions**: Open a discussion on GitHub
 - 📧 **Email**: Check GitHub profile for contact information
 
+---
+
 ## 🔗 Links
 
 - [GitHub Repository](https://github.com/heye-muqeet/scope-inspect-calendar)
-- [npm Package](https://www.npmjs.com/package/scope-inspect-calendar)
+- [Installation Guide](./docs/getting-started/installation.md)
+- [Documentation](./docs)
 
 ---
 
+<div align="center">
+
 Made with ❤️ by Engr. Abdul Muqeet
+
+</div>

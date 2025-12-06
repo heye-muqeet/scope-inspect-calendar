@@ -1,6 +1,6 @@
 # Resource Calendar
 
-The **Resource Calendar** is a powerful feature of `@ilamy/calendar` that allows you to visualize and manage events across multiple resources in a timeline layout. Perfect for room bookings, equipment scheduling, team availability, and any scenario where events need to be tracked across different entities.
+The **Resource Calendar** is a powerful feature of `scope-inspect-calendar` that allows you to visualize and manage events across multiple resources in a timeline layout. Perfect for room bookings, equipment scheduling, team availability, and any scenario where events need to be tracked across different entities.
 
 ## Overview
 
@@ -23,13 +23,13 @@ The Resource Calendar extends the standard calendar with resource-based event or
 ## Basic Usage
 
 ```tsx
-import { IlamyResourceCalendar } from '@ilamy/calendar'
-import type { Resource, CalendarEvent } from '@ilamy/calendar'
+import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import type { Resource, CalendarEvent } from 'scope-inspect-calendar'
 
 const resources: Resource[] = [
   {
     id: 'room-a',
-    title: 'Conference Room A',
+    name: 'Conference Room A',
     color: '#3B82F6',
     backgroundColor: '#EFF6FF',
   },
@@ -47,14 +47,14 @@ const events: CalendarEvent[] = [
     title: 'Team Meeting',
     start: dayjs('2025-08-04T09:00:00.000Z'),
     end: dayjs('2025-08-04T10:00:00.000Z'),
-    uid: 'event-1@ilamy.calendar',
+    uid: 'event-1@scope-inspect.calendar',
     resourceId: 'room-a',
   },
 ]
 
 function App() {
   return (
-    <IlamyResourceCalendar
+    <ScopeInspectResourceCalendar
       resources={resources}
       events={events}
       firstDayOfWeek="sunday"
@@ -142,7 +142,7 @@ const event: CalendarEvent = {
   title: 'Team Standup',
   start: dayjs('2025-08-04T10:00:00.000Z'),
   end: dayjs('2025-08-04T10:30:00.000Z'),
-  uid: 'meeting-1@ilamy.calendar',
+  uid: 'meeting-1@scope-inspect.calendar',
   resourceId: 'room-a', // Assigned to one resource
 }
 ```
@@ -157,7 +157,7 @@ const event: CalendarEvent = {
   title: 'All Hands Meeting',
   start: dayjs('2025-08-04T14:00:00.000Z'),
   end: dayjs('2025-08-04T15:00:00.000Z'),
-  uid: 'all-hands@ilamy.calendar',
+  uid: 'all-hands@scope-inspect.calendar',
   resourceIds: ['room-a', 'room-b', 'room-c'], // Spans multiple resources
 }
 ```
@@ -172,14 +172,14 @@ const event: CalendarEvent = {
   title: 'No Resource Assigned',
   start: dayjs('2025-08-04T12:00:00.000Z'),
   end: dayjs('2025-08-04T13:00:00.000Z'),
-  uid: 'floating-event@ilamy.calendar',
+  uid: 'floating-event@scope-inspect.calendar',
   // No resourceId or resourceIds
 }
 ```
 
 ## Props
 
-The `IlamyResourceCalendar` component extends all props from `IlamyCalendar` with resource-specific additions:
+The `ScopeInspectResourceCalendar` component extends all props from `ScopeInspectCalendar` with resource-specific additions:
 
 ```typescript
 interface IlamyResourceCalendarProps extends IlamyCalendarProps {
@@ -353,7 +353,7 @@ const crossResourceEvent: CalendarEvent = {
   title: 'Quarterly Business Review',
   start: dayjs('2025-08-04T13:00:00.000Z'),
   end: dayjs('2025-08-04T17:00:00.000Z'),
-  uid: 'quarterly-review@ilamy.calendar',
+  uid: 'quarterly-review@scope-inspect.calendar',
   resourceIds: ['room-a', 'room-b', 'projector-1'], // Multiple resources
   color: '#8B5CF6',
 }
@@ -428,7 +428,7 @@ const CustomResourceRenderer = (resource: Resource) => (
 
 function App() {
   return (
-    <IlamyResourceCalendar
+    <ScopeInspectResourceCalendar
       resources={resources}
       events={events}
       renderResource={CustomResourceRenderer}
@@ -616,7 +616,7 @@ const RoomBookingCalendar = () => {
   }
 
   return (
-    <IlamyResourceCalendar
+    <ScopeInspectResourceCalendar
       resources={rooms}
       events={events}
       initialView="week"
@@ -684,7 +684,7 @@ const TeamScheduleCalendar = () => {
   ]
 
   return (
-    <IlamyResourceCalendar
+    <ScopeInspectResourceCalendar
       resources={teamMembers}
       events={teamEvents}
       initialView="week"
@@ -733,7 +733,7 @@ const EquipmentScheduleCalendar = () => {
   )
 
   return (
-    <IlamyResourceCalendar
+    <ScopeInspectResourceCalendar
       resources={equipment}
       events={[]}
       initialView="day"
@@ -867,7 +867,7 @@ const LocalizedResourceCalendar = () => {
   const { t } = useTranslation('calendar')
 
   return (
-    <IlamyResourceCalendar
+    <ScopeInspectResourceCalendar
       resources={resources}
       events={events}
       translator={(key) => t(key)}
@@ -999,11 +999,12 @@ const visibleResources = resources.filter((r) => visibleResourceIds.has(r.id))
 
 ## Related Documentation
 
-- [Standard Calendar Documentation](https://ilamy.dev/docs/calendar)
-- [Translation Usage Guide](./translation-usage.md)
-- [iCalendar Export Guide](./export-ical.md)
-- [RFC 5545 Recurring Events](./rfc-5545.md)
-- [rrule.js Integration](./rrule.js.md)
+- **[README.md](../README.md)** - Main documentation index
+- [ScopeInspectResourceCalendar API Reference](./api-reference/components/scope-inspect-resource-calendar.md) - Complete API documentation
+- [Translation Usage Guide](./translation-usage.md) - Internationalization
+- [iCalendar Export Guide](./guides/ical-export.md) - Exporting events
+- [RFC 5545 Recurring Events](./reference/rfc-5545.md) - iCalendar specification
+- [rrule.js Integration](./reference/rrule.js.md) - Recurrence library
 
 ## Support
 

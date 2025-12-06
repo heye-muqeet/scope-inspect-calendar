@@ -150,7 +150,7 @@ Now that you have a basic calendar working:
 
 1. **[Basic Usage](./basic-usage.md)** - Learn about props, callbacks, and event handling
 2. **[Calendar Views](../guides/calendar-views.md)** - Explore different view types
-3. **[Event Management](../guides/event-management.md)** - Add, edit, and delete events
+3. **[Recurring Events](../guides/recurring-events.md)** - Create recurring events
 4. **[Resource Calendar](../guides/resource-calendar.md)** - Use multiple resources
 
 ## Common Patterns
@@ -207,6 +207,7 @@ const handleEventAdd = (event: CalendarEvent) => {
 
 ## Related Documentation
 
+- **[README.md](../../README.md)** - Main documentation index
 - [Installation](./installation.md)
 - [Project Setup](./project-setup.md)
 - [Basic Usage](./basic-usage.md)

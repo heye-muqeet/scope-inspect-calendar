@@ -475,12 +475,14 @@ export default CalendarApp
 ## Next Steps
 
 - **[Calendar Views](../guides/calendar-views.md)** - Learn about different view types
-- **[Event Management](../guides/event-management.md)** - Advanced event operations
-- **[Drag & Drop](../guides/drag-and-drop.md)** - Enable drag and drop functionality
+- **[Calendar Views Guide](../guides/calendar-views.md)** - Different view types
+- **[Recurring Events Guide](../guides/recurring-events.md)** - Recurring events
 - **[API Reference](../api-reference/components/scope-inspect-calendar.md)** - Complete API documentation
 
 ## Related Documentation
 
+- **[README.md](../../README.md)** - Main documentation index
 - [Quick Start](./quick-start.md)
 - [Project Setup](./project-setup.md)
 - [Calendar Views Guide](../guides/calendar-views.md)
+- [API Reference](../api-reference/components/scope-inspect-calendar.md)

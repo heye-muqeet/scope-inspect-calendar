@@ -835,3 +835,10 @@ more details.
 #### Related projects
 
 - https://rrules.com — RESTful API to get back occurrences of RRULEs that conform to RFC 5545.
+
+## Related Documentation
+
+- **[README.md](../README.md)** - Main documentation index
+- [Recurring Events Guide](./guides/recurring-events.md) - Using rrule.js with ScopeInspect Calendar
+- [RFC 5545 Reference](./rfc-5545.md) - iCalendar specification
+- [iCalendar Export Guide](./guides/ical-export.md) - Exporting recurring events
