@@ -1,8 +1,8 @@
 # ScopeInspect Calendar
 
 <div align="center">
-
-![Calendar Preview](https://github.com/user-attachments/assets/d289f034-0d26-4a1c-a997-dfa1ad26aa7a)
+<!-- 
+![Calendar Preview](https://github.com/user-attachments/assets/d289f034-0d26-4a1c-a997-dfa1ad26aa7a) -->
 
 **A powerful, full-featured React calendar component library built with TypeScript, Tailwind CSS, and modern React patterns.**
 
