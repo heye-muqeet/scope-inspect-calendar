@@ -563,7 +563,11 @@ const CustomEventRenderer = (event: CalendarEvent) => {
 
 ```tsx
 import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
-import type { CalendarEvent, CellClickInfo, Resource } from 'scope-inspect-calendar'
+import type {
+  CalendarEvent,
+  CellClickInfo,
+  Resource,
+} from 'scope-inspect-calendar'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 
