@@ -17,7 +17,8 @@ import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
 import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
 
 function CustomHeader() {
-  const { currentDate, nextPeriod, prevPeriod, resources } = useScopeInspectResourceCalendarContext()
+  const { currentDate, nextPeriod, prevPeriod, resources } =
+    useScopeInspectResourceCalendarContext()
 
   return (
     <div className="flex items-center gap-4">
@@ -76,9 +77,9 @@ The hook returns all properties from `useScopeInspectCalendarContext` plus the f
 
 ### Resource-Specific Return Values
 
-| Property            | Type                                                | Description                            |
-| ------------------- | --------------------------------------------------- | -------------------------------------- |
-| `resources`         | `Resource[]`                                        | Array of all resources in the calendar |
+| Property               | Type                                                | Description                            |
+| ---------------------- | --------------------------------------------------- | -------------------------------------- |
+| `resources`            | `Resource[]`                                        | Array of all resources in the calendar |
 | `getEventsForResource` | `(resourceId: string \| number) => CalendarEvent[]` | Get all events for a specific resource |
 
 ### Inherited Return Values
@@ -120,7 +121,8 @@ import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
 import type { Resource } from 'scope-inspect-calendar'
 
 function ResourceStats({ resourceId }: { resourceId: string | number }) {
-  const { getEventsForResource, currentDate } = useScopeInspectResourceCalendarContext()
+  const { getEventsForResource, currentDate } =
+    useScopeInspectResourceCalendarContext()
 
   const events = getEventsForResource(resourceId)
   const todayEvents = events.filter((event) =>
@@ -215,8 +217,11 @@ import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
 import { useState } from 'react'
 
 function ResourceEventList() {
-  const { resources, getEventsForResource, currentDate } = useScopeInspectResourceCalendarContext()
-  const [selectedResourceId, setSelectedResourceId] = useState<string | number | null>(null)
+  const { resources, getEventsForResource, currentDate } =
+    useScopeInspectResourceCalendarContext()
+  const [selectedResourceId, setSelectedResourceId] = useState<
+    string | number | null
+  >(null)
 
   const selectedResource = selectedResourceId
     ? resources.find((r) => r.id === selectedResourceId)
@@ -233,7 +238,9 @@ function ResourceEventList() {
   return (
     <div className="p-4 border-b">
       <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Select Resource:</label>
+        <label className="block text-sm font-medium mb-2">
+          Select Resource:
+        </label>
         <select
           value={selectedResourceId || ''}
           onChange={(e) => setSelectedResourceId(e.target.value || null)}
@@ -258,7 +265,8 @@ function ResourceEventList() {
             <ul className="list-disc list-inside">
               {todayEvents.map((event) => (
                 <li key={event.id}>
-                  {event.title} ({event.start.format('HH:mm')} - {event.end.format('HH:mm')})
+                  {event.title} ({event.start.format('HH:mm')} -{' '}
+                  {event.end.format('HH:mm')})
                 </li>
               ))}
             </ul>
@@ -291,7 +299,8 @@ import type { Resource } from 'scope-inspect-calendar'
 import dayjs from 'dayjs'
 
 function ResourceAvailability({ resource }: { resource: Resource }) {
-  const { getEventsForResource, currentDate } = useScopeInspectResourceCalendarContext()
+  const { getEventsForResource, currentDate } =
+    useScopeInspectResourceCalendarContext()
 
   const checkAvailability = (startTime: string, endTime: string) => {
     const start = dayjs(`${currentDate.format('YYYY-MM-DD')} ${startTime}`)
@@ -301,7 +310,8 @@ function ResourceAvailability({ resource }: { resource: Resource }) {
     const conflictingEvents = resourceEvents.filter((event) => {
       return (
         (event.start.isBefore(end) && event.end.isAfter(start)) ||
-        (event.start.isSame(start) || event.end.isSame(end))
+        event.start.isSame(start) ||
+        event.end.isSame(end)
       )
     })
 
@@ -320,14 +330,28 @@ function ResourceAvailability({ resource }: { resource: Resource }) {
       <div className="space-y-1">
         <div>
           Morning (9 AM - 12 PM):{' '}
-          <span className={morningAvailability.available ? 'text-green-600' : 'text-red-600'}>
-            {morningAvailability.available ? 'Available' : `Busy (${morningAvailability.conflicts.length} conflicts)`}
+          <span
+            className={
+              morningAvailability.available ? 'text-green-600' : 'text-red-600'
+            }
+          >
+            {morningAvailability.available
+              ? 'Available'
+              : `Busy (${morningAvailability.conflicts.length} conflicts)`}
           </span>
         </div>
         <div>
           Afternoon (1 PM - 5 PM):{' '}
-          <span className={afternoonAvailability.available ? 'text-green-600' : 'text-red-600'}>
-            {afternoonAvailability.available ? 'Available' : `Busy (${afternoonAvailability.conflicts.length} conflicts)`}
+          <span
+            className={
+              afternoonAvailability.available
+                ? 'text-green-600'
+                : 'text-red-600'
+            }
+          >
+            {afternoonAvailability.available
+              ? 'Available'
+              : `Busy (${afternoonAvailability.conflicts.length} conflicts)`}
           </span>
         </div>
       </div>
@@ -365,7 +389,8 @@ import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
 import { useMemo } from 'react'
 
 function ResourceStatistics() {
-  const { resources, getEventsForResource, currentDate, events } = useScopeInspectResourceCalendarContext()
+  const { resources, getEventsForResource, currentDate, events } =
+    useScopeInspectResourceCalendarContext()
 
   const resourceStats = useMemo(() => {
     return resources.map((resource) => {
@@ -496,10 +521,10 @@ import type { UseScopeInspectResourceCalendarContextReturn } from 'scope-inspect
 
 function MyComponent() {
   const context: UseScopeInspectResourceCalendarContextReturn = useScopeInspectResourceCalendarContext()
-  
+
   // All properties and methods are fully typed
   const { resources, getEventsForResource, currentDate, addEvent } = context
-  
+
   return <div>{/* ... */}</div>
 }
 ```
@@ -511,4 +536,3 @@ function MyComponent() {
 - [useScopeInspectCalendarContext Hook](./use-scope-inspect-calendar-context.md) - Base calendar context hook
 - [Resource Calendar Documentation](../../resource-calendar.md) - Detailed guide for resource calendars
 - [Basic Usage Guide](../../getting-started/basic-usage.md) - Usage fundamentals
-

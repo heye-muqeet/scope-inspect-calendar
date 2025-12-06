@@ -78,18 +78,17 @@ function CustomExportButton() {
     downloadICalendar(events, filename, 'My Calendar')
   }
 
-  return (
-    <button onClick={handleExport}>
-      Export to iCalendar
-    </button>
-  )
+  return <button onClick={handleExport}>Export to iCalendar</button>
 }
 ```
 
 #### Using Calendar Context
 
 ```tsx
-import { ScopeInspectCalendar, useScopeInspectCalendarContext } from 'scope-inspect-calendar'
+import {
+  ScopeInspectCalendar,
+  useScopeInspectCalendarContext,
+} from 'scope-inspect-calendar'
 import { downloadICalendar } from 'scope-inspect-calendar'
 
 function ExportButton() {
@@ -99,19 +98,12 @@ function ExportButton() {
     downloadICalendar(events, 'calendar.ics', 'My Calendar')
   }
 
-  return (
-    <button onClick={handleExport}>
-      Export Calendar
-    </button>
-  )
+  return <button onClick={handleExport}>Export Calendar</button>
 }
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<ExportButton />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<ExportButton />} />
   )
 }
 ```
@@ -368,9 +360,9 @@ import type { CalendarEvent } from 'scope-inspect-calendar'
 // In a Next.js API route or server endpoint
 export async function GET(request: Request) {
   const events: CalendarEvent[] = await fetchEventsFromDatabase()
-  
+
   const icsContent = exportToICalendar(events, 'My Calendar')
-  
+
   return new Response(icsContent, {
     headers: {
       'Content-Type': 'text/calendar;charset=utf-8',
@@ -475,4 +467,3 @@ The exported `.ics` files are compatible with:
 - [RFC 5545 Reference](../reference/rfc-5545.md) - Complete iCalendar specification reference
 - [Recurring Events Guide](./recurring-events.md) - Understanding recurring events in exports
 - [Calendar Component API Reference](../api-reference/components/scope-inspect-calendar.md) - Component props and methods
-

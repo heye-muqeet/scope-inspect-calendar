@@ -131,13 +131,7 @@ const workWeekEvents: CalendarEvent = {
   end: dayjs('2025-08-04T17:00:00'),
   rrule: {
     freq: RRule.WEEKLY,
-    byweekday: [
-      RRule.MO,
-      RRule.TU,
-      RRule.WE,
-      RRule.TH,
-      RRule.FR,
-    ],
+    byweekday: [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR],
     dtstart: dayjs('2025-08-04T09:00:00').toDate(),
     until: dayjs('2025-12-31T23:59:59').toDate(),
   },
@@ -269,16 +263,16 @@ The RRULE object supports the following properties based on the iCalendar specif
 
 > **rrule.js Documentation**: For comprehensive documentation of all RRULE properties and advanced patterns, refer to the [rrule.js documentation](https://github.com/jkbrzt/rrule).
 
-| Property   | Type        | Description                  | Example                  |
-| ---------- | ----------- | ---------------------------- | ------------------------ |
-| `freq`     | Frequency   | How often the event repeats  | `RRule.DAILY`            |
-| `interval` | `number`    | Interval between occurrences | `2` (every 2 weeks)      |
-| `byweekday` | `Weekday[]` | Specific days of the week    | `[RRule.MO, RRule.FR]`   |
+| Property     | Type        | Description                  | Example                  |
+| ------------ | ----------- | ---------------------------- | ------------------------ |
+| `freq`       | Frequency   | How often the event repeats  | `RRule.DAILY`            |
+| `interval`   | `number`    | Interval between occurrences | `2` (every 2 weeks)      |
+| `byweekday`  | `Weekday[]` | Specific days of the week    | `[RRule.MO, RRule.FR]`   |
 | `bymonthday` | `number[]`  | Specific days of the month   | `[1, 15]` (1st and 15th) |
-| `bymonth`  | `number[]`  | Specific months              | `[1, 7]` (Jan and July)  |
-| `dtstart`  | `Date`      | Start date for recurrence    | `new Date('2025-08-04')` |
-| `until`    | `Date`      | End date for recurrence      | `new Date('2025-12-31')` |
-| `count`    | `number`    | Number of occurrences        | `10` (10 times)          |
+| `bymonth`    | `number[]`  | Specific months              | `[1, 7]` (Jan and July)  |
+| `dtstart`    | `Date`      | Start date for recurrence    | `new Date('2025-08-04')` |
+| `until`      | `Date`      | End date for recurrence      | `new Date('2025-12-31')` |
+| `count`      | `number`    | Number of occurrences        | `10` (10 times)          |
 
 > **Note**: You cannot use both `until` and `count` in the same RRULE. Choose one termination method.
 
@@ -365,7 +359,7 @@ const modifiedStandup: CalendarEvent = {
   id: 'standup-modified-aug-20',
   title: 'Extended Team Standup + Planning',
   start: dayjs('2025-08-20T10:00:00'), // Different time
-  end: dayjs('2025-08-20T11:00:00'),   // Longer duration
+  end: dayjs('2025-08-20T11:00:00'), // Longer duration
   recurrenceId: '2025-08-20T09:00:00.000Z', // Original time
   uid: 'standup-series@scope-inspect.calendar', // Same UID as parent
 }
@@ -604,4 +598,3 @@ const recurringResourceEvent: CalendarEvent = {
 - [iCalendar Export Guide](./ical-export.md) - Exporting recurring events
 - [Calendar Views Guide](./calendar-views.md) - Viewing recurring events
 - [API Reference](../api-reference/components/scope-inspect-calendar.md) - Component props
-

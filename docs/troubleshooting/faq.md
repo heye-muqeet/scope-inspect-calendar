@@ -80,7 +80,7 @@ The calendar includes built-in drag and drop support that is enabled by default.
 ```tsx
 import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 
-<ScopeInspectCalendar
+;<ScopeInspectCalendar
   events={events}
   disableDragAndDrop={true}
   // ... other props
@@ -464,4 +464,3 @@ Check the following:
 - [Quick Start Guide](../getting-started/quick-start.md) - Get started quickly
 - [Basic Usage Guide](../getting-started/basic-usage.md) - Usage fundamentals
 - [Project Setup Guide](../getting-started/project-setup.md) - Framework setup
-

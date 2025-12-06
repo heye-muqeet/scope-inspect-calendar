@@ -37,10 +37,14 @@ function App() {
 For complete control, you can replace the default header with your own component using the `headerComponent` prop:
 
 ```tsx
-import { ScopeInspectCalendar, useScopeInspectCalendarContext } from 'scope-inspect-calendar'
+import {
+  ScopeInspectCalendar,
+  useScopeInspectCalendarContext,
+} from 'scope-inspect-calendar'
 
 function CustomHeader() {
-  const { currentDate, nextPeriod, prevPeriod, view, setView } = useScopeInspectCalendarContext()
+  const { currentDate, nextPeriod, prevPeriod, view, setView } =
+    useScopeInspectCalendarContext()
 
   return (
     <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500 to-purple-600">
@@ -65,10 +69,7 @@ function CustomHeader() {
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<CustomHeader />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<CustomHeader />} />
   )
 }
 ```
@@ -78,7 +79,10 @@ function App() {
 Create a fully featured custom header with view controls and actions:
 
 ```tsx
-import { ScopeInspectCalendar, useScopeInspectCalendarContext } from 'scope-inspect-calendar'
+import {
+  ScopeInspectCalendar,
+  useScopeInspectCalendarContext,
+} from 'scope-inspect-calendar'
 import type { CalendarView } from 'scope-inspect-calendar'
 
 function AdvancedCustomHeader() {
@@ -129,9 +133,7 @@ function AdvancedCustomHeader() {
               key={v}
               onClick={() => setView(v)}
               className={`px-4 py-1 text-sm ${
-                view === v
-                  ? 'bg-blue-500 text-white'
-                  : 'hover:bg-gray-50'
+                view === v ? 'bg-blue-500 text-white' : 'hover:bg-gray-50'
               }`}
             >
               {v.charAt(0).toUpperCase() + v.slice(1)}
@@ -231,12 +233,7 @@ const renderEvent = (event: CalendarEvent) => (
 )
 
 function App() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={renderEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={renderEvent} />
 }
 ```
 
@@ -250,7 +247,7 @@ import type { CalendarEvent } from 'scope-inspect-calendar'
 
 const renderEvent = (event: CalendarEvent) => {
   const priority = event.data?.priority || 'normal'
-  
+
   const priorityStyles = {
     high: 'bg-red-100 text-red-800 border-l-4 border-red-500',
     medium: 'bg-yellow-100 text-yellow-800 border-l-4 border-yellow-500',
@@ -258,7 +255,9 @@ const renderEvent = (event: CalendarEvent) => {
   }
 
   return (
-    <div className={`rounded-md p-2 text-sm font-medium ${priorityStyles[priority]}`}>
+    <div
+      className={`rounded-md p-2 text-sm font-medium ${priorityStyles[priority]}`}
+    >
       <div className="flex items-center gap-2">
         {priority === 'high' && <span>🔥</span>}
         <span className="truncate">{event.title}</span>
@@ -282,12 +281,7 @@ function App() {
     // ... more events
   ]
 
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={renderEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={renderEvent} />
 }
 ```
 
@@ -296,7 +290,10 @@ function App() {
 Create an interactive event renderer with action buttons:
 
 ```tsx
-import { ScopeInspectCalendar, useScopeInspectCalendarContext } from 'scope-inspect-calendar'
+import {
+  ScopeInspectCalendar,
+  useScopeInspectCalendarContext,
+} from 'scope-inspect-calendar'
 import type { CalendarEvent } from 'scope-inspect-calendar'
 
 function CustomEvent(event: CalendarEvent) {
@@ -346,12 +343,7 @@ function CustomEvent(event: CalendarEvent) {
 }
 
 function App() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={CustomEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={CustomEvent} />
 }
 ```
 
@@ -391,12 +383,7 @@ const renderEvent = (event: CalendarEvent) => {
 }
 
 function App() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={renderEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={renderEvent} />
 }
 ```
 
@@ -489,9 +476,7 @@ function CustomResourceHeader(resource: Resource) {
 
   return (
     <div className="flex items-center gap-2 p-2 border-b">
-      <div style={{ color: resource.color }}>
-        {getIcon(resource.id)}
-      </div>
+      <div style={{ color: resource.color }}>{getIcon(resource.id)}</div>
       <div className="flex flex-col">
         <span className="font-medium">{resource.name}</span>
         <span className="text-xs opacity-75">Available</span>
@@ -585,12 +570,16 @@ const renderEvent = (event: CalendarEvent) => (
 Here's a complete example combining multiple customization options:
 
 ```tsx
-import { ScopeInspectCalendar, useScopeInspectCalendarContext } from 'scope-inspect-calendar'
+import {
+  ScopeInspectCalendar,
+  useScopeInspectCalendarContext,
+} from 'scope-inspect-calendar'
 import type { CalendarEvent } from 'scope-inspect-calendar'
 import { useState } from 'react'
 
 function CustomHeader() {
-  const { currentDate, nextPeriod, prevPeriod, today } = useScopeInspectCalendarContext()
+  const { currentDate, nextPeriod, prevPeriod, today } =
+    useScopeInspectCalendarContext()
 
   return (
     <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
@@ -615,7 +604,9 @@ function CustomEvent(event: CalendarEvent) {
     >
       <div className="font-medium truncate">{event.title}</div>
       {event.description && (
-        <div className="text-xs opacity-75 mt-1 truncate">{event.description}</div>
+        <div className="text-xs opacity-75 mt-1 truncate">
+          {event.description}
+        </div>
       )}
     </div>
   )
@@ -645,4 +636,3 @@ function App() {
 - [Resource Calendar Component API Reference](../api-reference/components/scope-inspect-resource-calendar.md) - Resource calendar customization
 - [Theming & Styling Guide](./theming-and-styling.md) - Advanced styling options
 - [Basic Usage Guide](../getting-started/basic-usage.md) - Usage fundamentals
-

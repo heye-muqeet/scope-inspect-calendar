@@ -58,7 +58,7 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { Translations } from 'scope-inspect-calendar'
 
 const frenchTranslations: Translations = {
-  today: 'Aujourd\'hui',
+  today: "Aujourd'hui",
   month: 'Mois',
   week: 'Semaine',
   day: 'Jour',
@@ -95,7 +95,7 @@ import type { TranslatorFunction, TranslationKey } from 'scope-inspect-calendar'
 function TranslatorCalendar() {
   const translator: TranslatorFunction = (key: TranslationKey | string) => {
     const translations: Record<string, string> = {
-      today: 'Aujourd\'hui',
+      today: "Aujourd'hui",
       month: 'Mois',
       week: 'Semaine',
       day: 'Jour',
@@ -132,9 +132,12 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { TranslationKey } from 'scope-inspect-calendar'
 
 function AdvancedTranslatorCalendar() {
-  const translator = (key: TranslationKey | string, options?: { count?: number }) => {
+  const translator = (
+    key: TranslationKey | string,
+    options?: { count?: number }
+  ) => {
     const translations: Record<string, string> = {
-      today: 'Aujourd\'hui',
+      today: "Aujourd'hui",
       month: 'Mois',
       week: 'Semaine',
       day: 'Jour',
@@ -205,10 +208,7 @@ function IntlCalendar() {
   const intl = useIntl()
 
   const translator = (key: TranslationKey | string) => {
-    return intl.formatMessage(
-      { id: `calendar.${key}` },
-      {}
-    )
+    return intl.formatMessage({ id: `calendar.${key}` }, {})
   }
 
   return (
@@ -277,22 +277,27 @@ const myTranslator = (key: TranslationKey) => {
 The `Translations` interface includes all available keys:
 
 #### Common Actions
+
 - `today`, `create`, `new`, `update`, `delete`, `cancel`, `export`
 
 #### Event Related
+
 - `event`, `events`, `newEvent`, `title`, `description`, `location`, `allDay`
 - `startDate`, `endDate`, `startTime`, `endTime`, `color`
 
 #### Event Form
+
 - `createEvent`, `editEvent`, `addNewEvent`, `editEventDetails`
 - `eventTitlePlaceholder`, `eventDescriptionPlaceholder`, `eventLocationPlaceholder`
 
 #### Recurrence
+
 - `repeat`, `repeats`, `customRecurrence`
 - `daily`, `weekly`, `monthly`, `yearly`
 - `interval`, `repeatOn`, `never`, `count`, `every`, `ends`, `after`, `occurrences`, `on`
 
 #### Recurrence Edit Dialog
+
 - `editRecurringEvent`, `deleteRecurringEvent`
 - `editRecurringEventQuestion`, `deleteRecurringEventQuestion`
 - `thisEvent`, `thisEventDescription`
@@ -302,17 +307,21 @@ The `Translations` interface includes all available keys:
 - `onlyDeleteThis`, `deleteThisAndFuture`, `deleteEntireSeries`
 
 #### View Types
+
 - `month`, `week`, `day`, `year`, `more`
 
 #### Resource Calendar
+
 - `resources`, `resource`, `time`, `date`
 - `noResourcesVisible`, `addResourcesOrShowExisting`
 
 #### Days of Week
+
 - `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`
 - `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat` (short forms)
 
 #### Months
+
 - `january`, `february`, `march`, `april`, `may`, `june`
 - `july`, `august`, `september`, `october`, `november`, `december`
 
@@ -339,7 +348,7 @@ type TranslatorFunction = (key: TranslationKey | string) => string
 
 // Example usage
 const frenchTranslations: Translations = {
-  today: 'Aujourd\'hui',
+  today: "Aujourd'hui",
   month: 'Mois',
   week: 'Semaine',
   day: 'Jour',
@@ -405,19 +414,19 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { TranslatorFunction } from 'scope-inspect-calendar'
 
 function OptimizedCalendar() {
-  const translator = useMemo<TranslatorFunction>(() => {
-    return (key) => {
-      // Expensive translation lookup
-      return expensiveTranslationFunction(key)
-    }
-  }, [/* dependencies */])
-
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      translator={translator}
-    />
+  const translator = useMemo<TranslatorFunction>(
+    () => {
+      return (key) => {
+        // Expensive translation lookup
+        return expensiveTranslationFunction(key)
+      }
+    },
+    [
+      /* dependencies */
+    ]
   )
+
+  return <ScopeInspectCalendar events={events} translator={translator} />
 }
 ```
 
@@ -514,7 +523,8 @@ const spanishTranslations: Translations = {
   thisEvent: 'Solo este evento',
   thisEventDescription: 'Solo cambiar este evento',
   thisAndFollowingEvents: 'Este y siguientes eventos',
-  thisAndFollowingEventsDescription: 'Cambiar este evento y todos los siguientes',
+  thisAndFollowingEventsDescription:
+    'Cambiar este evento y todos los siguientes',
   allEvents: 'Todos los eventos',
   allEventsDescription: 'Cambiar toda la serie',
   onlyChangeThis: 'Solo cambiar este',
@@ -584,4 +594,3 @@ function SpanishCalendar() {
 - [Calendar Component API Reference](../api-reference/components/scope-inspect-calendar.md) - Component props including locale and translation props
 - [Resource Calendar Component API Reference](../api-reference/components/scope-inspect-resource-calendar.md) - Resource calendar with i18n support
 - [Translation Usage Reference](../translation-usage.md) - Additional translation examples
-

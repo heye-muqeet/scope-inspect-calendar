@@ -94,13 +94,13 @@ const resources: Resource[] = [
   {
     id: 'designer',
     name: 'Design Team',
-    color: '#8B5CF6',        // Purple text
+    color: '#8B5CF6', // Purple text
     backgroundColor: '#F5F3FF', // Light purple background
   },
   {
     id: 'engineer',
     name: 'Engineering Team',
-    color: '#10B981',        // Green text
+    color: '#10B981', // Green text
     backgroundColor: '#ECFDF5', // Light green background
   },
 ]
@@ -161,11 +161,11 @@ The `ScopeInspectResourceCalendar` component extends all props from `ScopeInspec
 
 ### Resource-Specific Props
 
-| Prop           | Type                              | Default | Description                                                                            |
-| -------------- | --------------------------------- | ------- | -------------------------------------------------------------------------------------- |
-| `resources`    | `Resource[]`                      | `[]`    | Array of resources to display                                                          |
-| `events`       | `CalendarEvent[]`                 | `[]`    | Array of events with resource assignments (using `resourceId` or `resourceIds` properties) |
-| `renderResource` | `(resource: Resource) => ReactNode` | `undefined` | Custom function to render resource headers                                             |
+| Prop             | Type                                | Default     | Description                                                                                |
+| ---------------- | ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
+| `resources`      | `Resource[]`                        | `[]`        | Array of resources to display                                                              |
+| `events`         | `CalendarEvent[]`                   | `[]`        | Array of events with resource assignments (using `resourceId` or `resourceIds` properties) |
+| `renderResource` | `(resource: Resource) => ReactNode` | `undefined` | Custom function to render resource headers                                                 |
 
 ### Inherited Props
 
@@ -204,7 +204,11 @@ Conference Room Booking:
 
 ```tsx
 import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
-import type { CalendarEvent, CellClickInfo, Resource } from 'scope-inspect-calendar'
+import type {
+  CalendarEvent,
+  CellClickInfo,
+  Resource,
+} from 'scope-inspect-calendar'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 
@@ -250,9 +254,7 @@ const RoomBookingCalendar = () => {
   }
 
   const handleEventUpdate = (event: CalendarEvent) => {
-    setEvents((prev) =>
-      prev.map((e) => (e.id === event.id ? event : e))
-    )
+    setEvents((prev) => prev.map((e) => (e.id === event.id ? event : e)))
   }
 
   return (
@@ -502,12 +504,7 @@ const ResourceCalendar = () => {
     return map
   }, [events])
 
-  return (
-    <ScopeInspectResourceCalendar
-      resources={resources}
-      events={events}
-    />
-  )
+  return <ScopeInspectResourceCalendar resources={resources} events={events} />
 }
 ```
 
@@ -600,4 +597,3 @@ interface ScopeInspectResourceCalendarPropEvent
 - [Internationalization Guide](../../guides/internationalization.md) - i18n support
 - [Theming & Styling Guide](../../guides/theming-and-styling.md) - Customize appearance
 - [Custom Rendering Guide](../../guides/custom-rendering.md) - Custom resource rendering
-

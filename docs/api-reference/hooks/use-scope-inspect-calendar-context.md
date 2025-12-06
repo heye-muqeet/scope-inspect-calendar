@@ -17,7 +17,8 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function CustomHeader() {
-  const { currentDate, nextPeriod, prevPeriod } = useScopeInspectCalendarContext()
+  const { currentDate, nextPeriod, prevPeriod } =
+    useScopeInspectCalendarContext()
 
   return (
     <div className="flex items-center gap-4">
@@ -30,10 +31,7 @@ function CustomHeader() {
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<CustomHeader />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<CustomHeader />} />
   )
 }
 ```
@@ -57,12 +55,7 @@ function CustomEvent(event: CalendarEvent) {
 }
 
 function App() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={CustomEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={CustomEvent} />
 }
 ```
 
@@ -73,14 +66,8 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function CustomNavigation() {
-  const {
-    currentDate,
-    view,
-    setView,
-    nextPeriod,
-    prevPeriod,
-    today,
-  } = useScopeInspectCalendarContext()
+  const { currentDate, view, setView, nextPeriod, prevPeriod, today } =
+    useScopeInspectCalendarContext()
 
   return (
     <div className="flex items-center gap-4">
@@ -90,7 +77,9 @@ function CustomNavigation() {
       <button onClick={nextPeriod}>→</button>
       <select
         value={view}
-        onChange={(e) => setView(e.target.value as 'month' | 'week' | 'day' | 'year')}
+        onChange={(e) =>
+          setView(e.target.value as 'month' | 'week' | 'day' | 'year')
+        }
       >
         <option value="month">Month</option>
         <option value="week">Week</option>
@@ -115,28 +104,28 @@ function App() {
 
 The hook returns an object with the following properties and methods:
 
-| Property        | Type                                                  | Description                                                |
-| --------------- | ----------------------------------------------------- | ---------------------------------------------------------- |
-| `currentDate`   | `dayjs.Dayjs`                                         | The currently displayed date/month in the calendar view    |
-| `view`          | `'month' \| 'week' \| 'day' \| 'year'`              | The current calendar view mode                             |
-| `events`        | `CalendarEvent[]`                                     | Array of all calendar events                               |
-| `isEventFormOpen` | `boolean`                                           | Whether the event form modal is currently open             |
-| `selectedEvent` | `CalendarEvent \| null`                              | The currently selected event, if any                       |
-| `selectedDate`  | `dayjs.Dayjs \| null`                                | The currently selected date, if any                        |
-| `firstDayOfWeek` | `number`                                             | The first day of the week setting (0 for Sunday, 1 for Monday, etc.) |
-| `setCurrentDate` | `(date: dayjs.Dayjs) => void`                       | Navigate to a specific date/month                          |
-| `selectDate`    | `(date: dayjs.Dayjs) => void`                        | Select a specific date                                     |
-| `setView`       | `(view: CalendarView) => void`                       | Change the calendar view mode                              |
-| `nextPeriod`    | `() => void`                                          | Navigate to the next period (month/week/day)               |
-| `prevPeriod`    | `() => void`                                          | Navigate to the previous period (month/week/day)           |
-| `today`         | `() => void`                                          | Navigate to today's date                                   |
-| `addEvent`      | `(event: CalendarEvent) => void`                    | Add a new event to the calendar                            |
-| `updateEvent`   | `(id: string \| number, updates: Partial<CalendarEvent>) => void` | Update an existing event                                   |
-| `deleteEvent`   | `(id: string \| number) => void`                     | Delete an event from the calendar                          |
-| `openEventForm` | `(eventData?: Partial<CalendarEvent>) => void`       | Open the event form modal with optional pre-populated data |
-| `closeEventForm` | `() => void`                                         | Close the event form modal                                 |
-| `businessHours` | `BusinessHours \| undefined`                         | Business hours configuration, if set                       |
-| `visibleHours`  | `VisibleHours \| undefined`                           | **Exclusive feature**: Visible hours configuration, if set  |
+| Property          | Type                                                              | Description                                                          |
+| ----------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `currentDate`     | `dayjs.Dayjs`                                                     | The currently displayed date/month in the calendar view              |
+| `view`            | `'month' \| 'week' \| 'day' \| 'year'`                            | The current calendar view mode                                       |
+| `events`          | `CalendarEvent[]`                                                 | Array of all calendar events                                         |
+| `isEventFormOpen` | `boolean`                                                         | Whether the event form modal is currently open                       |
+| `selectedEvent`   | `CalendarEvent \| null`                                           | The currently selected event, if any                                 |
+| `selectedDate`    | `dayjs.Dayjs \| null`                                             | The currently selected date, if any                                  |
+| `firstDayOfWeek`  | `number`                                                          | The first day of the week setting (0 for Sunday, 1 for Monday, etc.) |
+| `setCurrentDate`  | `(date: dayjs.Dayjs) => void`                                     | Navigate to a specific date/month                                    |
+| `selectDate`      | `(date: dayjs.Dayjs) => void`                                     | Select a specific date                                               |
+| `setView`         | `(view: CalendarView) => void`                                    | Change the calendar view mode                                        |
+| `nextPeriod`      | `() => void`                                                      | Navigate to the next period (month/week/day)                         |
+| `prevPeriod`      | `() => void`                                                      | Navigate to the previous period (month/week/day)                     |
+| `today`           | `() => void`                                                      | Navigate to today's date                                             |
+| `addEvent`        | `(event: CalendarEvent) => void`                                  | Add a new event to the calendar                                      |
+| `updateEvent`     | `(id: string \| number, updates: Partial<CalendarEvent>) => void` | Update an existing event                                             |
+| `deleteEvent`     | `(id: string \| number) => void`                                  | Delete an event from the calendar                                    |
+| `openEventForm`   | `(eventData?: Partial<CalendarEvent>) => void`                    | Open the event form modal with optional pre-populated data           |
+| `closeEventForm`  | `() => void`                                                      | Close the event form modal                                           |
+| `businessHours`   | `BusinessHours \| undefined`                                      | Business hours configuration, if set                                 |
+| `visibleHours`    | `VisibleHours \| undefined`                                       | **Exclusive feature**: Visible hours configuration, if set           |
 
 ## Examples
 
@@ -147,14 +136,8 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function CustomHeader() {
-  const {
-    currentDate,
-    view,
-    setView,
-    nextPeriod,
-    prevPeriod,
-    today,
-  } = useScopeInspectCalendarContext()
+  const { currentDate, view, setView, nextPeriod, prevPeriod, today } =
+    useScopeInspectCalendarContext()
 
   const formatDate = () => {
     switch (view) {
@@ -204,10 +187,7 @@ function CustomHeader() {
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<CustomHeader />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<CustomHeader />} />
   )
 }
 ```
@@ -220,7 +200,8 @@ import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 import type { CalendarEvent } from 'scope-inspect-calendar'
 
 function CustomEvent(event: CalendarEvent) {
-  const { deleteEvent, updateEvent, openEventForm } = useScopeInspectCalendarContext()
+  const { deleteEvent, updateEvent, openEventForm } =
+    useScopeInspectCalendarContext()
 
   const handleEdit = () => {
     openEventForm(event)
@@ -240,7 +221,9 @@ function CustomEvent(event: CalendarEvent) {
     <div className="custom-event flex items-center justify-between">
       <span className="flex-1">{event.title}</span>
       <div className="flex gap-1">
-        <button onClick={handleEdit} className="text-xs">Edit</button>
+        <button onClick={handleEdit} className="text-xs">
+          Edit
+        </button>
         <button onClick={handleToggleAllDay} className="text-xs">
           {event.allDay ? 'Timed' : 'All Day'}
         </button>
@@ -253,12 +236,7 @@ function CustomEvent(event: CalendarEvent) {
 }
 
 function App() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={CustomEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={CustomEvent} />
 }
 ```
 
@@ -272,7 +250,8 @@ import type { CalendarEvent } from 'scope-inspect-calendar'
 import dayjs from 'dayjs'
 
 function EventManager() {
-  const { addEvent, updateEvent, deleteEvent, events } = useScopeInspectCalendarContext()
+  const { addEvent, updateEvent, deleteEvent, events } =
+    useScopeInspectCalendarContext()
   const [newEventTitle, setNewEventTitle] = useState('')
 
   const handleAddEvent = () => {
@@ -308,7 +287,10 @@ function EventManager() {
           placeholder="Event title"
           className="border rounded px-2 py-1"
         />
-        <button onClick={handleAddEvent} className="px-4 py-1 bg-blue-500 text-white rounded">
+        <button
+          onClick={handleAddEvent}
+          className="px-4 py-1 bg-blue-500 text-white rounded"
+        >
           Add Event
         </button>
       </div>
@@ -321,10 +303,7 @@ function EventManager() {
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<EventManager />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<EventManager />} />
   )
 }
 ```
@@ -337,7 +316,8 @@ import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 import dayjs from 'dayjs'
 
 function DateSelector() {
-  const { currentDate, setCurrentDate, selectDate } = useScopeInspectCalendarContext()
+  const { currentDate, setCurrentDate, selectDate } =
+    useScopeInspectCalendarContext()
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const date = dayjs(e.target.value)
@@ -370,10 +350,7 @@ function DateSelector() {
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<DateSelector />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<DateSelector />} />
   )
 }
 ```
@@ -385,20 +362,28 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function ConfigDisplay() {
-  const { businessHours, visibleHours, firstDayOfWeek } = useScopeInspectCalendarContext()
+  const { businessHours, visibleHours, firstDayOfWeek } =
+    useScopeInspectCalendarContext()
 
   return (
     <div className="p-4 border-b text-sm">
       <div className="grid grid-cols-3 gap-4">
         <div>
           <strong>First Day of Week:</strong>
-          <p>{firstDayOfWeek === 0 ? 'Sunday' : firstDayOfWeek === 1 ? 'Monday' : 'Other'}</p>
+          <p>
+            {firstDayOfWeek === 0
+              ? 'Sunday'
+              : firstDayOfWeek === 1
+                ? 'Monday'
+                : 'Other'}
+          </p>
         </div>
         {businessHours && (
           <div>
             <strong>Business Hours:</strong>
             <p>
-              {businessHours.daysOfWeek?.join(', ')}: {businessHours.startTime}:00 - {businessHours.endTime}:00
+              {businessHours.daysOfWeek?.join(', ')}: {businessHours.startTime}
+              :00 - {businessHours.endTime}:00
             </p>
           </div>
         )}
@@ -466,10 +451,7 @@ function GoodComponent() {
 
 function App() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      headerComponent={<GoodComponent />}
-    />
+    <ScopeInspectCalendar events={events} headerComponent={<GoodComponent />} />
   )
 }
 
@@ -485,12 +467,7 @@ function CustomEvent(event: CalendarEvent) {
 }
 
 function App() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={CustomEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={CustomEvent} />
 }
 ```
 
@@ -504,10 +481,10 @@ import type { UseScopeInspectCalendarContextReturn } from 'scope-inspect-calenda
 
 function MyComponent() {
   const context: UseScopeInspectCalendarContextReturn = useScopeInspectCalendarContext()
-  
+
   // All properties and methods are fully typed
   const { currentDate, view, events, addEvent } = context
-  
+
   return <div>{/* ... */}</div>
 }
 ```
@@ -520,4 +497,3 @@ function MyComponent() {
 - [useScopeInspectResourceCalendarContext Hook](./use-scope-inspect-resource-calendar-context.md) - Resource calendar context hook
 - [Calendar Views Guide](../../guides/calendar-views.md) - Understanding calendar views
 - [Basic Usage Guide](../../getting-started/basic-usage.md) - Usage fundamentals
-

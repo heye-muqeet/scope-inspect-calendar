@@ -303,13 +303,13 @@ Create a comprehensive theme configuration:
   --color-calendar-success: #10b981;
   --color-calendar-warning: #f59e0b;
   --color-calendar-danger: #ef4444;
-  
+
   /* Calendar layout */
   --color-calendar-background: #ffffff;
   --color-calendar-border: #e5e7eb;
   --color-calendar-text: #1f2937;
   --color-calendar-muted: #6b7280;
-  
+
   /* Calendar spacing */
   --spacing-calendar-cell: 0.5rem;
   --spacing-calendar-header: 1rem;
@@ -379,13 +379,13 @@ Here's a complete example of setting up a custom theme:
   /* Brand colors */
   --color-brand-primary: #3b82f6;
   --color-brand-secondary: #8b5cf6;
-  
+
   /* Calendar colors */
   --color-calendar-bg: #ffffff;
   --color-calendar-border: #e5e7eb;
   --color-calendar-text: #1f2937;
   --color-calendar-header: #f9fafb;
-  
+
   /* Event colors */
   --color-event-default: #3b82f6;
   --color-event-important: #ef4444;
@@ -433,4 +433,3 @@ function App() {
 - [Project Setup Guide](../getting-started/project-setup.md) - Tailwind CSS configuration
 - [Custom Rendering Guide](./custom-rendering.md) - Component customization
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Official Tailwind CSS docs
-

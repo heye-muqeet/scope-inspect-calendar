@@ -96,13 +96,15 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 
 1. **Create a GitHub Personal Access Token** with `repo` scope
 2. **Set environment variable**:
+
    ```bash
    # Windows PowerShell
    $env:GITHUB_TOKEN = "ghp_your_token_here"
-   
+
    # Linux/Mac
    export GITHUB_TOKEN="ghp_your_token_here"
    ```
+
 3. **Create `.npmrc` file** in your project root:
    ```
    //github.com/heye-muqeet/scope-inspect-calendar.git:_authToken=${GITHUB_TOKEN}
@@ -119,6 +121,7 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 ### Detailed Installation Guide
 
 For complete step-by-step instructions, including:
+
 - Creating and managing Personal Access Tokens
 - Setting up environment variables permanently
 - Team setup and CI/CD configuration

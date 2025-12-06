@@ -42,41 +42,41 @@ function MyCalendar() {
 
 ### Basic Props
 
-| Prop                | Type                                  | Default                         | Description                                                                                                                    |
-| ------------------- | ------------------------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `events`            | `CalendarEvent[]`                    | `[]`                            | Array of events to display in the calendar                                                                                     |
-| `initialView`      | `'month' \| 'week' \| 'day' \| 'year'` | `'month'`                       | Sets the initial view when the calendar loads                                                                                 |
-| `initialDate`       | `dayjs.Dayjs \| Date \| string`     | `undefined` (today's date)      | Sets the initial date displayed when the calendar loads. When undefined, defaults to today's date                           |
-| `firstDayOfWeek`    | `'sunday' \| 'monday' \| 'tuesday' \| 'wednesday' \| 'thursday' \| 'friday' \| 'saturday'` | `'sunday'` | The first day of the week to display                                                                                           |
-| `dayMaxEvents`      | `number`                             | `3`                             | Maximum number of events to display in a day cell                                                                             |
-| `renderEvent`       | `(event: CalendarEvent) => ReactNode` | `undefined`                     | Custom function to render individual events                                                                                    |
-| `locale`            | `string`                              | `'en'`                          | Locale for date formatting (e.g., "en", "fr", "de")                                                                            |
-| `timezone`           | `string`                               | Local timezone                  | Timezone for date handling (e.g., "UTC", "America/New_York")                                                                 |
-| `timeFormat`        | `'12-hour' \| '24-hour'`            | `'12-hour'`                     | Time format for displaying times in week and day views (e.g., '1:00 PM' vs '13:00')                                           |
-| `stickyViewHeader`  | `boolean`                             | `true`                          | Whether to stick the view header to the top                                                                                   |
-| `viewHeaderClassName` | `string`                            | `''`                            | Custom class name for the view header                                                                                         |
-| `headerComponent`   | `ReactNode`                          | `null`                          | Custom header component to render above the calendar                                                                          |
-| `headerClassName`   | `string`                             | `undefined`                     | Custom class name for the calendar header                                                                                     |
-| `disableCellClick`  | `boolean`                             | `false`                          | Disable cell click interactions                                                                                               |
-| `disableEventClick` | `boolean`                             | `false`                          | Disable event click interactions                                                                                              |
-| `disableDragAndDrop` | `boolean`                           | `false`                          | Disable drag-and-drop functionality for events                                                                                 |
-| `businessHours`     | `BusinessHours`                       | `undefined`                      | Restrict calendar interactions to specified days and time ranges. Users can only create and edit events within business hours. |
-| `visibleHours`      | `VisibleHours`                       | `undefined`                      | **Exclusive feature**: Controls which time range is displayed on the calendar's vertical time scale, independent of business hours |
-| `renderEventForm`   | `(props: EventFormProps) => ReactNode` | `undefined`                    | Custom render function for the event form                                                                                     |
-| `translations`      | `Translations`                       | `undefined`                      | Translations object for internationalization                                                                                   |
-| `translator`       | `TranslatorFunction`                 | `undefined`                      | Translator function for internationalization                                                                                    |
+| Prop                  | Type                                                                                       | Default                    | Description                                                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------ | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `events`              | `CalendarEvent[]`                                                                          | `[]`                       | Array of events to display in the calendar                                                                                         |
+| `initialView`         | `'month' \| 'week' \| 'day' \| 'year'`                                                     | `'month'`                  | Sets the initial view when the calendar loads                                                                                      |
+| `initialDate`         | `dayjs.Dayjs \| Date \| string`                                                            | `undefined` (today's date) | Sets the initial date displayed when the calendar loads. When undefined, defaults to today's date                                  |
+| `firstDayOfWeek`      | `'sunday' \| 'monday' \| 'tuesday' \| 'wednesday' \| 'thursday' \| 'friday' \| 'saturday'` | `'sunday'`                 | The first day of the week to display                                                                                               |
+| `dayMaxEvents`        | `number`                                                                                   | `3`                        | Maximum number of events to display in a day cell                                                                                  |
+| `renderEvent`         | `(event: CalendarEvent) => ReactNode`                                                      | `undefined`                | Custom function to render individual events                                                                                        |
+| `locale`              | `string`                                                                                   | `'en'`                     | Locale for date formatting (e.g., "en", "fr", "de")                                                                                |
+| `timezone`            | `string`                                                                                   | Local timezone             | Timezone for date handling (e.g., "UTC", "America/New_York")                                                                       |
+| `timeFormat`          | `'12-hour' \| '24-hour'`                                                                   | `'12-hour'`                | Time format for displaying times in week and day views (e.g., '1:00 PM' vs '13:00')                                                |
+| `stickyViewHeader`    | `boolean`                                                                                  | `true`                     | Whether to stick the view header to the top                                                                                        |
+| `viewHeaderClassName` | `string`                                                                                   | `''`                       | Custom class name for the view header                                                                                              |
+| `headerComponent`     | `ReactNode`                                                                                | `null`                     | Custom header component to render above the calendar                                                                               |
+| `headerClassName`     | `string`                                                                                   | `undefined`                | Custom class name for the calendar header                                                                                          |
+| `disableCellClick`    | `boolean`                                                                                  | `false`                    | Disable cell click interactions                                                                                                    |
+| `disableEventClick`   | `boolean`                                                                                  | `false`                    | Disable event click interactions                                                                                                   |
+| `disableDragAndDrop`  | `boolean`                                                                                  | `false`                    | Disable drag-and-drop functionality for events                                                                                     |
+| `businessHours`       | `BusinessHours`                                                                            | `undefined`                | Restrict calendar interactions to specified days and time ranges. Users can only create and edit events within business hours.     |
+| `visibleHours`        | `VisibleHours`                                                                             | `undefined`                | **Exclusive feature**: Controls which time range is displayed on the calendar's vertical time scale, independent of business hours |
+| `renderEventForm`     | `(props: EventFormProps) => ReactNode`                                                     | `undefined`                | Custom render function for the event form                                                                                          |
+| `translations`        | `Translations`                                                                             | `undefined`                | Translations object for internationalization                                                                                       |
+| `translator`          | `TranslatorFunction`                                                                       | `undefined`                | Translator function for internationalization                                                                                       |
 
 ### Event Handlers
 
-| Prop            | Type                                  | Description                                                      |
-| --------------- | ------------------------------------- | ---------------------------------------------------------------- |
-| `onEventClick`  | `(event: CalendarEvent) => void`      | Callback when an event is clicked                                |
-| `onCellClick`   | `(info: CellClickInfo) => void`      | Callback when a calendar cell is clicked                         |
-| `onViewChange`   | `(view: CalendarView) => void`       | Callback when the calendar view changes                         |
-| `onEventAdd`     | `(event: CalendarEvent) => void`     | Callback when a new event is added                               |
-| `onEventUpdate`  | `(event: CalendarEvent) => void`     | Callback when an existing event is updated                       |
-| `onEventDelete`  | `(event: CalendarEvent) => void`     | Callback when an event is deleted                                |
-| `onDateChange`   | `(date: dayjs.Dayjs) => void`        | Callback when the current date changes (navigation)              |
+| Prop            | Type                             | Description                                         |
+| --------------- | -------------------------------- | --------------------------------------------------- |
+| `onEventClick`  | `(event: CalendarEvent) => void` | Callback when an event is clicked                   |
+| `onCellClick`   | `(info: CellClickInfo) => void`  | Callback when a calendar cell is clicked            |
+| `onViewChange`  | `(view: CalendarView) => void`   | Callback when the calendar view changes             |
+| `onEventAdd`    | `(event: CalendarEvent) => void` | Callback when a new event is added                  |
+| `onEventUpdate` | `(event: CalendarEvent) => void` | Callback when an existing event is updated          |
+| `onEventDelete` | `(event: CalendarEvent) => void` | Callback when an event is deleted                   |
+| `onDateChange`  | `(date: dayjs.Dayjs) => void`    | Callback when the current date changes (navigation) |
 
 ## Examples
 
@@ -114,11 +114,7 @@ import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 
 function InternationalizedCalendar() {
   return (
-    <ScopeInspectCalendar
-      events={events}
-      locale="fr"
-      firstDayOfWeek="monday"
-    />
+    <ScopeInspectCalendar events={events} locale="fr" firstDayOfWeek="monday" />
   )
 }
 ```
@@ -129,12 +125,7 @@ function InternationalizedCalendar() {
 import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 
 function CalendarWith24HourFormat() {
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      timeFormat="24-hour"
-    />
-  )
+  return <ScopeInspectCalendar events={events} timeFormat="24-hour" />
 }
 ```
 
@@ -154,12 +145,7 @@ function CalendarWithCustomEvents() {
     )
   }
 
-  return (
-    <ScopeInspectCalendar
-      events={events}
-      renderEvent={renderEvent}
-    />
-  )
+  return <ScopeInspectCalendar events={events} renderEvent={renderEvent} />
 }
 ```
 
@@ -205,10 +191,7 @@ function CalendarWithLifecycle() {
 The default view showing a monthly calendar grid:
 
 ```tsx
-<ScopeInspectCalendar
-  events={events}
-  initialView="month"
-/>
+<ScopeInspectCalendar events={events} initialView="month" />
 ```
 
 ### Week View
@@ -216,10 +199,7 @@ The default view showing a monthly calendar grid:
 Shows a week timeline with hourly slots:
 
 ```tsx
-<ScopeInspectCalendar
-  events={events}
-  initialView="week"
-/>
+<ScopeInspectCalendar events={events} initialView="week" />
 ```
 
 ### Day View
@@ -227,10 +207,7 @@ Shows a week timeline with hourly slots:
 Shows a single day with hourly slots:
 
 ```tsx
-<ScopeInspectCalendar
-  events={events}
-  initialView="day"
-/>
+<ScopeInspectCalendar events={events} initialView="day" />
 ```
 
 ### Year View
@@ -238,10 +215,7 @@ Shows a single day with hourly slots:
 Shows an entire year overview:
 
 ```tsx
-<ScopeInspectCalendar
-  events={events}
-  initialView="year"
-/>
+<ScopeInspectCalendar events={events} initialView="year" />
 ```
 
 ## Business Hours
@@ -326,7 +300,7 @@ const MyEventForm = (props: EventFormProps) => {
   )
 }
 
-<ScopeInspectCalendar
+;<ScopeInspectCalendar
   events={events}
   renderEventForm={(props) => <MyEventForm {...props} />}
 />
@@ -499,22 +473,22 @@ The main event object used throughout the calendar. All events passed to the cal
 
 ```typescript
 interface CalendarEvent {
-  id: string | number              // Unique identifier for the event
-  title: string                   // Display title of the event
-  start: dayjs.Dayjs              // Start date and time
-  end: dayjs.Dayjs                // End date and time
-  description?: string             // Optional description text
-  color?: string                  // Optional text color (hex, rgb, named colors, class names)
-  backgroundColor?: string         // Optional background color (hex, rgb, named colors, class names)
-  allDay?: boolean                 // Whether this is an all-day event
-  location?: string                // Optional location where the event takes place
-  resourceId?: string | number    // Single resource assignment (for resource calendars)
+  id: string | number // Unique identifier for the event
+  title: string // Display title of the event
+  start: dayjs.Dayjs // Start date and time
+  end: dayjs.Dayjs // End date and time
+  description?: string // Optional description text
+  color?: string // Optional text color (hex, rgb, named colors, class names)
+  backgroundColor?: string // Optional background color (hex, rgb, named colors, class names)
+  allDay?: boolean // Whether this is an all-day event
+  location?: string // Optional location where the event takes place
+  resourceId?: string | number // Single resource assignment (for resource calendars)
   resourceIds?: (string | number)[] // Multiple resource assignment (for cross-resource events)
-  rrule?: RRuleOptions            // Recurrence rule for recurring events (RFC 5545 standard)
-  exdates?: string[]              // Exception dates (EXDATE) - dates to exclude from recurrence
-  recurrenceId?: string            // Recurrence ID (RECURRENCE-ID) - identifies modified instances
-  uid?: string                    // UID for iCalendar compatibility
-  data?: Record<string, any>      // Optional custom data for additional properties
+  rrule?: RRuleOptions // Recurrence rule for recurring events (RFC 5545 standard)
+  exdates?: string[] // Exception dates (EXDATE) - dates to exclude from recurrence
+  recurrenceId?: string // Recurrence ID (RECURRENCE-ID) - identifies modified instances
+  uid?: string // UID for iCalendar compatibility
+  data?: Record<string, any> // Optional custom data for additional properties
 }
 ```
 
@@ -584,7 +558,15 @@ Configuration object for restricting calendar interactions to specific days and 
 ```typescript
 interface BusinessHours {
   // Array of day names considered business days
-  daysOfWeek?: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday')[]
+  daysOfWeek?: (
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday'
+    | 'sunday'
+  )[]
 
   // Hour when business hours start (0-23, inclusive)
   startTime?: number
@@ -678,10 +660,7 @@ const handleCellClick = (info: CellClickInfo) => {
   openEventForm({ start, end, resourceId })
 }
 
-<ScopeInspectCalendar
-  events={events}
-  onCellClick={handleCellClick}
-/>
+;<ScopeInspectCalendar events={events} onCellClick={handleCellClick} />
 ```
 
 ### EventFormProps Interface
@@ -730,7 +709,7 @@ const MyEventForm = (props: EventFormProps) => {
 }
 
 // Usage
-<ScopeInspectCalendar
+;<ScopeInspectCalendar
   events={events}
   renderEventForm={(props) => <MyEventForm {...props} />}
 />
@@ -746,4 +725,3 @@ const MyEventForm = (props: EventFormProps) => {
 - [Custom Rendering Guide](../../guides/custom-rendering.md)
 - [Resource Calendar Component](./scope-inspect-resource-calendar.md)
 - [Basic Usage Guide](../../getting-started/basic-usage.md)
-
