@@ -28,7 +28,7 @@ export const ResourceMonthHorizontal: React.FC = () => {
           )}
         >
           <div
-            className="border-b border-r flex-shrink-0 flex justify-center items-center sticky top-0 left-0 bg-background z-20"
+            className="border-b border-r shrink-0 flex justify-center items-center sticky top-0 left-0 bg-background z-20"
             style={{
               width: 'var(--resource-column-width, 10rem)', // Default to w-40 (10rem = 160px)
             }}
@@ -51,7 +51,7 @@ export const ResourceMonthHorizontal: React.FC = () => {
                     ease: 'easeInOut',
                     delay: index * 0.05,
                   }}
-                  className="w-20 border-b border-r flex-shrink-0 flex items-center justify-center flex-col"
+                  className="w-20 border-b border-r shrink-0 flex items-center justify-center flex-col"
                 >
                   <div className="text-xs font-medium">{day.format('D')}</div>
                   <div className="text-xs text-muted-foreground">
