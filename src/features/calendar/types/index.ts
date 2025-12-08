@@ -11,6 +11,28 @@ import type { Translations, TranslatorFunction } from '@/lib/translations/types'
 import type { CalendarView, TimeFormat } from '@/types'
 
 /**
+ * Resource interface representing a calendar resource (person, room, equipment, etc.)
+ */
+export interface Resource {
+  /** Unique identifier for the resource */
+  id: string | number
+  /** Display name of the resource */
+  name: string
+  /**
+   * Color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
+   * @example "#3b82f6", "blue-500", "rgb(59, 130, 246)"
+   */
+  color?: string
+  /**
+   * Background color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
+   * @example "#dbeafe", "blue-100", "rgba(59, 130, 246, 0.1)"
+   */
+  backgroundColor?: string
+  /** Optional position for resource display */
+  position?: number
+}
+
+/**
  * This interface extends the base CalendarEvent but allows more flexible date types
  * for the start and end properties. The component will automatically convert these
  * to dayjs objects internally for consistent date handling.
@@ -38,6 +60,12 @@ export interface CellClickInfo {
 }
 
 export interface ScopeInspectCalendarProps {
+  /**
+   * Calendar display type.
+   * - 'agenda': Standard calendar view (default)
+   * - 'timeline': Resource/timeline calendar view
+   */
+  type?: 'agenda' | 'timeline'
   /**
    * Array of events to display in the calendar.
    */
@@ -181,4 +209,14 @@ export interface ScopeInspectCalendarProps {
    * - "24-hour": Times displayed as "13:00"
    */
   timeFormat?: TimeFormat
+  /**
+   * Array of resources (only used when type is 'timeline').
+   * Resources represent people, rooms, equipment, etc. that can be assigned to events.
+   */
+  resources?: Resource[]
+  /**
+   * Custom render function for resources (only used when type is 'timeline').
+   * If provided, it will override the default resource rendering.
+   */
+  renderResource?: (resource: Resource) => React.ReactNode
 }

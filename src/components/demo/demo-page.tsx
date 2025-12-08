@@ -1,8 +1,6 @@
 import { ScopeInspectCalendar } from '@/features/calendar/components/scope-inspect-calendar'
-import { ScopeInspectResourceCalendar } from '@/features/resource-calendar/components/scope-inspect-resource-calendar/scope-inspect-resource-calendar'
-import type { Resource } from '@/features/resource-calendar/types'
+import type { Resource, CellClickInfo } from '@/features/calendar/types'
 import type { CalendarEvent, WeekDays } from '@/components/types'
-import type { CellClickInfo } from '@/features/calendar/types'
 import type { CalendarView, TimeFormat } from '@/types'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import dayjs from '@/lib/configs/dayjs-config'
@@ -169,7 +167,7 @@ export function DemoPage() {
     return (
       <div
         className={cn(
-          'border-primary border-1 border-l-2 px-2 truncate w-full h-full',
+          'border-primary border border-l-2 px-2 truncate w-full h-full',
           backgroundColor,
           color
         )}
@@ -222,10 +220,10 @@ export function DemoPage() {
             {resource.name}
           </div>
           <div className="text-xs opacity-70" style={{ color: resource.color }}>
-            {totalEvents} total event{totalEvents !== 1 ? 's' : ''}
+            {totalEvents} total event{totalEvents === 1 ? '' : 's'}
           </div>
           <div className="text-xs opacity-70" style={{ color: resource.color }}>
-            {todayEvents} event{todayEvents !== 1 ? 's' : ''} today
+            {todayEvents} event{todayEvents === 1 ? '' : 's'} today
           </div>
         </div>
       </div>
@@ -337,67 +335,57 @@ export function DemoPage() {
               className="p-0 overflow-clip relative z-10"
               style={{ height: calendarHeight }}
             >
-              {calendarType === 'regular' ? (
-                <ScopeInspectCalendar
-                  key={calendarKey}
-                  firstDayOfWeek={firstDayOfWeek}
-                  initialView={initialView}
-                  initialDate={initialDate}
-                  events={showDemoEvents ? customEvents : []}
-                  locale={locale}
-                  timezone={timezone}
-                  renderEvent={useCustomEventRenderer ? renderEvent : undefined}
-                  onEventClick={
-                    useCustomOnEventClick ? handleEventClick : undefined
-                  }
-                  onCellClick={
-                    useCustomOnDateClick ? handleDateClick : undefined
-                  }
-                  onEventAdd={handleEventAdd}
-                  onEventUpdate={handleEventUpdate}
-                  onEventDelete={handleEventDelete}
-                  onDateChange={handleDateChange}
-                  disableCellClick={disableCellClick}
-                  disableEventClick={disableEventClick}
-                  disableDragAndDrop={disableDragAndDrop}
-                  dayMaxEvents={dayMaxEvents}
-                  stickyViewHeader={stickyViewHeader}
-                  timeFormat={timeFormat}
-                  businessHours={businessHours}
-                  visibleHours={visibleHours}
-                />
-              ) : (
-                <ScopeInspectResourceCalendar
-                  key={`resource-${calendarKey}`}
-                  resources={demoResources}
-                  events={showDemoEvents ? resourceEvents : []}
-                  firstDayOfWeek={
-                    firstDayOfWeek === 'sunday' ? 'sunday' : 'monday'
-                  }
-                  initialView={initialView === 'year' ? 'month' : initialView} // No year view for resource calendar
-                  initialDate={initialDate}
-                  locale={locale}
-                  timezone={timezone}
-                  renderResource={
-                    useCustomResourceRenderer ? renderResource : undefined
-                  }
-                  onEventClick={
-                    useCustomOnEventClick ? handleResourceEventClick : undefined
-                  }
-                  onEventAdd={handleEventAdd}
-                  onEventUpdate={handleEventUpdate}
-                  onEventDelete={handleEventDelete}
-                  onDateChange={handleDateChange}
-                  disableCellClick={disableCellClick}
-                  disableEventClick={disableEventClick}
-                  disableDragAndDrop={disableDragAndDrop}
-                  dayMaxEvents={dayMaxEvents}
-                  stickyViewHeader={stickyViewHeader}
-                  timeFormat={timeFormat}
-                  businessHours={businessHours}
-                  visibleHours={visibleHours}
-                />
-              )}
+              <ScopeInspectCalendar
+                key={`${calendarType}-${calendarKey}`}
+                type={calendarType === 'resource' ? 'timeline' : 'agenda'}
+                resources={calendarType === 'resource' ? demoResources : undefined}
+                events={
+                  calendarType === 'resource'
+                    ? showDemoEvents
+                      ? resourceEvents
+                      : []
+                    : showDemoEvents
+                      ? customEvents
+                      : []
+                }
+                firstDayOfWeek={firstDayOfWeek}
+                initialView={
+                  calendarType === 'resource' && initialView === 'year'
+                    ? 'month'
+                    : initialView
+                }
+                initialDate={initialDate}
+                locale={locale}
+                timezone={timezone}
+                renderEvent={useCustomEventRenderer ? renderEvent : undefined}
+                renderResource={
+                  calendarType === 'resource' && useCustomResourceRenderer
+                    ? renderResource
+                    : undefined
+                }
+                onEventClick={
+                  calendarType === 'resource' && useCustomOnEventClick
+                    ? handleResourceEventClick
+                    : useCustomOnEventClick
+                      ? handleEventClick
+                      : undefined
+                }
+                onCellClick={
+                  useCustomOnDateClick ? handleDateClick : undefined
+                }
+                onEventAdd={handleEventAdd}
+                onEventUpdate={handleEventUpdate}
+                onEventDelete={handleEventDelete}
+                onDateChange={handleDateChange}
+                disableCellClick={disableCellClick}
+                disableEventClick={disableEventClick}
+                disableDragAndDrop={disableDragAndDrop}
+                dayMaxEvents={dayMaxEvents}
+                stickyViewHeader={stickyViewHeader}
+                timeFormat={timeFormat}
+                businessHours={businessHours}
+                visibleHours={visibleHours}
+              />
             </CardContent>
           </Card>
         </div>

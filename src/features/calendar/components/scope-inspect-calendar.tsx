@@ -8,6 +8,8 @@ import YearView from '@/features/calendar/components/year-view/year-view'
 import { AnimatePresence, motion } from 'motion/react'
 import { CalendarDndContext } from '@/components/drag-and-drop/calendar-dnd-context'
 import { CalendarProvider } from '@/features/calendar/contexts/calendar-context/provider'
+import { ResourceCalendarProvider } from '@/features/resource-calendar/contexts/resource-calendar-context'
+import { ResourceCalendarBody } from '@/features/resource-calendar/components/scope-inspect-resource-calendar/resource-calendar-body'
 import type { CalendarEvent } from '@/components/types'
 import { useCalendarContext } from '@/features/calendar/contexts/calendar-context/context'
 // oxlint-disable-next-line no-duplicates
@@ -18,6 +20,9 @@ import type {
   ScopeInspectCalendarProps,
   ScopeInspectCalendarPropEvent,
 } from '@/features/calendar/types'
+import type {
+  ScopeInspectResourceCalendarPropEvent,
+} from '@/features/resource-calendar/types'
 
 const CalendarContent: React.FC = () => {
   const {
@@ -85,11 +90,14 @@ const CalendarContent: React.FC = () => {
 }
 
 export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
-  events,
+  type = 'agenda',
+  events = [],
+  resources = [],
   firstDayOfWeek = 'sunday',
   initialView = 'month',
   initialDate,
   renderEvent,
+  renderResource,
   renderEventForm,
   onEventClick,
   onCellClick,
@@ -114,6 +122,50 @@ export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
   visibleHours,
   timeFormat = '12-hour',
 }) => {
+  // Render resource calendar (timeline view)
+  if (type === 'timeline') {
+    return (
+      <ResourceCalendarProvider
+        events={normalizeEvents<
+          ScopeInspectResourceCalendarPropEvent,
+          CalendarEvent
+        >(events as ScopeInspectResourceCalendarPropEvent[])}
+        resources={resources}
+        firstDayOfWeek={WEEK_DAYS_NUMBER_MAP[firstDayOfWeek]}
+        initialView={initialView === 'year' ? 'month' : initialView} // No year view for resource calendar
+        initialDate={safeDate(initialDate)}
+        renderEvent={renderEvent}
+        renderResource={renderResource}
+        onEventClick={onEventClick}
+        onCellClick={onCellClick}
+        onViewChange={onViewChange}
+        onEventAdd={onEventAdd}
+        onEventUpdate={onEventUpdate}
+        onEventDelete={onEventDelete}
+        onDateChange={onDateChange}
+        locale={locale}
+        timezone={timezone}
+        disableCellClick={disableCellClick}
+        disableEventClick={disableEventClick}
+        disableDragAndDrop={disableDragAndDrop}
+        dayMaxEvents={dayMaxEvents}
+        stickyViewHeader={stickyViewHeader}
+        viewHeaderClassName={viewHeaderClassName}
+        headerComponent={headerComponent}
+        headerClassName={headerClassName}
+        translations={translations}
+        translator={translator}
+        renderEventForm={renderEventForm}
+        businessHours={businessHours}
+        visibleHours={visibleHours}
+        timeFormat={timeFormat}
+      >
+        <ResourceCalendarBody />
+      </ResourceCalendarProvider>
+    )
+  }
+
+  // Render standard calendar (agenda view)
   return (
     <CalendarProvider
       events={normalizeEvents<ScopeInspectCalendarPropEvent, CalendarEvent>(
