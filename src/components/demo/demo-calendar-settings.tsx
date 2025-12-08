@@ -117,7 +117,7 @@ export function DemoCalendarSettings({
   return (
     <Card className="border bg-background backdrop-blur-md shadow-lg overflow-clip gap-0">
       <CardHeader className="border-b border-white/10 dark:border-white/5 p-4">
-        <CardTitle className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+        <CardTitle className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
           Calendar Settings
         </CardTitle>
         <CardDescription>Customize the calendar display</CardDescription>
