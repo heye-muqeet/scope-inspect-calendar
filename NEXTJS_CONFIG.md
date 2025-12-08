@@ -5,6 +5,7 @@ If you're experiencing errors related to `node:module` or other Node.js built-in
 ## Solution 1: Update the Package (Recommended)
 
 1. **Clear your Next.js cache:**
+
    ```bash
    rm -rf .next
    # or on Windows:
@@ -12,6 +13,7 @@ If you're experiencing errors related to `node:module` or other Node.js built-in
    ```
 
 2. **Reinstall the package:**
+
    ```bash
    npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
    ```
@@ -77,7 +79,8 @@ If the above solutions don't work, you can try importing the calendar component 
 import dynamic from 'next/dynamic'
 
 const ScopeInspectCalendar = dynamic(
-  () => import('scope-inspect-calendar').then((mod) => mod.ScopeInspectCalendar),
+  () =>
+    import('scope-inspect-calendar').then((mod) => mod.ScopeInspectCalendar),
   { ssr: false }
 )
 ```
@@ -85,12 +88,14 @@ const ScopeInspectCalendar = dynamic(
 ## Troubleshooting
 
 - **Error persists after updating:** Clear `node_modules` and reinstall:
+
   ```bash
   rm -rf node_modules package-lock.json
   npm install
   ```
 
 - **Turbopack issues:** Try disabling Turbopack temporarily:
+
   ```bash
   npm run dev -- --no-turbo
   ```
@@ -99,4 +104,3 @@ const ScopeInspectCalendar = dynamic(
   ```bash
   npm list scope-inspect-calendar
   ```
-

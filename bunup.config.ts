@@ -35,8 +35,8 @@ export default defineConfig({
 
         nodeBuiltins.forEach((id) => {
           // Escape special regex characters
-          const escapedId = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-          
+          const escapedId = id.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
           // Handle both direct imports and require() calls
           build.onResolve(
             {
@@ -47,7 +47,7 @@ export default defineConfig({
               namespace: 'node-builtin',
             })
           )
-          
+
           // Also handle imports with query strings or fragments
           build.onResolve(
             {
