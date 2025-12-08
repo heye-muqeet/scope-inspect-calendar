@@ -115,8 +115,11 @@ try {
     # Convert back to JSON with proper formatting (indented)
     $packageJsonJson = $packageJson | ConvertTo-Json -Depth 10
 
-    # Write cleaned package.json (ensure proper formatting)
-    $packageJsonJson.TrimEnd() | Set-Content "package.json" -Encoding UTF8
+    # Write cleaned package.json (ensure proper formatting and NO BOM)
+    # Use [System.IO.File]::WriteAllText to write UTF-8 without BOM
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    $packageJsonPath = Join-Path $PWD "package.json"
+    [System.IO.File]::WriteAllText($packageJsonPath, $packageJsonJson.TrimEnd(), $utf8NoBom)
 
     Write-Host "[OK] Cleaned package.json (removed dev scripts and devDependencies)" -ForegroundColor Green
 } catch {
