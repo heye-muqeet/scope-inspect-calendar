@@ -258,10 +258,10 @@ type TimeFormat = "12-hour" | "24-hour";
 * for the start and end properties. The component will automatically convert these
 * to dayjs objects internally for consistent date handling.
 *
-* @interface IlamyCalendarPropEvent
+* @interface ScopeInspectCalendarPropEvent
 * @extends {Omit<CalendarEvent, 'start' | 'end'>}
 */
-interface IlamyCalendarPropEvent extends Omit<CalendarEvent, "start" | "end"> {
+interface ScopeInspectCalendarPropEvent extends Omit<CalendarEvent, "start" | "end"> {
 	start: dayjs.Dayjs | Date | string;
 	end: dayjs.Dayjs | Date | string;
 }
@@ -277,11 +277,11 @@ interface CellClickInfo {
 	/** Resource ID if clicking on a resource calendar cell (optional) */
 	resourceId?: string | number;
 }
-interface IlamyCalendarProps {
+interface ScopeInspectCalendarProps {
 	/**
 	* Array of events to display in the calendar.
 	*/
-	events?: IlamyCalendarPropEvent[];
+	events?: ScopeInspectCalendarPropEvent[];
 	/**
 	* The first day of the week to display in the calendar.
 	* Can be 'sunday', 'monday', etc. Defaults to 'sunday'.
@@ -422,25 +422,25 @@ interface IlamyCalendarProps {
 	*/
 	timeFormat?: TimeFormat;
 }
-declare const IlamyCalendar: React4.FC<IlamyCalendarProps>;
+declare const ScopeInspectCalendar: React4.FC<ScopeInspectCalendarProps>;
 import React5 from "react";
 /**
 * Public-facing resource calendar event interface with flexible date types.
-* Similar to IlamyCalendarPropEvent but with resource assignment fields.
+* Similar to ScopeInspectCalendarPropEvent but with resource assignment fields.
 * Dates can be provided as dayjs.Dayjs, Date, or string and will be normalized internally.
 *
-* @interface IlamyResourceCalendarPropEvent
-* @extends {IlamyCalendarPropEvent}
+* @interface ScopeInspectResourceCalendarPropEvent
+* @extends {ScopeInspectCalendarPropEvent}
 */
-interface IlamyResourceCalendarPropEvent extends IlamyCalendarPropEvent {
+interface ScopeInspectResourceCalendarPropEvent extends ScopeInspectCalendarPropEvent {
 	/** Single resource assignment */
 	resourceId?: string | number;
 	/** Multiple resource assignment (cross-resource events) */
 	resourceIds?: (string | number)[];
 }
-interface IlamyResourceCalendarProps extends Omit<IlamyCalendarProps, "events"> {
+interface ScopeInspectResourceCalendarProps extends Omit<ScopeInspectCalendarProps, "events"> {
 	/** Array of events to display */
-	events?: IlamyResourceCalendarPropEvent[];
+	events?: ScopeInspectResourceCalendarPropEvent[];
 	/** Array of resources */
 	resources?: Resource[];
 	/** Custom render function for resources */
@@ -452,8 +452,8 @@ interface IlamyResourceCalendarProps extends Omit<IlamyCalendarProps, "events"> 
 interface Resource {
 	/** Unique identifier for the resource */
 	id: string | number;
-	/** Display title of the resource */
-	title: string;
+	/** Display name of the resource */
+	name: string;
 	/**
 	* Color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
 	* @example "#3b82f6", "blue-500", "rgb(59, 130, 246)"
@@ -467,12 +467,12 @@ interface Resource {
 	/** Optional position for resource display */
 	position?: number;
 }
-declare const IlamyResourceCalendar: React5.FC<IlamyResourceCalendarProps>;
+declare const ScopeInspectResourceCalendar: React5.FC<ScopeInspectResourceCalendarProps>;
 /**
 * Simplified calendar context type for external use
 * Contains only the most commonly used calendar operations
 */
-interface UseIlamyCalendarContextReturn {
+interface UseScopeInspectCalendarContextReturn {
 	readonly currentDate: dayjs.Dayjs;
 	readonly view: CalendarView;
 	readonly events: CalendarEvent[];
@@ -494,16 +494,16 @@ interface UseIlamyCalendarContextReturn {
 	readonly businessHours?: BusinessHours;
 	readonly visibleHours?: VisibleHours;
 }
-declare const useIlamyCalendarContext: () => UseIlamyCalendarContextReturn;
+declare const useScopeInspectCalendarContext: () => UseScopeInspectCalendarContextReturn;
 /**
 * Simplified resource calendar context type for external use
 */
-interface UseIlamyResourceCalendarContextReturn extends UseIlamyCalendarContextReturn {
+interface UseScopeInspectResourceCalendarContextReturn extends UseScopeInspectCalendarContextReturn {
 	readonly events: CalendarEvent[];
 	readonly resources: Resource[];
 	readonly getEventsForResource: (resourceId: string | number) => CalendarEvent[];
 }
-declare const useIlamyResourceCalendarContext: () => UseIlamyResourceCalendarContextReturn;
+declare const useScopeInspectResourceCalendarContext: () => UseScopeInspectResourceCalendarContextReturn;
 declare const isRecurringEvent: (event: CalendarEvent) => boolean;
 interface GenerateRecurringEventsProps {
 	event: CalendarEvent;
@@ -515,4 +515,6 @@ declare const generateRecurringEvents: ({ event, currentEvents, startDate, endDa
 import { Frequency, Weekday } from "rrule";
 import { RRule } from "rrule";
 declare const defaultTranslations: Translations;
-export { useIlamyResourceCalendarContext, useIlamyCalendarContext, isRecurringEvent, generateRecurringEvents, defaultTranslations, Weekday, WeekDays, UseIlamyResourceCalendarContextReturn, UseIlamyCalendarContextReturn, TranslatorFunction, Translations, TranslationKey, TimeFormat, Resource, RRuleOptions, RRule, IlamyResourceCalendarProps, IlamyResourceCalendar, IlamyCalendarProps, IlamyCalendar, Frequency, EventFormProps, CellClickInfo, CalendarView, CalendarEvent };
+declare const exportToICalendar: (events: CalendarEvent[], calendarName?: string) => string;
+declare const downloadICalendar: (events: CalendarEvent[], filename?: string, calendarName?: string) => void;
+export { useScopeInspectResourceCalendarContext, useScopeInspectCalendarContext, isRecurringEvent, generateRecurringEvents, exportToICalendar, downloadICalendar, defaultTranslations, Weekday, WeekDays, UseScopeInspectResourceCalendarContextReturn, UseScopeInspectCalendarContextReturn, TranslatorFunction, Translations, TranslationKey, TimeFormat, ScopeInspectResourceCalendarProps, ScopeInspectResourceCalendar, ScopeInspectCalendarProps, ScopeInspectCalendar, Resource, RRuleOptions, RRule, Frequency, EventFormProps, CellClickInfo, CalendarView, CalendarEvent };
