@@ -641,16 +641,19 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main -
 If you want to update to a specific version:
 
 **Update to specific commit:**
+
 ```bash
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#abc123def456
 ```
 
 **Update to specific branch:**
+
 ```bash
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#develop
 ```
 
 **Update to specific tag:**
+
 ```bash
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#v1.2.3
 ```
@@ -658,16 +661,19 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#v1.2.3
 ### Checking Current Version
 
 **Check installed version:**
+
 ```bash
 npm list scope-inspect-calendar
 ```
 
 **Check package details:**
+
 ```bash
 npm info scope-inspect-calendar
 ```
 
 **Check what commit you're using:**
+
 ```bash
 # View package.json
 cat node_modules/scope-inspect-calendar/package.json | grep version
@@ -681,16 +687,19 @@ cd ../..
 ### Checking for Updates
 
 **Method 1: Check GitHub directly**
+
 1. Visit: `https://github.com/heye-muqeet/scope-inspect-calendar`
 2. Check the latest commit on `main` branch
 3. Compare with your installed version
 
 **Method 2: Check via npm (if package.json has version)**
+
 ```bash
 npm outdated scope-inspect-calendar
 ```
 
 **Method 3: Check commit hash**
+
 ```bash
 # Get your current commit
 cd node_modules/scope-inspect-calendar
@@ -729,6 +738,7 @@ npm start
 If you're using the package in multiple projects:
 
 **Option 1: Update each project individually**
+
 ```bash
 # In each project directory
 cd project-1
@@ -739,6 +749,7 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main -
 ```
 
 **Option 2: Use a script (PowerShell)**
+
 ```powershell
 # update-packages.ps1
 $projects = @("project-1", "project-2", "project-3")
@@ -753,6 +764,7 @@ foreach ($project in $projects) {
 ```
 
 **Option 2: Use a script (Bash)**
+
 ```bash
 #!/bin/bash
 # update-packages.sh
@@ -772,22 +784,26 @@ done
 When updating, if you encounter errors:
 
 **1. Check the changelog/commits:**
+
 ```bash
 # View recent commits on GitHub
 # https://github.com/heye-muqeet/scope-inspect-calendar/commits/main
 ```
 
 **2. Review breaking changes:**
+
 - Check commit messages
 - Review pull requests
 - Check if there's a CHANGELOG.md or RELEASE_NOTES.md
 
 **3. Update your code accordingly:**
+
 - Update imports if API changed
 - Update props/usage if component API changed
 - Check TypeScript errors for type changes
 
 **4. Rollback if needed:**
+
 ```bash
 # Install previous commit
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#previous-commit-hash
@@ -815,6 +831,7 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#previo
 ### Automated Update Notifications
 
 **Option 1: GitHub Watch**
+
 - Go to repository → Click "Watch" → Select "All activity"
 - Get email notifications for new commits
 
@@ -847,6 +864,7 @@ jobs:
 **Issue: "npm update" doesn't update the package**
 
 **Solution:**
+
 ```bash
 # Force reinstall
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
@@ -855,6 +873,7 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main -
 **Issue: "Still seeing old code after update"**
 
 **Solutions:**
+
 1. Clear npm cache: `npm cache clean --force`
 2. Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
 3. Restart your dev server
@@ -863,6 +882,7 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main -
 **Issue: "Getting errors after update"**
 
 **Solutions:**
+
 1. Check commit history for breaking changes
 2. Review your code for deprecated APIs
 3. Check TypeScript errors for type mismatches
@@ -873,6 +893,7 @@ npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main -
 If you want to pin to a specific commit for stability:
 
 **In package.json:**
+
 ```json
 {
   "dependencies": {
@@ -882,11 +903,13 @@ If you want to pin to a specific commit for stability:
 ```
 
 **Benefits:**
+
 - Predictable builds
 - No unexpected updates
 - Easier debugging
 
 **Drawbacks:**
+
 - Manual updates required
 - Missing bug fixes and features
 
