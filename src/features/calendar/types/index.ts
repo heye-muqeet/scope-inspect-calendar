@@ -62,8 +62,9 @@ export interface CellClickInfo {
 export interface ScopeInspectCalendarProps {
   /**
    * Calendar display type.
-   * - 'agenda': Standard calendar view (default)
+   * - 'agenda': Standard calendar view (default if not provided)
    * - 'timeline': Resource/timeline calendar view
+   * @default 'agenda'
    */
   type?: 'agenda' | 'timeline'
   /**
