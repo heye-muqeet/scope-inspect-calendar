@@ -338,7 +338,9 @@ export function DemoPage() {
               <ScopeInspectCalendar
                 key={`${calendarType}-${calendarKey}`}
                 type={calendarType === 'resource' ? 'timeline' : 'agenda'}
-                resources={calendarType === 'resource' ? demoResources : undefined}
+                resources={
+                  calendarType === 'resource' ? demoResources : undefined
+                }
                 events={
                   calendarType === 'resource'
                     ? showDemoEvents
@@ -370,9 +372,7 @@ export function DemoPage() {
                       ? handleEventClick
                       : undefined
                 }
-                onCellClick={
-                  useCustomOnDateClick ? handleDateClick : undefined
-                }
+                onCellClick={useCustomOnDateClick ? handleDateClick : undefined}
                 onEventAdd={handleEventAdd}
                 onEventUpdate={handleEventUpdate}
                 onEventDelete={handleEventDelete}

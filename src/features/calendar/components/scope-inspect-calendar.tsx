@@ -20,9 +20,7 @@ import type {
   ScopeInspectCalendarProps,
   ScopeInspectCalendarPropEvent,
 } from '@/features/calendar/types'
-import type {
-  ScopeInspectResourceCalendarPropEvent,
-} from '@/features/resource-calendar/types'
+import type { ScopeInspectResourceCalendarPropEvent } from '@/features/resource-calendar/types'
 
 const CalendarContent: React.FC = () => {
   const {
