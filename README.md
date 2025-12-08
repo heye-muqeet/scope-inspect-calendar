@@ -103,7 +103,7 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 
    # Linux/Mac
    export GITHUB_TOKEN="ghp_your_token_here"
-   ```
+```
 
 3. **Create `.npmrc` file** in your project root:
    ```
@@ -165,9 +165,9 @@ function App() {
   return (
     <div style={{ height: '600px' }}>
       <ScopeInspectCalendar
-      events={events}
+        events={events}
         onEventClick={(event) => console.log('Event clicked:', event)}
-    />
+      />
     </div>
   )
 }

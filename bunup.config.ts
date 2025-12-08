@@ -32,14 +32,21 @@ export default defineConfig({
           'os',
           'process',
         ]
-        
+
         nodeBuiltins.forEach((id) => {
-          build.onResolve({ filter: new RegExp(`^${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`) }, () => ({
-            path: id,
-            namespace: 'node-builtin',
-          }))
+          build.onResolve(
+            {
+              filter: new RegExp(
+                `^${id.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`
+              ),
+            },
+            () => ({
+              path: id,
+              namespace: 'node-builtin',
+            })
+          )
         })
-        
+
         build.onLoad({ filter: /.*/, namespace: 'node-builtin' }, (args) => {
           // Provide minimal polyfills for common Node.js exports
           if (args.path === 'node:module' || args.path === 'module') {
@@ -53,7 +60,7 @@ export default defineConfig({
               loader: 'js',
             }
           }
-          
+
           // For all other Node.js built-ins, export empty objects
           return {
             contents: 'export default {};',
@@ -70,8 +77,5 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   platform: 'browser',
-  external: [
-    'react',
-    'react-dom',
-  ],
+  external: ['react', 'react-dom'],
 })
