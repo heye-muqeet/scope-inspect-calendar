@@ -94,7 +94,10 @@ export function DroppableCell({
       {/* Hover overlay with plus icon */}
       {!disabled && !disableCellClick && (
         <div className="absolute inset-0 flex items-center justify-center bg-sky-100/80 dark:bg-sky-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
-          <Plus className="w-6 h-6 text-blue-700 dark:text-blue-400" strokeWidth={2.5} />
+          <Plus
+            className="w-6 h-6 text-blue-700 dark:text-blue-400"
+            strokeWidth={2.5}
+          />
         </div>
       )}
     </div>
