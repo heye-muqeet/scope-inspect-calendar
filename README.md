@@ -97,7 +97,7 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 1. **Create a GitHub Personal Access Token** with `repo` scope
 2. **Set environment variable**:
 
-   ```bash
+```bash
    # Windows PowerShell
    $env:GITHUB_TOKEN = "ghp_your_token_here"
 
@@ -165,9 +165,9 @@ function App() {
   return (
     <div style={{ height: '600px' }}>
       <ScopeInspectCalendar
-        events={events}
+      events={events}
         onEventClick={(event) => console.log('Event clicked:', event)}
-      />
+    />
     </div>
   )
 }
