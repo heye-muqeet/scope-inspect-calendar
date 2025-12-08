@@ -34,11 +34,24 @@ export default defineConfig({
         ]
 
         nodeBuiltins.forEach((id) => {
+          // Escape special regex characters
+          const escapedId = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          
+          // Handle both direct imports and require() calls
           build.onResolve(
             {
-              filter: new RegExp(
-                `^${id.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`
-              ),
+              filter: new RegExp(`^${escapedId}$`),
+            },
+            () => ({
+              path: id,
+              namespace: 'node-builtin',
+            })
+          )
+          
+          // Also handle imports with query strings or fragments
+          build.onResolve(
+            {
+              filter: new RegExp(`^${escapedId}(\\?.*)?(#.*)?$`),
             },
             () => ({
               path: id,
@@ -53,7 +66,9 @@ export default defineConfig({
             return {
               contents: `
                 export function createRequire() {
-                  throw new Error('createRequire is not available in browser environment');
+                  return function() {
+                    throw new Error('createRequire is not available in browser environment');
+                  };
                 }
                 export default {};
               `,
@@ -78,4 +93,8 @@ export default defineConfig({
   sourcemap: true,
   platform: 'browser',
   external: ['react', 'react-dom'],
+  // Define replacements for Node.js globals
+  define: {
+    'process.env.NODE_ENV': '"production"',
+  },
 })
