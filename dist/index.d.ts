@@ -254,6 +254,27 @@ type CalendarView = "month" | "week" | "day" | "year";
 */
 type TimeFormat = "12-hour" | "24-hour";
 /**
+* Resource interface representing a calendar resource (person, room, equipment, etc.)
+*/
+interface Resource {
+	/** Unique identifier for the resource */
+	id: string | number;
+	/** Display name of the resource */
+	name: string;
+	/**
+	* Color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
+	* @example "#3b82f6", "blue-500", "rgb(59, 130, 246)"
+	*/
+	color?: string;
+	/**
+	* Background color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
+	* @example "#dbeafe", "blue-100", "rgba(59, 130, 246, 0.1)"
+	*/
+	backgroundColor?: string;
+	/** Optional position for resource display */
+	position?: number;
+}
+/**
 * This interface extends the base CalendarEvent but allows more flexible date types
 * for the start and end properties. The component will automatically convert these
 * to dayjs objects internally for consistent date handling.
@@ -278,6 +299,13 @@ interface CellClickInfo {
 	resourceId?: string | number;
 }
 interface ScopeInspectCalendarProps {
+	/**
+	* Calendar display type.
+	* - 'agenda': Standard calendar view (default if not provided)
+	* - 'timeline': Resource/timeline calendar view
+	* @default 'agenda'
+	*/
+	type?: "agenda" | "timeline";
 	/**
 	* Array of events to display in the calendar.
 	*/
@@ -421,6 +449,16 @@ interface ScopeInspectCalendarProps {
 	* - "24-hour": Times displayed as "13:00"
 	*/
 	timeFormat?: TimeFormat;
+	/**
+	* Array of resources (only used when type is 'timeline').
+	* Resources represent people, rooms, equipment, etc. that can be assigned to events.
+	*/
+	resources?: Resource[];
+	/**
+	* Custom render function for resources (only used when type is 'timeline').
+	* If provided, it will override the default resource rendering.
+	*/
+	renderResource?: (resource: Resource) => React3.ReactNode;
 }
 declare const ScopeInspectCalendar: React4.FC<ScopeInspectCalendarProps>;
 import React5 from "react";
@@ -442,14 +480,14 @@ interface ScopeInspectResourceCalendarProps extends Omit<ScopeInspectCalendarPro
 	/** Array of events to display */
 	events?: ScopeInspectResourceCalendarPropEvent[];
 	/** Array of resources */
-	resources?: Resource[];
+	resources?: Resource2[];
 	/** Custom render function for resources */
-	renderResource?: (resource: Resource) => React.ReactNode;
+	renderResource?: (resource: Resource2) => React.ReactNode;
 }
 /**
 * Resource interface representing a calendar resource (person, room, equipment, etc.)
 */
-interface Resource {
+interface Resource2 {
 	/** Unique identifier for the resource */
 	id: string | number;
 	/** Display name of the resource */
@@ -500,7 +538,7 @@ declare const useScopeInspectCalendarContext: () => UseScopeInspectCalendarConte
 */
 interface UseScopeInspectResourceCalendarContextReturn extends UseScopeInspectCalendarContextReturn {
 	readonly events: CalendarEvent[];
-	readonly resources: Resource[];
+	readonly resources: Resource2[];
 	readonly getEventsForResource: (resourceId: string | number) => CalendarEvent[];
 }
 declare const useScopeInspectResourceCalendarContext: () => UseScopeInspectResourceCalendarContextReturn;
@@ -517,4 +555,4 @@ import { RRule } from "rrule";
 declare const defaultTranslations: Translations;
 declare const exportToICalendar: (events: CalendarEvent[], calendarName?: string) => string;
 declare const downloadICalendar: (events: CalendarEvent[], filename?: string, calendarName?: string) => void;
-export { useScopeInspectResourceCalendarContext, useScopeInspectCalendarContext, isRecurringEvent, generateRecurringEvents, exportToICalendar, downloadICalendar, defaultTranslations, Weekday, WeekDays, UseScopeInspectResourceCalendarContextReturn, UseScopeInspectCalendarContextReturn, TranslatorFunction, Translations, TranslationKey, TimeFormat, ScopeInspectResourceCalendarProps, ScopeInspectResourceCalendar, ScopeInspectCalendarProps, ScopeInspectCalendar, Resource, RRuleOptions, RRule, Frequency, EventFormProps, CellClickInfo, CalendarView, CalendarEvent };
+export { useScopeInspectResourceCalendarContext, useScopeInspectCalendarContext, isRecurringEvent, generateRecurringEvents, exportToICalendar, downloadICalendar, defaultTranslations, Weekday, WeekDays, UseScopeInspectResourceCalendarContextReturn, UseScopeInspectCalendarContextReturn, TranslatorFunction, Translations, TranslationKey, TimeFormat, ScopeInspectResourceCalendarProps, ScopeInspectResourceCalendar, ScopeInspectCalendarProps, ScopeInspectCalendar, Resource2 as Resource, RRuleOptions, RRule, Frequency, EventFormProps, CellClickInfo, CalendarView, CalendarEvent };
