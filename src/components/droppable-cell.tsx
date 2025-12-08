@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { useDroppable } from '@dnd-kit/core'
 import React from 'react'
 import { useSmartCalendarContext } from '@/hooks/use-smart-calendar-context'
+import { Plus } from 'lucide-react'
 
 interface DroppableCellProps {
   id: string
@@ -83,12 +84,19 @@ export function DroppableCell({
         className,
         isOver && !disableDragAndDrop && !disabled && 'bg-accent',
         disableCellClick || disabled ? 'cursor-default' : 'cursor-pointer',
-        disabled && 'bg-secondary text-muted-foreground pointer-events-none'
+        disabled && 'bg-secondary text-muted-foreground pointer-events-none',
+        !disabled && !disableCellClick && 'group relative'
       )}
       onClick={handleCellClick}
       style={style}
     >
       {children}
+      {/* Hover overlay with plus icon */}
+      {!disabled && !disableCellClick && (
+        <div className="absolute inset-0 flex items-center justify-center bg-sky-100/80 dark:bg-sky-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+          <Plus className="w-6 h-6 text-blue-700 dark:text-blue-400" strokeWidth={2.5} />
+        </div>
+      )}
     </div>
   )
 }
