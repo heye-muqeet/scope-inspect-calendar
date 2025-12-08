@@ -28,6 +28,7 @@ if ($currentBranch -ne "development") {
         Write-Host "Error: Failed to checkout development branch!" -ForegroundColor Red
         exit 1
     }
+    Start-Sleep -Milliseconds 500
 }
 
 # Step 2: Pull latest changes
@@ -36,6 +37,7 @@ git pull origin development
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Warning: Failed to pull latest changes. Continuing anyway..." -ForegroundColor Yellow
 }
+Start-Sleep -Milliseconds 800
 
 # Step 3: Build the package
 Write-Host "Building package..." -ForegroundColor Yellow
@@ -51,6 +53,7 @@ if (-not (Test-Path "dist")) {
     exit 1
 }
 
+Start-Sleep -Milliseconds 500
 Write-Host "Build successful!" -ForegroundColor Green
 Write-Host ""
 
@@ -59,8 +62,10 @@ Write-Host "Preparing build files..." -ForegroundColor Yellow
 $tempDist = Join-Path $env:TEMP "scope-inspect-calendar-dist-$(Get-Date -Format 'yyyyMMddHHmmss')"
 if (Test-Path $tempDist) {
     Remove-Item -Path $tempDist -Recurse -Force
+    Start-Sleep -Milliseconds 300
 }
 Copy-Item -Path "dist" -Destination $tempDist -Recurse -Force
+Start-Sleep -Milliseconds 800
 Write-Host "Build files prepared in temp location" -ForegroundColor Green
 
 # Step 5: Switch to main branch
@@ -73,6 +78,7 @@ if ($LASTEXITCODE -ne 0) {
     git checkout development
     exit 1
 }
+Start-Sleep -Milliseconds 800
 
 # Step 6: Copy files to main branch
 Write-Host "Copying build files to main branch..." -ForegroundColor Yellow
@@ -80,10 +86,12 @@ Write-Host "Copying build files to main branch..." -ForegroundColor Yellow
 # Remove existing dist if it exists
 if (Test-Path "dist") {
     Remove-Item -Path "dist" -Recurse -Force
+    Start-Sleep -Milliseconds 500
 }
 
 # Copy dist from temp location
 Copy-Item -Path $tempDist -Destination "dist" -Recurse -Force
+Start-Sleep -Milliseconds 800
 
 # Copy other files from development branch (these are tracked in git)
 git checkout development -- LICENSE README.md package.json
@@ -93,9 +101,11 @@ if ($LASTEXITCODE -ne 0) {
     git checkout development
     exit 1
 }
+Start-Sleep -Milliseconds 500
 
 # Clean up temp directory
 Remove-Item -Path $tempDist -Recurse -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 300
 
 # Step 7: Clean package.json for main branch (remove dev scripts and devDependencies)
 Write-Host "Cleaning package.json for package-only branch..." -ForegroundColor Yellow
@@ -121,6 +131,7 @@ try {
     $utf8NoBom = New-Object System.Text.UTF8Encoding $false
     $packageJsonPath = Join-Path $PWD "package.json"
     [System.IO.File]::WriteAllText($packageJsonPath, $packageJsonJson.TrimEnd(), $utf8NoBom)
+    Start-Sleep -Milliseconds 300
 
     Write-Host "[OK] Cleaned package.json (removed dev scripts and devDependencies)" -ForegroundColor Green
 } catch {
@@ -136,9 +147,11 @@ if ($LASTEXITCODE -ne 0) {
     git checkout development
     exit 1
 }
+Start-Sleep -Milliseconds 500
 
 # Step 9: Check if there are changes to commit
 $status = git status --short
+Start-Sleep -Milliseconds 300
 if ([string]::IsNullOrWhiteSpace($status)) {
     Write-Host "No changes to commit. Build files are already up to date." -ForegroundColor Yellow
     git checkout development
@@ -153,6 +166,7 @@ if ($LASTEXITCODE -ne 0) {
     git checkout development
     exit 1
 }
+Start-Sleep -Milliseconds 500
 
 # Step 11: Push to main
 Write-Host "Pushing to origin/main..." -ForegroundColor Yellow
@@ -163,10 +177,12 @@ if ($LASTEXITCODE -ne 0) {
     git checkout development
     exit 1
 }
+Start-Sleep -Milliseconds 1000
 
 # Step 12: Switch back to development
 Write-Host "Switching back to development branch..." -ForegroundColor Yellow
 git checkout development
+Start-Sleep -Milliseconds 500
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
