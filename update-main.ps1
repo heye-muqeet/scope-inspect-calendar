@@ -65,7 +65,8 @@ Write-Host "Build files prepared in temp location" -ForegroundColor Green
 
 # Step 5: Switch to main branch
 Write-Host "Switching to main branch..." -ForegroundColor Yellow
-git checkout main
+# Force checkout to automatically handle file/directory deletions without prompts
+git checkout -f main
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error: Failed to checkout main branch!" -ForegroundColor Red
     Remove-Item -Path $tempDist -Recurse -Force -ErrorAction SilentlyContinue
