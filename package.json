@@ -1,79 +1,77 @@
 {
-    "name":  "scope-inspect-calendar",
-    "version":  "1.1.2",
-    "description":  "A full-featured React calendar component library built with Shadcn-Ui, Tailwind CSS, and TypeScript.",
-    "author":  "Abdul Muqeet",
-    "license":  "MIT",
-    "homepage":  "https://github.com/heye-muqeet/scope-inspect-calendar#readme",
-    "repository":  {
-                       "type":  "git",
-                       "url":  "git+https://github.com/heye-muqeet/scope-inspect-calendar.git"
-                   },
-    "bugs":  {
-                 "url":  "https://github.com/heye-muqeet/scope-inspect-calendar/issues"
-             },
-    "keywords":  [
-                     "react",
-                     "calendar",
-                     "typescript",
-                     "tailwind",
-                     "components",
-                     "shadcn",
-                     "radix-ui",
-                     "dnd-kit",
-                     "motion",
-                     "events",
-                     "scheduling",
-                     "drag-and-drop",
-                     "recurring-events"
-                 ],
-    "private":  false,
-    "type":  "module",
-    "main":  "./dist/index.js",
-    "module":  "./dist/index.js",
-    "types":  "./dist/index.d.ts",
-    "exports":  {
-                    ".":  {
-                              "import":  {
-                                             "types":  "./dist/index.d.ts",
-                                             "default":  "./dist/index.js"
-                                         }
-                          }
-                },
-    "files":  [
-                  "dist",
-                  "README.md",
-                  "LICENSE"
-              ],
-    "sideEffects":  false,
-    "scripts":  {
-
-                },
-    "peerDependencies":  {
-                             "react":  "^19.1.0",
-                             "react-dom":  "^19.1.0",
-                             "tailwindcss":  "^4.1.11",
-                             "tailwindcss-animate":  "^1.0.7"
-                         },
-    "dependencies":  {
-                         "@dnd-kit/core":  "^6.3.1",
-                         "@dnd-kit/modifiers":  "^9.0.0",
-                         "@radix-ui/react-checkbox":  "^1.3.3",
-                         "@radix-ui/react-dialog":  "^1.1.15",
-                         "@radix-ui/react-label":  "^2.1.8",
-                         "@radix-ui/react-popover":  "^1.1.15",
-                         "@radix-ui/react-scroll-area":  "^1.2.10",
-                         "@radix-ui/react-select":  "^2.2.6",
-                         "@radix-ui/react-slot":  "^1.2.4",
-                         "class-variance-authority":  "^0.7.1",
-                         "clsx":  "^2.1.1",
-                         "dayjs":  "^1.11.19",
-                         "lucide-react":  "^0.475.0",
-                         "motion":  "^12.23.24",
-                         "rrule":  "^2.8.1",
-                         "tailwind-merge":  "^3.3.1"
-                     },
-    "publishConfig":  {
-                          "access":  "public"
-                      }
+    "name": "scope-inspect-calendar",
+    "version": "1.1.3",
+    "description": "A full-featured React calendar component library built with Shadcn-Ui, Tailwind CSS, and TypeScript.",
+    "author": "Abdul Muqeet",
+    "license": "MIT",
+    "homepage": "https://github.com/heye-muqeet/scope-inspect-calendar#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/heye-muqeet/scope-inspect-calendar.git"
+    },
+    "bugs": {
+        "url": "https://github.com/heye-muqeet/scope-inspect-calendar/issues"
+    },
+    "keywords": [
+        "react",
+        "calendar",
+        "typescript",
+        "tailwind",
+        "components",
+        "shadcn",
+        "radix-ui",
+        "dnd-kit",
+        "motion",
+        "events",
+        "scheduling",
+        "drag-and-drop",
+        "recurring-events"
+    ],
+    "private": false,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "sideEffects": false,
+    "scripts": {},
+    "peerDependencies": {
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "tailwindcss": "^4.1.11",
+        "tailwindcss-animate": "^1.0.7"
+    },
+    "dependencies": {
+        "@dnd-kit/core": "^6.3.1",
+        "@dnd-kit/modifiers": "^9.0.0",
+        "@radix-ui/react-checkbox": "^1.3.3",
+        "@radix-ui/react-dialog": "^1.1.15",
+        "@radix-ui/react-label": "^2.1.8",
+        "@radix-ui/react-popover": "^1.1.15",
+        "@radix-ui/react-scroll-area": "^1.2.10",
+        "@radix-ui/react-select": "^2.2.6",
+        "@radix-ui/react-slot": "^1.2.4",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "dayjs": "^1.11.19",
+        "lucide-react": "^0.475.0",
+        "motion": "^12.23.24",
+        "rrule": "^2.8.1",
+        "tailwind-merge": "^3.3.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }
