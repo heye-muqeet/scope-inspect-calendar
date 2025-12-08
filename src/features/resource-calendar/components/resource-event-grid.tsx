@@ -4,6 +4,7 @@ import type dayjs from '@/lib/configs/dayjs-config'
 import { ResourceEventsLayer } from './resource-events-layer'
 import { GridCell } from '@/components/grid-cell'
 import { cn } from '@/lib'
+import { useEffect, useRef, useState } from 'react'
 
 interface ResourceEventGridProps {
   /**
@@ -30,6 +31,8 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
     useResourceCalendarContext()
 
   const visibleResources = getVisibleResources()
+  const [resourceColumnWidth, setResourceColumnWidth] = useState<number>(160) // Default w-40 = 160px
+  const measureContainerRef = useRef<HTMLDivElement>(null)
 
   const rows = visibleResources.map((resource) => ({
     id: resource.id,
@@ -42,17 +45,63 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
     })),
   }))
 
-  return (
-    <ScrollArea
-      className="h-full"
-      data-testid="month-scroll-area"
-      viewPortProps={{ className: '*:flex! *:flex-col! *:min-h-full' }}
-    >
-      {/* header row */}
-      {children}
+  // Measure the width of rendered resource content
+  useEffect(() => {
+    if (!renderResource || !measureContainerRef.current) {
+      setResourceColumnWidth(160) // Default w-40
+      return
+    }
 
-      {/* Calendar area with scroll */}
-      <div className="flex flex-1 h-[calc(100%-3rem)] w-fit">
+    // Use requestAnimationFrame to ensure DOM is updated
+    requestAnimationFrame(() => {
+      const container = measureContainerRef.current
+      if (!container) return
+
+      let maxWidth = 160 // Minimum width (w-40)
+
+      // Measure each resource content
+      const children = container.children
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i] as HTMLElement
+        const width = child.scrollWidth
+        if (width > maxWidth) {
+          maxWidth = width
+        }
+      }
+
+      // Add padding (p-2 = 0.5rem = 8px on each side = 16px total)
+      const padding = 16
+      setResourceColumnWidth(maxWidth + padding)
+    })
+  }, [renderResource, visibleResources])
+
+  return (
+    <>
+      {/* Hidden measurement container for custom renderResource */}
+      {renderResource && (
+        <div
+          ref={measureContainerRef}
+          className="invisible absolute -z-50 flex flex-col"
+          style={{ position: 'absolute', left: '-9999px' }}
+        >
+          {visibleResources.map((resource) => (
+            <div key={resource.id} className="p-2">
+              {renderResource(resource)}
+            </div>
+          ))}
+        </div>
+      )}
+      <ScrollArea
+        className="h-full"
+        data-testid="month-scroll-area"
+        viewPortProps={{ className: '*:flex! *:flex-col! *:min-h-full' }}
+        style={{ '--resource-column-width': `${resourceColumnWidth}px` } as React.CSSProperties}
+      >
+        {/* header row */}
+        {children}
+
+        {/* Calendar area with scroll */}
+        <div className="flex flex-1 h-[calc(100%-3rem)] w-fit">
         <div
           key={currentDate.format('YYYY-MM')}
           className="relative w-full flex flex-col"
@@ -61,19 +110,21 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
             <div key={row.id} className="flex flex-1 relative min-h-[60px] ">
               <div
                 className={cn(
-                  'w-40 border-b border-r p-2 flex flex-shrink-0 sticky left-0 z-20',
+                  !renderResource && 'w-40',
+                  'border-b border-r p-2 flex shrink-0 sticky left-0 z-20',
                   row.resource.color || '',
                   row.resource.backgroundColor || 'bg-background'
                 )}
                 style={{
                   color: row.resource.color,
                   backgroundColor: row.resource.backgroundColor,
+                  ...(renderResource && { width: `${resourceColumnWidth}px`, minWidth: `${resourceColumnWidth}px` }),
                 }}
               >
                 {renderResource ? (
-                  renderResource(row.resource)
+                  <div className="w-full">{renderResource(row.resource)}</div>
                 ) : (
-                  <div className="break-words text-sm">{row.name}</div>
+                  <div className="wrap-break-word text-sm">{row.name}</div>
                 )}
               </div>
 
@@ -105,5 +156,6 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
       </div>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
+    </>
   )
 }

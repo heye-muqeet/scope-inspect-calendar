@@ -5,7 +5,7 @@ import type { CalendarEvent, WeekDays } from '@/components/types'
 import type { CellClickInfo } from '@/features/calendar/types'
 import type { CalendarView, TimeFormat } from '@/types'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import type dayjs from '@/lib/configs/dayjs-config'
+import dayjs from '@/lib/configs/dayjs-config'
 import dummyEvents from '@/lib/seed'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
@@ -115,6 +115,7 @@ export function DemoPage() {
   const [customEvents] = useState<CalendarEvent[]>(dummyEvents)
   const [resourceEvents] = useState<CalendarEvent[]>(createResourceEvents())
   const [useCustomEventRenderer, setUseCustomEventRenderer] = useState(false)
+  const [useCustomResourceRenderer, setUseCustomResourceRenderer] = useState(false)
   const [locale, setLocale] = useState('en')
   const [timezone, setTimezone] = useState(() => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -178,6 +179,58 @@ export function DemoPage() {
     )
   }
 
+  // Custom resource renderer function
+  const renderResource = (resource: Resource) => {
+    // Calculate event counts for this resource
+    const resourceEventList = showDemoEvents ? resourceEvents : []
+    const totalEvents = resourceEventList.filter(
+      (event) =>
+        event.resourceId === resource.id ||
+        (event.resourceIds && event.resourceIds.includes(resource.id))
+    ).length
+
+    const today = dayjs()
+    const todayEvents = resourceEventList.filter((event) => {
+      const eventStart = dayjs(event.start)
+      const isToday =
+        eventStart.isSame(today, 'day') &&
+        (event.resourceId === resource.id ||
+          (event.resourceIds && event.resourceIds.includes(resource.id)))
+      return isToday
+    }).length
+
+    // Get first letter of resource name for avatar
+    const initial = resource.name.charAt(0).toUpperCase()
+
+    return (
+      <div className="flex items-center gap-3 w-full">
+        {/* Avatar */}
+        <div
+          className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+          style={{ backgroundColor: resource.color }}
+        >
+          {initial}
+        </div>
+
+        {/* Resource info */}
+        <div className="flex-1 min-w-0">
+          <div
+            className="font-medium text-sm truncate"
+            style={{ color: resource.color }}
+          >
+            {resource.name}
+          </div>
+          <div className="text-xs opacity-70" style={{ color: resource.color }}>
+            {totalEvents} total event{totalEvents !== 1 ? 's' : ''}
+          </div>
+          <div className="text-xs opacity-70" style={{ color: resource.color }}>
+            {todayEvents} event{todayEvents !== 1 ? 's' : ''} today
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="container mx-auto px-4 py-8 relative">
       {/* Decorative background elements */}
@@ -185,7 +238,7 @@ export function DemoPage() {
       <div className="fixed bottom-20 left-10 -z-10 w-80 h-80 bg-indigo-500/10 rounded-full filter blur-3xl animate-pulse"></div>
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-400 dark:to-indigo-500">
+        <h1 className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-linear-to-br from-blue-600 to-indigo-700 dark:from-blue-400 dark:to-indigo-500">
           Interactive Demo
         </h1>
         <p className="text-muted-foreground">
@@ -208,6 +261,8 @@ export function DemoPage() {
             setInitialDate={setInitialDate}
             useCustomEventRenderer={useCustomEventRenderer}
             setUseCustomEventRenderer={setUseCustomEventRenderer}
+            useCustomResourceRenderer={useCustomResourceRenderer}
+            setUseCustomResourceRenderer={setUseCustomResourceRenderer}
             locale={locale}
             setLocale={setLocale}
             timezone={timezone}
@@ -322,6 +377,7 @@ export function DemoPage() {
                   initialDate={initialDate}
                   locale={locale}
                   timezone={timezone}
+                  renderResource={useCustomResourceRenderer ? renderResource : undefined}
                   onEventClick={
                     useCustomOnEventClick ? handleResourceEventClick : undefined
                   }

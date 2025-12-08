@@ -40,7 +40,12 @@ export const ResourceDayHorizontal: React.FC = () => {
             viewHeaderClassName
           )}
         >
-          <div className="w-40 border-b border-r flex-shrink-0 flex justify-center items-center sticky top-0 left-0 bg-background z-20">
+          <div
+            className="border-b border-r flex-shrink-0 flex justify-center items-center sticky top-0 left-0 bg-background z-20"
+            style={{
+              width: 'var(--resource-column-width, 10rem)', // Default to w-40 (10rem = 160px)
+            }}
+          >
             <div className="text-sm">{t('resources')}</div>
           </div>
 

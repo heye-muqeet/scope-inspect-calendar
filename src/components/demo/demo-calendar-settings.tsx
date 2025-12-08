@@ -31,6 +31,8 @@ interface DemoCalendarSettingsProps {
   setInitialDate: (value: dayjs.Dayjs | undefined) => void
   useCustomEventRenderer: boolean
   setUseCustomEventRenderer: (value: boolean) => void
+  useCustomResourceRenderer: boolean
+  setUseCustomResourceRenderer: (value: boolean) => void
   locale: string
   setLocale: (value: string) => void
   timezone: string
@@ -85,6 +87,8 @@ export function DemoCalendarSettings({
   setInitialDate,
   useCustomEventRenderer,
   setUseCustomEventRenderer,
+  useCustomResourceRenderer,
+  setUseCustomResourceRenderer,
   locale,
   setLocale,
   disableCellClick,
@@ -506,6 +510,24 @@ export function DemoCalendarSettings({
             Use custom event renderer
           </label>
         </div>
+
+        {isResourceCalendar && (
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="customResourceRenderer"
+              checked={useCustomResourceRenderer}
+              onCheckedChange={() =>
+                setUseCustomResourceRenderer(!useCustomResourceRenderer)
+              }
+            />
+            <label
+              htmlFor="customResourceRenderer"
+              className="text-sm font-medium leading-none cursor-pointer"
+            >
+              Use custom resource renderer
+            </label>
+          </div>
+        )}
 
         <div className="flex items-center space-x-2">
           <Checkbox
