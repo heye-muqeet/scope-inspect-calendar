@@ -12,8 +12,9 @@ Complete step-by-step guide for installing this package from a **private GitHub 
 4. [Step 3: Secure Token Storage](#step-3-secure-token-storage)
 5. [Step 4: Team Setup](#step-4-team-setup)
 6. [Step 5: CI/CD Setup](#step-5-cicd-setup)
-7. [Troubleshooting](#troubleshooting)
-8. [Best Practices](#best-practices)
+7. [Updating the Package](#updating-the-package)
+8. [Troubleshooting](#troubleshooting)
+9. [Best Practices](#best-practices)
 
 ---
 
@@ -589,18 +590,305 @@ After installation, your `package.json` will have:
 
 ## Updating the Package
 
-To update to the latest version:
+When you push new functionality to the GitHub repository, you need to update the package in your projects to get the latest changes.
+
+### Understanding Git-Based Package Updates
+
+Since this package is installed from a Git repository (`git+https://...`), npm doesn't automatically check for updates like it does with npm registry packages. You need to explicitly update it.
+
+### Method 1: Update to Latest Main Branch (Recommended)
+
+This updates to the latest commit on the `main` branch:
 
 ```bash
 npm update scope-inspect-calendar
 ```
 
-Or reinstall:
+**Note:** If `npm update` doesn't work (npm sometimes caches git dependencies), use Method 2.
+
+### Method 2: Force Reinstall (Most Reliable)
+
+This removes the old version and installs fresh from the latest `main` branch:
 
 ```bash
 npm uninstall scope-inspect-calendar
 npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main
 ```
+
+**Or in one command:**
+
+```bash
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+```
+
+### Method 3: Update with Cache Clear
+
+If you suspect npm is using a cached version:
+
+```bash
+# Clear npm cache for this package
+npm cache clean --force
+
+# Then update
+npm update scope-inspect-calendar
+
+# Or reinstall
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+```
+
+### Method 4: Update to Specific Commit/Branch/Tag
+
+If you want to update to a specific version:
+
+**Update to specific commit:**
+```bash
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#abc123def456
+```
+
+**Update to specific branch:**
+```bash
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#develop
+```
+
+**Update to specific tag:**
+```bash
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#v1.2.3
+```
+
+### Checking Current Version
+
+**Check installed version:**
+```bash
+npm list scope-inspect-calendar
+```
+
+**Check package details:**
+```bash
+npm info scope-inspect-calendar
+```
+
+**Check what commit you're using:**
+```bash
+# View package.json
+cat node_modules/scope-inspect-calendar/package.json | grep version
+
+# Or check the git commit in node_modules
+cd node_modules/scope-inspect-calendar
+git log -1
+cd ../..
+```
+
+### Checking for Updates
+
+**Method 1: Check GitHub directly**
+1. Visit: `https://github.com/heye-muqeet/scope-inspect-calendar`
+2. Check the latest commit on `main` branch
+3. Compare with your installed version
+
+**Method 2: Check via npm (if package.json has version)**
+```bash
+npm outdated scope-inspect-calendar
+```
+
+**Method 3: Check commit hash**
+```bash
+# Get your current commit
+cd node_modules/scope-inspect-calendar
+git rev-parse HEAD
+cd ../..
+
+# Compare with latest on GitHub
+# Visit: https://api.github.com/repos/heye-muqeet/scope-inspect-calendar/commits/main
+```
+
+### Complete Update Workflow
+
+**Step-by-step process:**
+
+```bash
+# 1. Check current version/commit
+npm list scope-inspect-calendar
+
+# 2. (Optional) Check for changes on GitHub
+# Visit: https://github.com/heye-muqeet/scope-inspect-calendar/commits/main
+
+# 3. Update the package
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+
+# 4. Verify new version is installed
+npm list scope-inspect-calendar
+
+# 5. Test your application
+npm run dev
+# or
+npm start
+```
+
+### Updating in Multiple Projects
+
+If you're using the package in multiple projects:
+
+**Option 1: Update each project individually**
+```bash
+# In each project directory
+cd project-1
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+
+cd ../project-2
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+```
+
+**Option 2: Use a script (PowerShell)**
+```powershell
+# update-packages.ps1
+$projects = @("project-1", "project-2", "project-3")
+
+foreach ($project in $projects) {
+    Write-Host "Updating $project..."
+    Set-Location $project
+    npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+    Set-Location ..
+    Write-Host "Updated $project`n"
+}
+```
+
+**Option 2: Use a script (Bash)**
+```bash
+#!/bin/bash
+# update-packages.sh
+projects=("project-1" "project-2" "project-3")
+
+for project in "${projects[@]}"; do
+    echo "Updating $project..."
+    cd "$project"
+    npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+    cd ..
+    echo "Updated $project\n"
+done
+```
+
+### Handling Breaking Changes
+
+When updating, if you encounter errors:
+
+**1. Check the changelog/commits:**
+```bash
+# View recent commits on GitHub
+# https://github.com/heye-muqeet/scope-inspect-calendar/commits/main
+```
+
+**2. Review breaking changes:**
+- Check commit messages
+- Review pull requests
+- Check if there's a CHANGELOG.md or RELEASE_NOTES.md
+
+**3. Update your code accordingly:**
+- Update imports if API changed
+- Update props/usage if component API changed
+- Check TypeScript errors for type changes
+
+**4. Rollback if needed:**
+```bash
+# Install previous commit
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#previous-commit-hash
+```
+
+### Best Practices for Updating
+
+**✅ DO:**
+
+1. **Test after updating** - Always test your application after updating
+2. **Check commit history** - Review what changed before updating
+3. **Update regularly** - Don't let versions get too far behind
+4. **Use version control** - Commit `package-lock.json` after updates
+5. **Update in development first** - Test updates in dev before production
+6. **Keep backups** - Know which commit works if you need to rollback
+
+**❌ DON'T:**
+
+1. **Update without testing** - Always test after updating
+2. **Update in production first** - Test in development environment
+3. **Ignore breaking changes** - Read commit messages and changelogs
+4. **Skip version control** - Always commit `package-lock.json`
+5. **Update blindly** - Know what you're updating to
+
+### Automated Update Notifications
+
+**Option 1: GitHub Watch**
+- Go to repository → Click "Watch" → Select "All activity"
+- Get email notifications for new commits
+
+**Option 2: GitHub Actions (for your projects)**
+Create a workflow that checks for updates:
+
+```yaml
+# .github/workflows/check-updates.yml
+name: Check Package Updates
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sunday
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Check for updates
+        run: |
+          npm install
+          npm outdated scope-inspect-calendar || echo "No updates available"
+```
+
+### Troubleshooting Updates
+
+**Issue: "npm update" doesn't update the package**
+
+**Solution:**
+```bash
+# Force reinstall
+npm install git+https://github.com/heye-muqeet/scope-inspect-calendar.git#main --force
+```
+
+**Issue: "Still seeing old code after update"**
+
+**Solutions:**
+1. Clear npm cache: `npm cache clean --force`
+2. Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
+3. Restart your dev server
+4. Clear browser cache if using in browser
+
+**Issue: "Getting errors after update"**
+
+**Solutions:**
+1. Check commit history for breaking changes
+2. Review your code for deprecated APIs
+3. Check TypeScript errors for type mismatches
+4. Rollback to previous working commit if needed
+
+### Version Pinning (Optional)
+
+If you want to pin to a specific commit for stability:
+
+**In package.json:**
+```json
+{
+  "dependencies": {
+    "scope-inspect-calendar": "git+https://github.com/heye-muqeet/scope-inspect-calendar.git#abc123def456"
+  }
+}
+```
+
+**Benefits:**
+- Predictable builds
+- No unexpected updates
+- Easier debugging
+
+**Drawbacks:**
+- Manual updates required
+- Missing bug fixes and features
 
 ---
 
