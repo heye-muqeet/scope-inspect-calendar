@@ -115,7 +115,8 @@ export function DemoPage() {
   const [customEvents] = useState<CalendarEvent[]>(dummyEvents)
   const [resourceEvents] = useState<CalendarEvent[]>(createResourceEvents())
   const [useCustomEventRenderer, setUseCustomEventRenderer] = useState(false)
-  const [useCustomResourceRenderer, setUseCustomResourceRenderer] = useState(false)
+  const [useCustomResourceRenderer, setUseCustomResourceRenderer] =
+    useState(false)
   const [locale, setLocale] = useState('en')
   const [timezone, setTimezone] = useState(() => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -377,7 +378,9 @@ export function DemoPage() {
                   initialDate={initialDate}
                   locale={locale}
                   timezone={timezone}
-                  renderResource={useCustomResourceRenderer ? renderResource : undefined}
+                  renderResource={
+                    useCustomResourceRenderer ? renderResource : undefined
+                  }
                   onEventClick={
                     useCustomOnEventClick ? handleResourceEventClick : undefined
                   }

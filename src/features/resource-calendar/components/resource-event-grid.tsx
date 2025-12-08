@@ -55,7 +55,9 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
     // Use requestAnimationFrame to ensure DOM is updated
     requestAnimationFrame(() => {
       const container = measureContainerRef.current
-      if (!container) return
+      if (!container) {
+        return
+      }
 
       let maxWidth = 160 // Minimum width (w-40)
 
@@ -95,67 +97,74 @@ export const ResourceEventGrid: React.FC<ResourceEventGridProps> = ({
         className="h-full"
         data-testid="month-scroll-area"
         viewPortProps={{ className: '*:flex! *:flex-col! *:min-h-full' }}
-        style={{ '--resource-column-width': `${resourceColumnWidth}px` } as React.CSSProperties}
+        style={
+          {
+            '--resource-column-width': `${resourceColumnWidth}px`,
+          } as React.CSSProperties
+        }
       >
         {/* header row */}
         {children}
 
         {/* Calendar area with scroll */}
         <div className="flex flex-1 h-[calc(100%-3rem)] w-fit">
-        <div
-          key={currentDate.format('YYYY-MM')}
-          className="relative w-full flex flex-col"
-        >
-          {rows.map((row) => (
-            <div key={row.id} className="flex flex-1 relative min-h-[60px] ">
-              <div
-                className={cn(
-                  !renderResource && 'w-40',
-                  'border-b border-r p-2 flex shrink-0 sticky left-0 z-20',
-                  row.resource.color || '',
-                  row.resource.backgroundColor || 'bg-background'
-                )}
-                style={{
-                  color: row.resource.color,
-                  backgroundColor: row.resource.backgroundColor,
-                  ...(renderResource && { width: `${resourceColumnWidth}px`, minWidth: `${resourceColumnWidth}px` }),
-                }}
-              >
-                {renderResource ? (
-                  <div className="w-full">{renderResource(row.resource)}</div>
-                ) : (
-                  <div className="wrap-break-word text-sm">{row.name}</div>
-                )}
-              </div>
+          <div
+            key={currentDate.format('YYYY-MM')}
+            className="relative w-full flex flex-col"
+          >
+            {rows.map((row) => (
+              <div key={row.id} className="flex flex-1 relative min-h-[60px] ">
+                <div
+                  className={cn(
+                    !renderResource && 'w-40',
+                    'border-b border-r p-2 flex shrink-0 sticky left-0 z-20',
+                    row.resource.color || '',
+                    row.resource.backgroundColor || 'bg-background'
+                  )}
+                  style={{
+                    color: row.resource.color,
+                    backgroundColor: row.resource.backgroundColor,
+                    ...(renderResource && {
+                      width: `${resourceColumnWidth}px`,
+                      minWidth: `${resourceColumnWidth}px`,
+                    }),
+                  }}
+                >
+                  {renderResource ? (
+                    <div className="w-full">{renderResource(row.resource)}</div>
+                  ) : (
+                    <div className="wrap-break-word text-sm">{row.name}</div>
+                  )}
+                </div>
 
-              <div className="relative flex-1 flex">
-                {row.cells.map((cell) => (
-                  <GridCell
-                    key={cell.id}
-                    index={cell.value.day()}
-                    day={cell.value}
-                    resourceId={row.id}
-                    dayMaxEvents={dayMaxEvents}
-                    gridType={gridType}
-                    className="border-r border-b w-20"
-                  />
-                ))}
+                <div className="relative flex-1 flex">
+                  {row.cells.map((cell) => (
+                    <GridCell
+                      key={cell.id}
+                      index={cell.value.day()}
+                      day={cell.value}
+                      resourceId={row.id}
+                      dayMaxEvents={dayMaxEvents}
+                      gridType={gridType}
+                      className="border-r border-b w-20"
+                    />
+                  ))}
 
-                {/* Events layer positioned absolutely over the resource row */}
-                <div className="absolute inset-0 z-10 pointer-events-none">
-                  <ResourceEventsLayer
-                    days={days}
-                    resourceId={row.id}
-                    gridType={gridType}
-                  />
+                  {/* Events layer positioned absolutely over the resource row */}
+                  <div className="absolute inset-0 z-10 pointer-events-none">
+                    <ResourceEventsLayer
+                      days={days}
+                      resourceId={row.id}
+                      gridType={gridType}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </>
   )
 }
