@@ -59,6 +59,7 @@ export interface CalendarContextType {
   headerClassName?: string // Optional custom header class
   businessHours?: BusinessHours
   visibleHours?: VisibleHours
+  slotDuration: 30 | 60
   renderEventForm?: (props: EventFormProps) => React.ReactNode
   // Translation function
   t: (key: TranslationKey) => string
@@ -104,6 +105,7 @@ export interface UseScopeInspectCalendarContextReturn {
   readonly closeEventForm: () => void
   readonly businessHours?: BusinessHours
   readonly visibleHours?: VisibleHours
+  readonly slotDuration: 30 | 60
 }
 
 export const useScopeInspectCalendarContext =
@@ -135,5 +137,6 @@ export const useScopeInspectCalendarContext =
       closeEventForm: context.closeEventForm,
       businessHours: context.businessHours,
       visibleHours: context.visibleHours,
+      slotDuration: context.slotDuration,
     } as const
   }

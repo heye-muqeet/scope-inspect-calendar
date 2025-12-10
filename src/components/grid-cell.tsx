@@ -37,6 +37,7 @@ export const GridCell: React.FC<GridProps> = ({
     t,
     getEventsForResource,
     businessHours,
+    isResourceAvailable,
   } = useSmartCalendarContext((state) => ({
     dayMaxEvents: state.dayMaxEvents,
     getEventsForDateRange: state.getEventsForDateRange,
@@ -45,6 +46,7 @@ export const GridCell: React.FC<GridProps> = ({
     t: state.t,
     getEventsForResource: state.getEventsForResource,
     businessHours: state.businessHours,
+      isResourceAvailable: (state as { isResourceAvailable?: typeof state.isResourceAvailable }).isResourceAvailable,
   }))
 
   const todayEvents = useMemo(() => {
@@ -88,11 +90,25 @@ export const GridCell: React.FC<GridProps> = ({
   const hiddenEventsCount = todayEvents.length - dayMaxEvents
   const hasHiddenEvents = hiddenEventsCount > 0
 
-  const isBusiness = isBusinessHour({
+  // Check availability: use resource-specific check if resourceId is provided, otherwise use business hours
+  const isAvailable = useMemo(() => {
+    if (resourceId && isResourceAvailable) {
+      // Use resource-specific availability (includes blocked slots)
+      return isResourceAvailable(
+        resourceId,
+        day,
+        gridType === 'hour' ? day.hour() : undefined,
+        gridType === 'hour' ? day.minute() : undefined
+      )
+    }
+    // Fall back to business hours check
+    return isBusinessHour({
     date: day,
     hour: gridType === 'hour' ? day.hour() : undefined,
     businessHours,
   })
+  }, [day, resourceId, gridType, isResourceAvailable, businessHours])
+
 
   return (
     <>
@@ -101,8 +117,10 @@ export const GridCell: React.FC<GridProps> = ({
         type="day-cell"
         data-testid={`day-cell-${day.toISOString()}`}
         date={day}
+        hour={gridType === 'hour' ? day.hour() : undefined}
+        minute={gridType === 'hour' ? day.minute() : undefined}
         resourceId={resourceId}
-        disabled={!isBusiness}
+        disabled={!isAvailable}
         className={cn(
           'cursor-pointer overflow-clip p-1 hover:bg-accent min-h-[60px]',
           !isCurrentMonth && 'bg-secondary text-muted-foreground',

@@ -1,4 +1,4 @@
-import type { Resource } from '@/features/resource-calendar/types'
+import type { Resource, TimeOff } from '@/features/resource-calendar/types'
 import type { CellClickInfo } from '@/features/calendar/types'
 import { createContext, useContext } from 'react'
 import type {
@@ -6,6 +6,7 @@ import type {
   UseScopeInspectCalendarContextReturn,
 } from '@/features/calendar/contexts/calendar-context/context'
 import type { CalendarEvent } from '@/components/types'
+import type dayjs from '@/lib/configs/dayjs-config'
 
 export interface ResourceCalendarContextType extends CalendarContextType {
   // Resource-specific state
@@ -17,6 +18,20 @@ export interface ResourceCalendarContextType extends CalendarContextType {
   getEventsForResources: (resourceIds: (string | number)[]) => CalendarEvent[]
   getResourceById: (resourceId: string | number) => Resource | undefined
   getVisibleResources: () => Resource[]
+  
+  // Resource availability utilities
+  isResourceAvailable: (
+    resourceId: string | number,
+    date: dayjs.Dayjs,
+    hour?: number,
+    minute?: number
+  ) => boolean
+  getTimeOffsForSlot: (
+    resourceId: string | number,
+    date: dayjs.Dayjs,
+    hour?: number,
+    minute?: number
+  ) => TimeOff[]
 
   // Cross-resource event utilities
   isEventCrossResource: (event: CalendarEvent) => boolean

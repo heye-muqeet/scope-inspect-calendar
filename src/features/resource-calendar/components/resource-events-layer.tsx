@@ -1,3 +1,4 @@
+import React from 'react'
 import { EVENT_BAR_HEIGHT } from '@/lib/constants'
 import type dayjs from '@/lib/configs/dayjs-config'
 import { useProcessedResourceWeekEvents } from '../hooks/useProcessedResourceWeekEvents'
@@ -23,6 +24,8 @@ export const ResourceEventsLayer: React.FC<WeekEventsLayerProps> = ({
 
   return (
     <div className="relative w-full h-full pointer-events-none z-10 overflow-clip">
+
+      {/* Events layer */}
       {processedWeekEvents.map((event) => {
         const eventKey = `${resourceId}-event-${event.id}-${event.position}-${weekStart.toISOString()}`
 

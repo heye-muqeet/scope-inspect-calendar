@@ -47,7 +47,7 @@ function CustomHeader() {
     useScopeInspectCalendarContext()
 
   return (
-    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500 to-purple-600">
+    <div className="flex items-center justify-between p-4 bg-linear-to-r from-blue-500 to-purple-600">
       <button
         onClick={prevPeriod}
         className="px-4 py-2 bg-white/20 text-white rounded hover:bg-white/30"
@@ -462,7 +462,7 @@ function App() {
 For resource calendars, you can customize how resources are displayed:
 
 ```tsx
-import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { Resource } from 'scope-inspect-calendar'
 import { MapPin, Users } from 'lucide-react'
 
@@ -487,7 +487,8 @@ function CustomResourceHeader(resource: Resource) {
 
 function App() {
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={resources}
       events={events}
       renderResource={CustomResourceHeader}
@@ -582,7 +583,7 @@ function CustomHeader() {
     useScopeInspectCalendarContext()
 
   return (
-    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+    <div className="flex items-center justify-between p-4 bg-linear-to-r from-blue-500 to-purple-600 text-white">
       <button onClick={prevPeriod} className="px-3 py-1 bg-white/20 rounded">
         ←
       </button>

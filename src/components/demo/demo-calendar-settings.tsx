@@ -70,6 +70,8 @@ interface DemoCalendarSettingsProps {
     endTime: number
   }
   setVisibleHours: (value: { startTime: number; endTime: number }) => void
+  slotDuration: 30 | 60
+  setSlotDuration: (value: 30 | 60) => void
   showDemoEvents: boolean
   setShowDemoEvents: (value: boolean) => void
   // Resource calendar specific props
@@ -113,6 +115,8 @@ export function DemoCalendarSettings({
   setBusinessHours,
   visibleHours,
   setVisibleHours,
+  slotDuration,
+  setSlotDuration,
   showDemoEvents,
   setShowDemoEvents,
   // Resource calendar props
@@ -478,6 +482,29 @@ export function DemoCalendarSettings({
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="border-t pt-4">
+          <div>
+            <label className="block text-sm text-left font-medium mb-1">
+              Slot Duration
+            </label>
+            <div className="text-xs text-muted-foreground mb-2">
+              Duration of each time slot in the calendar grid. Controls the granularity of time slots displayed in day and week views.
+            </div>
+            <Select
+              value={slotDuration.toString()}
+              onValueChange={(value) => setSlotDuration(Number.parseInt(value, 10) as 30 | 60)}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select slot duration" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="30">30 minutes</SelectItem>
+                <SelectItem value="60">60 minutes (1 hour)</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 

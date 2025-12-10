@@ -427,9 +427,135 @@ function App() {
 }
 ```
 
+## Visual States and Cell Styling
+
+The calendar provides automatic visual styling for different cell states to improve user experience and clarity.
+
+### Past Time Greying
+
+Past time slots are automatically greyed out to provide visual feedback about historical time periods. Unlike unavailable slots, past slots remain **fully interactive** - users can still click, hover, and interact with them.
+
+#### Features
+
+- ✅ Automatic detection of past time slots
+- ✅ Visual greying with reduced opacity
+- ✅ Remains fully interactive (clickable, hoverable, droppable)
+- ✅ Works for both day-level and hour-level cells
+- ✅ Current time slot is excluded from greying
+
+#### Behavior
+
+- **Day-level cells**: Days before today are greyed out
+- **Hour-level cells**: Time slots before the current time are greyed out
+- **Current cell**: The current day/hour is never greyed out
+- **Interactivity**: Past cells remain fully functional for viewing historical data
+
+#### Visual Styling
+
+Past slots use:
+- Background: `bg-secondary/40` (40% opacity)
+- Text: `text-muted-foreground/60` (60% opacity)
+
+This creates a subtle, non-intrusive visual indication that the time has passed while maintaining readability.
+
+#### Example
+
+```tsx
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+
+function App() {
+  return (
+    <ScopeInspectCalendar
+      type="timeline" // or "agenda"
+      resources={resources}
+      events={events}
+      // Past slots will be automatically greyed out
+    />
+  )
+}
+```
+
+**No additional configuration needed** - past time greying works automatically for all calendar views.
+
+### Visual Distinction: Unavailable vs Past Slots
+
+The calendar provides clear visual distinction between two types of greyed-out cells:
+
+1. **Unavailable Slots** - Truly blocked/unavailable (business hours, blocked slots, time-offs)
+2. **Past Slots** - Historical time periods (still interactive)
+
+#### Unavailable Slots
+
+- **Background**: `bg-secondary` (full opacity, darker)
+- **Text**: `text-muted-foreground` (full opacity)
+- **Pattern**: Diagonal stripe pattern overlay
+- **Interactivity**: Disabled (`pointer-events-none`)
+- **Cursor**: Default cursor (not clickable)
+
+**Visual appearance**: Darker grey background with diagonal stripes, clearly indicating the slot is blocked.
+
+#### Past Slots
+
+- **Background**: `bg-secondary/40` (40% opacity, lighter)
+- **Text**: `text-muted-foreground/60` (60% opacity)
+- **Pattern**: None (solid background)
+- **Interactivity**: Fully enabled (clickable, hoverable, droppable)
+- **Cursor**: Pointer cursor (clickable)
+
+**Visual appearance**: Lighter grey background without pattern, indicating historical time that's still accessible.
+
+#### Comparison Table
+
+| Feature | Unavailable Slots | Past Slots |
+|---------|-------------------|------------|
+| Background Opacity | 100% (full) | 40% (reduced) |
+| Text Opacity | 100% (full) | 60% (reduced) |
+| Pattern | Diagonal stripes | None |
+| Clickable | ❌ No | ✅ Yes |
+| Hoverable | ❌ No | ✅ Yes |
+| Droppable | ❌ No | ✅ Yes |
+| Visual Intent | Blocked/Unavailable | Historical |
+
+#### Use Cases
+
+**Unavailable Slots:**
+- Business hours outside working time
+- Resource-specific blocked slots (meetings, breaks)
+- Time-off periods
+- Recurring unavailable patterns
+
+**Past Slots:**
+- Viewing historical calendar data
+- Reviewing past events
+- Analyzing time usage
+- Exporting historical information
+
+#### Example
+
+```tsx
+const resource: Resource = {
+  id: 'john-doe',
+  name: 'John Doe',
+  availableSlots: {
+    // This creates UNAVAILABLE slots (with diagonal pattern)
+    // for times outside the defined schedule
+    recurring: {
+      mon: {
+        schedule: [{ start: '09:00', end: '17:00' }],
+        enabled: true,
+      },
+    },
+  },
+}
+
+// Past slots are automatically greyed out (lighter, no pattern)
+// when viewing dates/times before the current moment
+```
+
 ## Related Documentation
 
 - **[README.md](../../README.md)** - Main documentation index
 - [Project Setup Guide](../getting-started/project-setup.md) - Tailwind CSS configuration
 - [Custom Rendering Guide](./custom-rendering.md) - Component customization
+- [Resource Calendar Guide](../resource-calendar.md) - Resource availability configuration
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Official Tailwind CSS docs

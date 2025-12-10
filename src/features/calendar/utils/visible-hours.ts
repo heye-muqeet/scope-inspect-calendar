@@ -2,13 +2,18 @@ import type { VisibleHours } from '@/components/types'
 import dayjs from '@/lib/configs/dayjs-config'
 
 /**
- * Generates an array of hour objects within the visible hours range.
+ * Generates an array of time slot objects within the visible hours range.
+ * Supports both 30-minute and 60-minute slot durations.
  * If visibleHours is not provided, returns all 24 hours (0-23).
  *
  * @param visibleHours - Optional visible hours configuration
- * @returns Array of dayjs objects representing visible hours
+ * @param slotDuration - Duration of each slot in minutes (30 or 60). Defaults to 60.
+ * @returns Array of dayjs objects representing visible time slots
  */
-export function getVisibleHours(visibleHours?: VisibleHours): dayjs.Dayjs[] {
+export function getVisibleHours(
+  visibleHours?: VisibleHours,
+  slotDuration: 30 | 60 = 60
+): dayjs.Dayjs[] {
   // Default: show all 24 hours if not configured
   const startTime = visibleHours?.startTime ?? 0
   const endTime = visibleHours?.endTime ?? 24
@@ -17,13 +22,23 @@ export function getVisibleHours(visibleHours?: VisibleHours): dayjs.Dayjs[] {
   const validStart = Math.max(0, Math.min(24, startTime))
   const validEnd = Math.max(0, Math.min(24, endTime))
 
-  // Generate hours array
-  const hours: dayjs.Dayjs[] = []
-  for (let hour = validStart; hour < validEnd; hour++) {
-    hours.push(dayjs().hour(hour).minute(0).second(0).millisecond(0))
+  // Generate time slots array based on slot duration
+  const slots: dayjs.Dayjs[] = []
+  
+  if (slotDuration === 30) {
+    // Generate 30-minute slots
+    for (let hour = validStart; hour < validEnd; hour++) {
+      slots.push(dayjs().hour(hour).minute(0).second(0).millisecond(0))
+      slots.push(dayjs().hour(hour).minute(30).second(0).millisecond(0))
+    }
+  } else {
+    // Generate 60-minute (hourly) slots
+    for (let hour = validStart; hour < validEnd; hour++) {
+      slots.push(dayjs().hour(hour).minute(0).second(0).millisecond(0))
+    }
   }
 
-  return hours
+  return slots
 }
 
 /**
@@ -54,15 +69,19 @@ export function isVisibleHour(
 }
 
 /**
- * Calculates the total number of visible hours.
+ * Calculates the total number of visible time slots.
  *
  * @param visibleHours - Optional visible hours configuration
- * @returns Number of visible hours (default: 24)
+ * @param slotDuration - Duration of each slot in minutes (30 or 60). Defaults to 60.
+ * @returns Number of visible time slots
  */
-export function getVisibleHoursCount(visibleHours?: VisibleHours): number {
+export function getVisibleHoursCount(
+  visibleHours?: VisibleHours,
+  slotDuration: 30 | 60 = 60
+): number {
   // Default: 24 hours if not configured
   if (!visibleHours) {
-    return 24
+    return slotDuration === 30 ? 48 : 24 // 48 slots for 30min, 24 for 60min
   }
 
   const startTime = visibleHours.startTime ?? 0
@@ -71,6 +90,7 @@ export function getVisibleHoursCount(visibleHours?: VisibleHours): number {
   // Validate and calculate
   const validStart = Math.max(0, Math.min(24, startTime))
   const validEnd = Math.max(0, Math.min(24, endTime))
+  const hoursCount = Math.max(0, validEnd - validStart)
 
-  return Math.max(0, validEnd - validStart)
+  return slotDuration === 30 ? hoursCount * 2 : hoursCount
 }

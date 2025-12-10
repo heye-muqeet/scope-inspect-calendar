@@ -493,7 +493,6 @@ function MyComponent() {
 
 - **[README.md](../../../README.md)** - Main documentation index
 - [ScopeInspectCalendar Component](../components/scope-inspect-calendar.md) - Main calendar component
-- [ScopeInspectResourceCalendar Component](../components/scope-inspect-resource-calendar.md) - Resource calendar component
-- [useScopeInspectResourceCalendarContext Hook](./use-scope-inspect-resource-calendar-context.md) - Resource calendar context hook
+- [ScopeInspectCalendar Component](../components/scope-inspect-calendar.md) - Unified calendar component (supports both agenda and timeline views)
 - [Calendar Views Guide](../../guides/calendar-views.md) - Understanding calendar views
 - [Basic Usage Guide](../../getting-started/basic-usage.md) - Usage fundamentals

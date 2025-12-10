@@ -1,10 +1,14 @@
 # ScopeInspectCalendar
 
-A comprehensive React calendar component with month, week, day, and year views, plus powerful event lifecycle callbacks.
+A unified React calendar component that supports both **agenda** (standard) and **timeline** (resource) views, with month, week, day, and year views, plus powerful event lifecycle callbacks.
 
 ## Overview
 
-The `ScopeInspectCalendar` component is the main component for displaying calendar views. It supports various props for customization and event handling. Events should follow the `CalendarEvent` interface.
+The `ScopeInspectCalendar` component is the main component for displaying calendar views. It can be used for:
+- **Agenda View** (`type="agenda"` or default): Standard calendar with events organized by date
+- **Timeline View** (`type="timeline"`): Resource-based calendar with events organized by resource rows
+
+Use the `type` prop to switch between views. Events should follow the `CalendarEvent` interface.
 
 ## Basic Usage
 
@@ -44,10 +48,13 @@ function MyCalendar() {
 
 | Prop                  | Type                                                                                       | Default                    | Description                                                                                                                        |
 | --------------------- | ------------------------------------------------------------------------------------------ | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                | `'agenda' \| 'timeline'`                                                                   | `'agenda'`                 | Calendar display type. Use `'agenda'` for standard calendar view or `'timeline'` for resource-based timeline view                 |
 | `events`              | `CalendarEvent[]`                                                                          | `[]`                       | Array of events to display in the calendar                                                                                         |
 | `initialView`         | `'month' \| 'week' \| 'day' \| 'year'`                                                     | `'month'`                  | Sets the initial view when the calendar loads                                                                                      |
 | `initialDate`         | `dayjs.Dayjs \| Date \| string`                                                            | `undefined` (today's date) | Sets the initial date displayed when the calendar loads. When undefined, defaults to today's date                                  |
 | `firstDayOfWeek`      | `'sunday' \| 'monday' \| 'tuesday' \| 'wednesday' \| 'thursday' \| 'friday' \| 'saturday'` | `'sunday'`                 | The first day of the week to display                                                                                               |
+| `resources`            | `Resource[]`                                                                               | `[]`                       | Array of resources (team members, rooms, equipment) for timeline view. Required when `type="timeline"`                             |
+| `renderResource`      | `(resource: Resource) => React.ReactNode`                                                  | `undefined`                | Custom render function for resource cells in timeline view                                                                         |
 | `dayMaxEvents`        | `number`                                                                                   | `3`                        | Maximum number of events to display in a day cell                                                                                  |
 | `renderEvent`         | `(event: CalendarEvent) => ReactNode`                                                      | `undefined`                | Custom function to render individual events                                                                                        |
 | `locale`              | `string`                                                                                   | `'en'`                     | Locale for date formatting (e.g., "en", "fr", "de")                                                                                |
@@ -62,6 +69,7 @@ function MyCalendar() {
 | `disableDragAndDrop`  | `boolean`                                                                                  | `false`                    | Disable drag-and-drop functionality for events                                                                                     |
 | `businessHours`       | `BusinessHours`                                                                            | `undefined`                | Restrict calendar interactions to specified days and time ranges. Users can only create and edit events within business hours.     |
 | `visibleHours`        | `VisibleHours`                                                                             | `undefined`                | **Exclusive feature**: Controls which time range is displayed on the calendar's vertical time scale, independent of business hours |
+| `slotDuration`        | `30 \| 60`                                                                                 | `60`                       | The duration of each time slot in minutes. Controls the granularity of the time grid in day and week views (30 minutes or 1 hour)  |
 | `renderEventForm`     | `(props: EventFormProps) => ReactNode`                                                     | `undefined`                | Custom render function for the event form                                                                                          |
 | `translations`        | `Translations`                                                                             | `undefined`                | Translations object for internationalization                                                                                       |
 | `translator`          | `TranslatorFunction`                                                                       | `undefined`                | Translator function for internationalization                                                                                       |
@@ -618,6 +626,54 @@ const visibleHours: VisibleHours = {
   startTime: 9,
   endTime: 17,
 }
+
+<ScopeInspectCalendar
+  events={events}
+  visibleHours={visibleHours}
+/>
+```
+
+### Slot Duration
+
+The `slotDuration` prop controls the granularity of time slots in day and week views. This affects how the time grid is divided and displayed.
+
+```typescript
+slotDuration?: 30 | 60 // Default: 60
+```
+
+#### Options
+
+- **`30`**: 30-minute time slots (e.g., 12:00, 12:30, 1:00, 1:30)
+- **`60`**: 60-minute (1-hour) time slots (e.g., 12:00, 1:00, 2:00)
+
+#### Usage Example
+
+Use 30-minute slots for more granular scheduling:
+
+```tsx
+<ScopeInspectCalendar
+  events={events}
+  slotDuration={30} // 30-minute slots
+/>
+```
+
+Use 60-minute slots (default) for standard hourly scheduling:
+
+```tsx
+<ScopeInspectCalendar
+  events={events}
+  slotDuration={60} // 1-hour slots (default)
+/>
+```
+
+#### Behavior
+
+- **Day View**: Time labels and grid lines adjust based on `slotDuration`
+- **Week View**: Time labels and grid lines adjust based on `slotDuration`
+- **Month View**: Not affected (day-level granularity)
+- **Year View**: Not affected (month-level granularity)
+- **Cell Clicks**: When clicking a time cell, the event duration matches `slotDuration`
+- **Time Labels**: Display minutes when `slotDuration={30}`, hours only when `slotDuration={60}`
 
 <ScopeInspectCalendar
   events={events}

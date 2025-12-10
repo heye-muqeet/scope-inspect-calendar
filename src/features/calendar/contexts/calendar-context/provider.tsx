@@ -39,6 +39,7 @@ export interface CalendarProviderProps {
   headerClassName?: string // Optional custom header class
   businessHours?: BusinessHours
   visibleHours?: VisibleHours
+  slotDuration?: 30 | 60
   renderEventForm?: (props: EventFormProps) => ReactNode
   // Translation options - provide either translations object OR translator function
   translations?: Translations
@@ -72,6 +73,7 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({
   headerClassName,
   businessHours,
   visibleHours,
+  slotDuration = 60,
   renderEventForm,
   translations,
   translator,
@@ -175,6 +177,7 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({
       headerClassName,
       businessHours,
       visibleHours,
+      slotDuration,
       renderEventForm,
       t: calendarEngine.t,
       timeFormat,
@@ -196,6 +199,7 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({
       headerClassName,
       businessHours,
       visibleHours,
+      slotDuration,
       renderEventForm,
       timeFormat,
     ]

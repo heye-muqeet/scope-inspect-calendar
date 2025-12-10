@@ -15,18 +15,19 @@ export const ResourceDayHorizontal: React.FC = () => {
     currentLocale,
     timeFormat,
     visibleHours,
+    slotDuration,
   } = useResourceCalendarContext()
 
-  // Get visible hours based on configuration
+  // Get visible hours based on configuration and slot duration
   const visibleHoursArray = useMemo(
-    () => getVisibleHours(visibleHours),
-    [visibleHours]
+    () => getVisibleHours(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
   )
 
-  // Generate time columns (hourly slots) - only for visible hours
+  // Generate time columns (time slots) - only for visible hours
   const dayHours = useMemo(() => {
     return visibleHoursArray.map((visibleHour) =>
-      currentDate.hour(visibleHour.hour()).minute(0)
+      currentDate.hour(visibleHour.hour()).minute(visibleHour.minute())
     )
   }, [currentDate, visibleHoursArray])
 
@@ -76,6 +77,7 @@ export const ResourceDayHorizontal: React.FC = () => {
                     >
                       {Intl.DateTimeFormat(currentLocale, {
                         hour: 'numeric',
+                        minute: slotDuration === 30 ? '2-digit' : undefined,
                         hour12: timeFormat === '12-hour',
                       }).format(col.toDate())}
                     </motion.div>

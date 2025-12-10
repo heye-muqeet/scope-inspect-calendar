@@ -118,6 +118,7 @@ export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
   headerClassName,
   businessHours,
   visibleHours,
+  slotDuration = 60,
   timeFormat = '12-hour',
 }) => {
   // Render resource calendar (timeline view)
@@ -156,6 +157,7 @@ export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
         renderEventForm={renderEventForm}
         businessHours={businessHours}
         visibleHours={visibleHours}
+        slotDuration={slotDuration}
         timeFormat={timeFormat}
       >
         <ResourceCalendarBody />
@@ -195,6 +197,7 @@ export const ScopeInspectCalendar: React.FC<ScopeInspectCalendarProps> = ({
       headerClassName={headerClassName}
       businessHours={businessHours}
       visibleHours={visibleHours}
+      slotDuration={slotDuration}
       timeFormat={timeFormat}
     >
       <CalendarContent />

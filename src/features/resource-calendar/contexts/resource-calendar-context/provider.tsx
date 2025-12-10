@@ -1,10 +1,15 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { ResourceCalendarContext } from './context'
-import type { Resource } from '@/features/resource-calendar/types'
+import type { Resource, TimeOff } from '@/features/resource-calendar/types'
 import type { CellClickInfo } from '@/features/calendar/types'
 import { useCalendarEngine } from '@/hooks/use-calendar-engine'
 import type { CalendarProviderProps } from '@/features/calendar/contexts/calendar-context/provider'
 import type { CalendarEvent } from '@/components/types'
+import {
+  isResourceAvailable as checkResourceAvailable,
+  getTimeOffsForSlot as getTimeOffs,
+} from '@/features/resource-calendar/utils/resource-availability'
+import type dayjs from '@/lib/configs/dayjs-config'
 
 const getEventResourceIds = (event: CalendarEvent): (string | number)[] => {
   if (event.resourceIds) {
@@ -55,6 +60,7 @@ export const ResourceCalendarProvider: React.FC<
   renderEventForm,
   businessHours,
   visibleHours,
+  slotDuration = 60,
   timeFormat = '12-hour',
 }) => {
   // Resource-specific state
@@ -153,6 +159,49 @@ export const ResourceCalendarProvider: React.FC<
     )
   }, [currentResources, visibleResources])
 
+  // Resource availability utilities
+  const isResourceAvailable = useCallback(
+    (
+      resourceId: string | number,
+      date: dayjs.Dayjs,
+      hour?: number,
+      minute?: number
+    ): boolean => {
+      const resource = currentResources.find((r) => r.id === resourceId)
+      if (!resource) {
+        return false
+      }
+
+      return checkResourceAvailable({
+        date,
+        hour,
+        minute,
+        blockedSlots: resource.blockedSlots,
+        businessHours: calendarEngine.businessHours,
+        timeOffs: resource.timeOffs,
+        availableSlots: resource.availableSlots,
+      })
+    },
+    [currentResources, calendarEngine.businessHours]
+  )
+
+  const getTimeOffsForSlot = useCallback(
+    (
+      resourceId: string | number,
+      date: dayjs.Dayjs,
+      hour?: number,
+      minute?: number
+    ): TimeOff[] => {
+      const resource = currentResources.find((r) => r.id === resourceId)
+      if (!resource || !resource.timeOffs) {
+        return []
+      }
+
+      return getTimeOffs(date, hour, minute, resource.timeOffs)
+    },
+    [currentResources]
+  )
+
   // Cross-resource event utilities
   const isEventCrossResource = useCallback((event: CalendarEvent): boolean => {
     return Boolean(event.resourceIds && event.resourceIds.length > 1)
@@ -234,6 +283,10 @@ export const ResourceCalendarProvider: React.FC<
       getResourceById,
       getVisibleResources,
 
+      // Resource availability utilities
+      isResourceAvailable,
+      getTimeOffsForSlot,
+
       // Cross-resource event utilities
       isEventCrossResource,
       getEventResourceIds,
@@ -260,6 +313,7 @@ export const ResourceCalendarProvider: React.FC<
       viewHeaderClassName,
       businessHours,
       visibleHours,
+      slotDuration,
       timeFormat,
     }),
     [
@@ -275,6 +329,8 @@ export const ResourceCalendarProvider: React.FC<
       getEventsForResources,
       getResourceById,
       getVisibleResources,
+      isResourceAvailable,
+      getTimeOffsForSlot,
       isEventCrossResource,
       handleEventClick,
       handleDateClick,
@@ -293,6 +349,7 @@ export const ResourceCalendarProvider: React.FC<
       headerClassName,
       businessHours,
       visibleHours,
+      slotDuration,
       timeFormat,
     ]
   )

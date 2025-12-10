@@ -1,8 +1,9 @@
 // oxlint-disable no-negated-condition
 import type dayjs from '@/lib/configs/dayjs-config'
+import dayjsInstance from '@/lib/configs/dayjs-config'
 import { cn } from '@/lib/utils'
 import { useDroppable } from '@dnd-kit/core'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSmartCalendarContext } from '@/hooks/use-smart-calendar-context'
 import { Plus } from 'lucide-react'
 
@@ -35,11 +36,12 @@ export function DroppableCell({
   'data-testid': dataTestId,
   disabled = false,
 }: DroppableCellProps) {
-  const { onCellClick, disableDragAndDrop, disableCellClick } =
+  const { onCellClick, disableDragAndDrop, disableCellClick, slotDuration } =
     useSmartCalendarContext((state) => ({
       onCellClick: state.onCellClick,
       disableDragAndDrop: state.disableDragAndDrop,
       disableCellClick: state.disableCellClick,
+      slotDuration: state.slotDuration ?? 60,
     }))
 
   const { isOver, setNodeRef } = useDroppable({
@@ -55,6 +57,24 @@ export function DroppableCell({
     disabled: disableDragAndDrop || disabled,
   })
 
+  // Check if cell is in the past - grey out but keep interactive
+  // Exclude the current cell from being greyed out
+  const isPast = useMemo(() => {
+    const now = dayjsInstance()
+    const cellTime = date.clone()
+    
+    if (hour !== undefined) {
+      cellTime.hour(hour).minute(minute ?? 0).second(0).millisecond(0)
+      // For hour-level cells, check if the specific time is in the past
+      // isBefore already excludes the current time, so this is correct
+      return cellTime.isBefore(now)
+    }
+      // For day-level cells, check if the day is in the past (not today)
+      // isBefore with 'day' granularity excludes today, so this is correct
+      return cellTime.isBefore(now, 'day')
+    
+  }, [date, hour, minute])
+
   const handleCellClick = (e: React.MouseEvent) => {
     e.stopPropagation()
 
@@ -65,9 +85,11 @@ export function DroppableCell({
     const start = date.hour(hour ?? 0).minute(minute ?? 0)
     let end = start.clone()
     if (hour !== undefined && minute !== undefined) {
-      end = end.hour(hour).minute(minute + 15) // day view time slots are 15 minutes
+      // Use slotDuration for time slot calculations
+      end = end.add(slotDuration, 'minute')
     } else if (hour !== undefined) {
-      end = end.hour(hour + 1).minute(0) // week view time slots are 1 hour
+      // For hour-only slots, add slotDuration
+      end = end.add(slotDuration, 'minute')
     } else {
       end = end.hour(23).minute(59) // month view full day
     }
@@ -84,8 +106,13 @@ export function DroppableCell({
         className,
         isOver && !disableDragAndDrop && !disabled && 'bg-accent',
         disableCellClick || disabled ? 'cursor-default' : 'cursor-pointer',
+        // Unavailable slots: darker with diagonal pattern
         disabled && 'bg-secondary text-muted-foreground pointer-events-none',
-        !disabled && !disableCellClick && 'group relative'
+        disabled && 'bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(0,0,0,0.05)_4px,rgba(0,0,0,0.05)_8px)]',
+        disabled && 'dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(255,255,255,0.05)_4px,rgba(255,255,255,0.05)_8px)]',
+        !disabled && !disableCellClick && 'group relative',
+        // Grey out past cells but keep them interactive (same styling as disabled but without pointer-events-none)
+        isPast && !disabled && 'bg-secondary text-muted-foreground'
       )}
       onClick={handleCellClick}
       style={style}

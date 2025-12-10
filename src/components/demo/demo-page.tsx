@@ -38,35 +38,114 @@ const handleDateChange = (date: dayjs.Dayjs) => {
   void date
 }
 
-// Demo resources
+// Demo team members (resources)
 const demoResources: Resource[] = [
   {
-    id: 'room-a',
-    name: 'Conference Room A',
+    id: 'john-doe',
+    name: 'John Doe',
     color: '#1e40af',
     backgroundColor: '#dbeafe',
     position: 1,
+    // Available slots: Only weekdays 9am-5pm are available, all other times are blocked
+    availableSlots: {
+      recurring: {
+        mon: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
+        tue: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
+        wed: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
+        thu: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
+        fri: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
+        sat: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: true },
+        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: true },
+      },
+      one_time: [
+        // Special availability on a specific date
+        {
+          date: dayjs().format('DD-MM-YYYY'), 
+          schedule: [{ start: '11:00 AM', end: '01:30 PM' }, { start: '02:00 PM', end: '03:00 PM' }],
+          enabled: true
+        },
+      ],
+    },
   },
   {
-    id: 'room-b',
-    name: 'Conference Room B',
+    id: 'jane-smith',
+    name: 'Jane Smith',
     color: '#059669',
     backgroundColor: '#d1fae5',
     position: 2,
+    // Available slots: Monday-Friday 8am-6pm, Saturday 10am-2pm
+    availableSlots: {
+      recurring: {
+        mon: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
+        tue: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
+        wed: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
+        thu: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
+        fri: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
+        sat: { schedule: [{ start: '10:00 AM', end: '02:00 PM' }], enabled: true },
+        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+      },
+      one_time: [
+        // Unavailable on a specific date (enabled: false means this date is blocked)
+        {
+          date: dayjs().add(1, 'day').format('DD-MM-YYYY'),
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: true,
+        },
+      ],
+    },
   },
   {
-    id: 'room-c',
-    name: 'Meeting Room C',
+    id: 'mike-johnson',
+    name: 'Mike Johnson',
     color: '#7c2d12',
     backgroundColor: '#fed7aa',
     position: 3,
+    // Available slots: Tuesday and Thursday only, 10am-4pm
+    availableSlots: {
+      recurring: {
+        mon: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        tue: { schedule: [{ start: '10:00 AM', end: '04:00 PM' }], enabled: true },
+        wed: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        thu: { schedule: [{ start: '10:00 AM', end: '04:00 PM' }], enabled: true },
+        fri: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        sat: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+      },
+    },
   },
   {
-    id: 'equipment-1',
-    name: 'Projector #1',
+    id: 'sarah-williams',
+    name: 'Sarah Williams',
     color: '#7c3aed',
     backgroundColor: '#ede9fe',
     position: 4,
+    // Available slots: Monday-Friday 9am-5pm, with lunch break (12pm-1pm blocked)
+    availableSlots: {
+      recurring: {
+        mon: {
+          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
+          enabled: true
+        },
+        tue: {
+          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
+          enabled: true
+        },
+        wed: {
+          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
+          enabled: true
+        },
+        thu: {
+          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
+          enabled: true
+        },
+        fri: {
+          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
+          enabled: true
+        },
+        sat: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+      },
+    },
   },
 ]
 
@@ -135,15 +214,15 @@ export function DemoPage() {
   const [dayMaxEvents, setDayMaxEvents] = useState(3)
   const [timeFormat, setTimeFormat] = useState<TimeFormat>('12-hour')
 
-  // Business hours state
+  // Business hours state - Monday to Friday (Saturday & Sunday off), 24/7 availability
   const [businessHours, setBusinessHours] = useState<{
     daysOfWeek: WeekDays[]
     startTime: number
     endTime: number
   }>({
-    daysOfWeek: ['tuesday', 'friday'],
-    startTime: 9,
-    endTime: 17,
+    daysOfWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
+    startTime: 0,
+    endTime: 24,
   })
 
   // Visible hours state
@@ -155,8 +234,11 @@ export function DemoPage() {
     endTime: 24,
   })
 
+  // Slot duration state
+  const [slotDuration, setSlotDuration] = useState<30 | 60>(60)
+
   // Demo events toggle
-  const [showDemoEvents, setShowDemoEvents] = useState(true)
+  const [showDemoEvents, setShowDemoEvents] = useState(false)
 
   const calendarKey = `${locale}-${initialView}-${initialDate?.toISOString() || 'today'}-${timeFormat}`
 
@@ -288,6 +370,8 @@ export function DemoPage() {
             setBusinessHours={setBusinessHours}
             visibleHours={visibleHours}
             setVisibleHours={setVisibleHours}
+            slotDuration={slotDuration}
+            setSlotDuration={setSlotDuration}
             showDemoEvents={showDemoEvents}
             setShowDemoEvents={setShowDemoEvents}
             // Resource calendar specific props
@@ -385,6 +469,7 @@ export function DemoPage() {
                 timeFormat={timeFormat}
                 businessHours={businessHours}
                 visibleHours={visibleHours}
+                slotDuration={slotDuration}
               />
             </CardContent>
           </Card>

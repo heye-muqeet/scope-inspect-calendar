@@ -10,6 +10,7 @@ The Resource Calendar extends the standard calendar with resource-based event or
 
 - [Basic Usage](#basic-usage)
 - [Resource Interface](#resource-interface)
+- [Resource Availability](#resource-availability)
 - [Resource Calendar Events](#resource-calendar-events)
 - [Props](#props)
 - [Context API](#context-api)
@@ -22,8 +23,10 @@ The Resource Calendar extends the standard calendar with resource-based event or
 
 ## Basic Usage
 
+The Resource Calendar uses the unified `ScopeInspectCalendar` component with `type="timeline"`:
+
 ```tsx
-import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { Resource, CalendarEvent } from 'scope-inspect-calendar'
 
 const resources: Resource[] = [
@@ -54,7 +57,8 @@ const events: CalendarEvent[] = [
 
 function App() {
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={resources}
       events={events}
       firstDayOfWeek="sunday"
@@ -90,6 +94,196 @@ interface Resource {
 
   /** Optional position for resource display */
   position?: number
+
+  /**
+   * Available time slots for this team member.
+   * Uses inverted logic: only slots defined here are available; all other times are blocked.
+   * Supports both recurring (weekly) and one-time schedules.
+   * If provided, this takes precedence over `blockedSlots` and `businessHours`.
+   */
+  availableSlots?: AvailableSlots
+
+  /**
+   * Blocked time slots for this team member (e.g., scheduled meetings, breaks, unavailability).
+   * These slots override business hours and make the team member unavailable for scheduling.
+   * @deprecated Use `availableSlots` instead for better control. If both are provided, `availableSlots` takes precedence.
+   */
+  blockedSlots?: BlockedSlot[]
+}
+```
+
+### Resource Availability
+
+Resources can define their availability using two approaches:
+
+1. **Available Slots** (Recommended): Define only the times when the resource is available. All other times are considered blocked.
+2. **Blocked Slots** (Legacy): Define only the times when the resource is unavailable. All other times are considered available.
+
+#### Available Slots
+
+Available slots use an **inverted logic** approach: only explicitly defined time slots are available, and all other times are blocked. This provides more precise control over resource availability.
+
+```typescript
+interface AvailableSlots {
+  /** Recurring weekly schedules for each day of the week */
+  recurring?: {
+    mon?: RecurringAvailableDay
+    tue?: RecurringAvailableDay
+    wed?: RecurringAvailableDay
+    thu?: RecurringAvailableDay
+    fri?: RecurringAvailableDay
+    sat?: RecurringAvailableDay
+    sun?: RecurringAvailableDay
+  }
+  /** One-time schedules for specific dates */
+  one_time?: OneTimeAvailableSlot[]
+}
+
+interface RecurringAvailableDay {
+  /** Time schedules for this day */
+  schedule: AvailableSchedule[]
+  /** Whether this day is enabled */
+  enabled: boolean
+}
+
+interface OneTimeAvailableSlot {
+  /** Date in format 'DD-MM-YYYY' (e.g., '24-04-2024') */
+  date: string
+  /** Time schedules for this date */
+  schedule: AvailableSchedule[]
+  /** Whether this slot is enabled */
+  enabled: boolean
+}
+
+interface AvailableSchedule {
+  /** Start time in format 'HH:mm' or 'HH:mm AM/PM' (e.g., '09:00', '12:00 AM') */
+  start: string
+  /** End time in format 'HH:mm' or 'HH:mm AM/PM' (e.g., '17:00', '11:30 PM') */
+  end: string
+}
+```
+
+##### Usage Example
+
+Define a team member's weekly schedule:
+
+```tsx
+const resource: Resource = {
+  id: 'john-doe',
+  name: 'John Doe',
+  availableSlots: {
+    recurring: {
+      mon: {
+        schedule: [{ start: '09:00', end: '17:00' }],
+        enabled: true,
+      },
+      tue: {
+        schedule: [{ start: '09:00', end: '17:00' }],
+        enabled: true,
+      },
+      wed: {
+        schedule: [{ start: '09:00', end: '17:00' }],
+        enabled: true,
+      },
+      thu: {
+        schedule: [{ start: '09:00', end: '17:00' }],
+        enabled: true,
+      },
+      fri: {
+        schedule: [{ start: '09:00', end: '17:00' }],
+        enabled: true,
+      },
+      sat: { enabled: false }, // Not available on Saturdays
+      sun: { enabled: false }, // Not available on Sundays
+    },
+    one_time: [
+      {
+        date: '24-04-2024',
+        schedule: [{ start: '11:00 AM', end: '01:30 PM' }],
+        enabled: true, // Overrides recurring schedule for this date
+      },
+      {
+        date: '12-02-2024',
+        enabled: false, // Completely unavailable on this date
+      },
+    ],
+  },
+}
+```
+
+##### Priority Rules
+
+1. **One-time slots override recurring slots**: If a `one_time` slot exists for a date, it takes precedence over the `recurring` schedule for that date.
+2. **Only `enabled: true` entries are considered**: Slots with `enabled: false` are treated as blocked.
+3. **If `availableSlots` is defined**: Only explicitly defined available slots are truly available; all other times are blocked.
+4. **If `availableSlots` is not defined**: Falls back to `blockedSlots` and `businessHours` logic.
+
+##### Multiple Time Ranges
+
+You can define multiple time ranges per day:
+
+```tsx
+availableSlots: {
+  recurring: {
+    mon: {
+      schedule: [
+        { start: '09:00', end: '12:00' }, // Morning shift
+        { start: '13:00', end: '17:00' }, // Afternoon shift
+      ],
+      enabled: true,
+    },
+  },
+}
+```
+
+#### Blocked Slots (Legacy)
+
+> **Note**: `blockedSlots` is deprecated in favor of `availableSlots`. Use `availableSlots` for new implementations.
+
+Blocked slots define times when a resource is unavailable. They support both one-time and recurring patterns using RRULE.
+
+```typescript
+interface BlockedSlot {
+  /** Start date and time of the blocked slot */
+  start: dayjs.Dayjs | Date | string
+  /** End date and time of the blocked slot */
+  end: dayjs.Dayjs | Date | string
+  /** Optional reason for the block */
+  reason?: string
+  /** Recurrence rule for recurring blocked slots (RFC 5545 standard) */
+  rrule?: RRuleOptions
+  /** Exception dates (EXDATE) - dates to exclude from recurrence */
+  exdates?: string[]
+}
+```
+
+##### Usage Example
+
+```tsx
+import { RRule } from 'rrule'
+import dayjs from 'dayjs'
+
+const resource: Resource = {
+  id: 'john-doe',
+  name: 'John Doe',
+  blockedSlots: [
+    {
+      start: dayjs().hour(12).minute(0).second(0),
+      end: dayjs().hour(13).minute(0).second(0),
+      reason: 'Lunch break',
+    },
+    {
+      start: dayjs().hour(14).minute(0).second(0),
+      end: dayjs().hour(15).minute(0).second(0),
+      reason: 'Team standup',
+      rrule: {
+        freq: RRule.WEEKLY,
+        interval: 1,
+        byweekday: [RRule.MO, RRule.WE, RRule.FR],
+        dtstart: dayjs().hour(14).minute(0).second(0).toDate(),
+      },
+    },
+  ],
 }
 ```
 
@@ -179,10 +373,21 @@ const event: CalendarEvent = {
 
 ## Props
 
-The `ScopeInspectResourceCalendar` component extends all props from `ScopeInspectCalendar` with resource-specific additions:
+The `ScopeInspectCalendar` component with `type="timeline"` accepts resource-specific props:
 
 ```typescript
-interface ScopeInspectResourceCalendarProps extends ScopeInspectCalendarProps {
+interface ScopeInspectCalendarProps {
+  /**
+   * Calendar display type.
+   * - 'agenda': Standard calendar view (default)
+   * - 'timeline': Resource/timeline calendar view
+   * @default 'agenda'
+   */
+  type?: 'agenda' | 'timeline'
+  
+  // ... existing props ...
+  
+  // Resource-specific props (when type="timeline"):
   /** Array of events to display */
   events?: CalendarEvent[]
 
@@ -216,12 +421,12 @@ For all inherited props, see the [ScopeInspectCalendar API Reference](./api-refe
 
 The Resource Calendar provides a specialized context with resource-specific utilities.
 
-### useScopeInspectResourceCalendarContext
+### useScopeInspectCalendarContext (for Timeline View)
 
 Access the resource calendar context from within custom components:
 
 ```tsx
-import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
+import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function CustomComponent() {
   const {
@@ -233,7 +438,7 @@ function CustomComponent() {
     updateEvent,
     deleteEvent,
     getEventsForResource,
-  } = useScopeInspectResourceCalendarContext()
+  } = useScopeInspectCalendarContext()
 
   const roomAEvents = getEventsForResource('room-a')
 
@@ -244,7 +449,7 @@ function CustomComponent() {
 ### Context Methods
 
 ```typescript
-interface UseScopeInspectResourceCalendarContextReturn {
+interface UseScopeInspectCalendarContextReturn {
   // Standard calendar properties
   readonly currentDate: Dayjs
   readonly view: CalendarView
@@ -376,7 +581,7 @@ Cross-resource events are displayed across all assigned resource rows:
 ### Working with Cross-Resource Events
 
 ```tsx
-import { useScopeInspectResourceCalendarContext } from 'scope-inspect-calendar'
+import { useScopeInspectCalendarContext } from 'scope-inspect-calendar'
 
 function EventManager() {
   const { events, resources } = useScopeInspectResourceCalendarContext()
@@ -413,7 +618,7 @@ Customize how resources are displayed using the `renderResource` prop:
 ### Basic Custom Rendering
 
 ```tsx
-import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type { Resource } from 'scope-inspect-calendar'
 
 const CustomResourceRenderer = (resource: Resource) => (
@@ -428,7 +633,8 @@ const CustomResourceRenderer = (resource: Resource) => (
 
 function App() {
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={resources}
       events={events}
       renderResource={CustomResourceRenderer}
@@ -562,7 +768,7 @@ const CustomEventRenderer = (event: CalendarEvent) => {
 ### Room Booking System
 
 ```tsx
-import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import type {
   CalendarEvent,
   CellClickInfo,
@@ -620,7 +826,8 @@ const RoomBookingCalendar = () => {
   }
 
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={rooms}
       events={events}
       initialView="week"
@@ -688,7 +895,8 @@ const TeamScheduleCalendar = () => {
   ]
 
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={teamMembers}
       events={teamEvents}
       initialView="week"
@@ -737,7 +945,8 @@ const EquipmentScheduleCalendar = () => {
   )
 
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={equipment}
       events={[]}
       initialView="day"
@@ -871,7 +1080,8 @@ const LocalizedResourceCalendar = () => {
   const { t } = useTranslation('calendar')
 
   return (
-    <ScopeInspectResourceCalendar
+    <ScopeInspectCalendar
+      type="timeline"
       resources={resources}
       events={events}
       translator={(key) => t(key)}
@@ -932,8 +1142,8 @@ import type {
   Resource,
   CalendarEvent,
   CellClickInfo,
-  ScopeInspectResourceCalendarProps,
-  UseScopeInspectResourceCalendarContextReturn,
+  ScopeInspectCalendarProps,
+  UseScopeInspectCalendarContextReturn,
 } from 'scope-inspect-calendar'
 
 // Type-safe resource definition
@@ -1004,7 +1214,7 @@ const visibleResources = resources.filter((r) => visibleResourceIds.has(r.id))
 ## Related Documentation
 
 - **[README.md](../README.md)** - Main documentation index
-- [ScopeInspectResourceCalendar API Reference](./api-reference/components/scope-inspect-resource-calendar.md) - Complete API documentation
+- [ScopeInspectCalendar API Reference](./api-reference/components/scope-inspect-calendar.md) - Complete API documentation (includes timeline view)
 - [Translation Usage Guide](./translation-usage.md) - Internationalization
 - [iCalendar Export Guide](./guides/ical-export.md) - Exporting events
 - [RFC 5545 Recurring Events](./reference/rfc-5545.md) - iCalendar specification

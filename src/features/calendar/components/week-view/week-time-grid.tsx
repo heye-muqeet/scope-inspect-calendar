@@ -15,17 +15,24 @@ export const WeekTimeGrid: React.FC = () => {
     currentLocale,
     timeFormat,
     visibleHours,
+    slotDuration,
   } = useCalendarContext()
 
   const weekDays = getWeekDays(currentDate, firstDayOfWeek)
 
-  // Get visible hours based on configuration
-  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
+  // Get visible hours based on configuration and slot duration
+  const hours = useMemo(
+    () => getVisibleHours(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
+  )
 
   const visibleHoursCount = useMemo(
-    () => getVisibleHoursCount(visibleHours),
-    [visibleHours]
+    () => getVisibleHoursCount(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
   )
+
+  // Calculate row height based on slot duration (30px for 30min, 60px for 60min)
+  const rowHeight = slotDuration === 30 ? 30 : 60
 
   // Find if current day is in the displayed week
   const todayIndex = weekDays.findIndex((day) => day.isSame(dayjs(), 'day'))
@@ -39,7 +46,7 @@ export const WeekTimeGrid: React.FC = () => {
     currentHour >= visibleStartTime && currentHour < visibleEndTime
   const currentTimeTop =
     isCurrentTimeVisible && isCurrentWeek
-      ? (currentHour - visibleStartTime) * 60
+      ? (currentHour - visibleStartTime) * rowHeight * (slotDuration === 30 ? 2 : 1)
       : -9999 // Hide if outside visible hours
 
   return (
@@ -47,7 +54,7 @@ export const WeekTimeGrid: React.FC = () => {
       data-testid="week-time-grid"
       className="relative grid grid-cols-[auto_repeat(7,1fr)]"
       style={{
-        gridTemplateRows: `repeat(${visibleHoursCount}, 60px)`,
+        gridTemplateRows: `repeat(${visibleHoursCount}, ${rowHeight}px)`,
       }}
     >
       {/* Time labels column - fixed */}
@@ -56,19 +63,21 @@ export const WeekTimeGrid: React.FC = () => {
         className="z-10 col-span-1 w-16 border-x"
         style={{
           gridRow: `1 / ${visibleHoursCount + 1}`,
-          gridTemplateRows: `repeat(${visibleHoursCount}, 60px)`,
+          gridTemplateRows: `repeat(${visibleHoursCount}, ${rowHeight}px)`,
           display: 'grid',
         }}
       >
         {hours.map((time) => (
           <div
             key={time.format('HH:mm')}
-            data-testid={`week-time-hour-${time.format('HH')}`}
-            className="h-[60px] border-b text-right"
+            data-testid={`week-time-hour-${time.format('HH:mm')}`}
+            className="border-b text-right"
+            style={{ height: `${rowHeight}px` }}
           >
             <span className="text-muted-foreground px-1 text-right text-[10px] sm:text-xs">
               {Intl.DateTimeFormat(currentLocale, {
                 hour: 'numeric',
+                minute: slotDuration === 30 ? '2-digit' : undefined,
                 hour12: timeFormat === '12-hour',
               }).format(time.toDate())}
             </span>

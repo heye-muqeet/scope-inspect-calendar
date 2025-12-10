@@ -567,7 +567,7 @@ All calendar views (month, week, day, year) automatically handle recurring event
 Recurring events work seamlessly with resource calendars:
 
 ```tsx
-import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
 import { RRule } from 'rrule'
 import dayjs from 'dayjs'
 
@@ -584,7 +584,8 @@ const recurringResourceEvent: CalendarEvent = {
   },
 }
 
-<ScopeInspectResourceCalendar
+<ScopeInspectCalendar
+      type="timeline"
   resources={resources}
   events={[recurringResourceEvent]}
 />

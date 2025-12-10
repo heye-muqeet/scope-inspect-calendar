@@ -1,11 +1,15 @@
 import type {
   ScopeInspectCalendarProps,
   ScopeInspectCalendarPropEvent,
+  Resource,
+  BlockedSlot,
+  TimeOff,
+  TimeOffStatus,
 } from '@/features/calendar/types'
 
 /**
  * Public-facing resource calendar event interface with flexible date types.
- * Similar to ScopeInspectCalendarPropEvent but with resource assignment fields.
+ * Similar to ScopeInspectCalendarPropEvent but with team member assignment fields.
  * Dates can be provided as dayjs.Dayjs, Date, or string and will be normalized internally.
  *
  * @interface ScopeInspectResourceCalendarPropEvent
@@ -13,9 +17,9 @@ import type {
  */
 export interface ScopeInspectResourceCalendarPropEvent
   extends ScopeInspectCalendarPropEvent {
-  /** Single resource assignment */
+  /** Single team member (resource) assignment */
   resourceId?: string | number
-  /** Multiple resource assignment (cross-resource events) */
+  /** Multiple team member (resource) assignment (cross-resource events, e.g., team meetings) */
   resourceIds?: (string | number)[]
 }
 
@@ -23,30 +27,16 @@ export interface ScopeInspectResourceCalendarProps
   extends Omit<ScopeInspectCalendarProps, 'events'> {
   /** Array of events to display */
   events?: ScopeInspectResourceCalendarPropEvent[]
-  /** Array of resources */
+  /** Array of team members (resources) to display in the calendar */
   resources?: Resource[]
-  /** Custom render function for resources */
+  /** Custom render function for team member (resource) cells */
   renderResource?: (resource: Resource) => React.ReactNode
 }
 
-/**
- * Resource interface representing a calendar resource (person, room, equipment, etc.)
- */
-export interface Resource {
-  /** Unique identifier for the resource */
-  id: string | number
-  /** Display name of the resource */
-  name: string
-  /**
-   * Color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
-   * @example "#3b82f6", "blue-500", "rgb(59, 130, 246)"
-   */
-  color?: string
-  /**
-   * Background color for the resource (supports CSS color values, hex, rgb, hsl, or CSS class names)
-   * @example "#dbeafe", "blue-100", "rgba(59, 130, 246, 0.1)"
-   */
-  backgroundColor?: string
-  /** Optional position for resource display */
-  position?: number
-}
+// Re-export types from calendar types for convenience
+export type {
+  Resource,
+  BlockedSlot,
+  TimeOff,
+  TimeOffStatus,
+} from '@/features/calendar/types'

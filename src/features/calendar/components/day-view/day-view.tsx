@@ -2,7 +2,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { useCalendarContext } from '@/features/calendar/contexts/calendar-context/context'
 import { cn } from '@/lib/utils'
 import dayjs from '@/lib/configs/dayjs-config'
-import { Fragment, useMemo } from 'react'
+import { useMemo } from 'react'
 import { DroppableCell } from '@/components/droppable-cell'
 import { DayAllDayRow } from './day-all-day-row'
 import { DayEventsLayer } from './day-events-layer'
@@ -15,15 +15,21 @@ import {
 } from '@/features/calendar/utils/visible-hours'
 
 const DayView = () => {
-  const { currentDate, businessHours, visibleHours } = useCalendarContext()
+  const { currentDate, businessHours, visibleHours, slotDuration } = useCalendarContext()
 
-  // Get visible hours based on configuration
-  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
+  // Get visible hours based on configuration and slot duration
+  const hours = useMemo(
+    () => getVisibleHours(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
+  )
 
   const visibleHoursCount = useMemo(
-    () => getVisibleHoursCount(visibleHours),
-    [visibleHours]
+    () => getVisibleHoursCount(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
   )
+
+  // Calculate row height based on slot duration (30px for 30min, 60px for 60min)
+  const rowHeight = slotDuration === 30 ? 30 : 60
 
   const isToday = currentDate.isSame(dayjs(), 'day')
   const dateStr = currentDate.format('YYYY-MM-DD')
@@ -36,7 +42,7 @@ const DayView = () => {
     currentHour >= visibleStartTime && currentHour < visibleEndTime
   const currentTimeTop =
     isCurrentTimeVisible && isToday
-      ? (currentHour - visibleStartTime) * 60
+      ? (currentHour - visibleStartTime) * rowHeight * (slotDuration === 30 ? 2 : 1)
       : -9999 // Hide if outside visible hours
 
   return (
@@ -52,11 +58,11 @@ const DayView = () => {
         {/* All-day events row */}
         <DayAllDayRow />
 
-        {/* Set a fixed height container that matches exactly the total height of all hour blocks */}
+        {/* Set a fixed height container that matches exactly the total height of all time slots */}
         <div
           data-testid="day-time-grid"
           className="grid grid-cols-8 divide-x border-x"
-          style={{ height: `${visibleHoursCount * 60}px` }}
+          style={{ height: `${visibleHoursCount * rowHeight}px` }}
         >
           {/* Time labels column */}
           <DayTimeCol className="col-span-2 h-full md:col-span-1" />
@@ -66,47 +72,39 @@ const DayView = () => {
             data-testid="day-events-column"
             className="relative col-span-6 h-full md:col-span-7"
           >
-            {hours.map((time) => {
+            {hours.map((time, index) => {
               const hour = time.hour()
-              const hourStr = time.format('HH')
+              const minute = time.minute()
+              const timeStr = `${hour.toString().padStart(2, '0')}-${minute.toString().padStart(2, '0')}`
+              const isLastSlot = index === hours.length - 1
 
-              const checkBusiness = (minute: number) =>
-                isBusinessHour({
-                  date: currentDate,
-                  hour,
-                  minute,
-                  businessHours,
-                })
+              const isBusiness = isBusinessHour({
+                date: currentDate,
+                hour,
+                minute,
+                businessHours,
+              })
+
+              const borderClass = isLastSlot
+                ? 'border-border'
+                : 'border-dashed'
 
               return (
-                <Fragment key={`${dateStr}-${hourStr}`}>
-                  {[0, 15, 30, 45].map((minute) => {
-                    const isBusiness = checkBusiness(minute)
-                    const isLastSlot = minute === 45
-                    const minuteStr = minute.toString().padStart(2, '0')
-
-                    const borderClass = isLastSlot
-                      ? 'border-border'
-                      : 'border-dashed'
-
-                    return (
-                      <DroppableCell
-                        key={minute}
-                        id={`day-time-cell-${dateStr}-${hourStr}-${minuteStr}`}
-                        data-testid={`day-time-cell-${hourStr}-${minuteStr}`}
-                        type="time-cell"
-                        date={currentDate}
-                        hour={hour}
-                        minute={minute}
-                        disabled={!isBusiness}
-                        className={cn(
-                          'h-[15px] border-b hover:bg-accent',
-                          borderClass
-                        )}
-                      />
-                    )
-                  })}
-                </Fragment>
+                <DroppableCell
+                  key={timeStr}
+                  id={`day-time-cell-${dateStr}-${timeStr}`}
+                  data-testid={`day-time-cell-${timeStr}`}
+                  type="time-cell"
+                  date={currentDate}
+                  hour={hour}
+                  minute={minute}
+                  disabled={!isBusiness}
+                  className={cn(
+                    'border-b hover:bg-accent',
+                    borderClass
+                  )}
+                  style={{ height: `${rowHeight}px` }}
+                />
               )
             })}
 

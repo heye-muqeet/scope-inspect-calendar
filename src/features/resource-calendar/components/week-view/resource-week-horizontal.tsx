@@ -20,6 +20,7 @@ export const ResourceWeekHorizontal: React.FC = () => {
     currentLocale,
     timeFormat,
     visibleHours,
+    slotDuration,
   } = useResourceCalendarContext()
 
   // Generate week days
@@ -28,23 +29,23 @@ export const ResourceWeekHorizontal: React.FC = () => {
     [currentDate, firstDayOfWeek]
   )
 
-  // Get visible hours based on configuration
+  // Get visible hours based on configuration and slot duration
   const visibleHoursArray = useMemo(
-    () => getVisibleHours(visibleHours),
-    [visibleHours]
+    () => getVisibleHours(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
   )
 
   // Get count of visible hours for width calculations
   const visibleHoursCount = useMemo(
-    () => getVisibleHoursCount(visibleHours),
-    [visibleHours]
+    () => getVisibleHoursCount(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
   )
 
-  // Generate time columns (hourly slots) - only for visible hours
+  // Generate time columns (time slots) - only for visible hours
   const weekHours = useMemo(() => {
     return weekDays.flatMap((day) =>
       visibleHoursArray.map((visibleHour) =>
-        day.hour(visibleHour.hour()).minute(0)
+        day.hour(visibleHour.hour()).minute(visibleHour.minute())
       )
     )
   }, [weekDays, visibleHoursArray])
@@ -133,6 +134,7 @@ export const ResourceWeekHorizontal: React.FC = () => {
                     >
                       {Intl.DateTimeFormat(currentLocale, {
                         hour: 'numeric',
+                        minute: slotDuration === 30 ? '2-digit' : undefined,
                         hour12: timeFormat === '12-hour',
                       }).format(col.toDate())}
                     </motion.div>

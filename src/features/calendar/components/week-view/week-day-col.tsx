@@ -15,15 +15,21 @@ interface WeekDayColProps {
 }
 
 export const WeekDayCol: React.FC<WeekDayColProps> = ({ day }) => {
-  const { businessHours, visibleHours } = useCalendarContext()
+  const { businessHours, visibleHours, slotDuration } = useCalendarContext()
 
-  // Get visible hours based on configuration
-  const hours = useMemo(() => getVisibleHours(visibleHours), [visibleHours])
+  // Get visible hours based on configuration and slot duration
+  const hours = useMemo(
+    () => getVisibleHours(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
+  )
 
   const visibleHoursCount = useMemo(
-    () => getVisibleHoursCount(visibleHours),
-    [visibleHours]
+    () => getVisibleHoursCount(visibleHours, slotDuration),
+    [visibleHours, slotDuration]
   )
+  
+  // Calculate row height based on slot duration (30px for 30min, 60px for 60min)
+  const rowHeight = slotDuration === 30 ? 30 : 60
 
   return (
     <div
@@ -31,33 +37,36 @@ export const WeekDayCol: React.FC<WeekDayColProps> = ({ day }) => {
       className="col-span-1 relative border-r"
       style={{
         gridRow: `1 / ${visibleHoursCount + 1}`,
-        gridTemplateRows: `repeat(${visibleHoursCount}, 60px)`,
+        gridTemplateRows: `repeat(${visibleHoursCount}, ${rowHeight}px)`,
         display: 'grid',
       }}
     >
       {hours.map((time) => {
         const hour = time.hour()
-        const hourStr = time.format('HH')
+        const minute = time.minute()
+        const timeStr = `${hour.toString().padStart(2, '0')}-${minute.toString().padStart(2, '0')}`
         const dateStr = day.format('YYYY-MM-DD')
         const isBusiness = isBusinessHour({
           date: day,
           hour,
-          minute: 0,
+          minute,
           businessHours,
         })
 
         return (
           <DroppableCell
-            key={`${dateStr}-${hourStr}`}
-            id={`week-time-cell-${dateStr}-${hourStr}`}
+            key={`${dateStr}-${timeStr}`}
+            id={`week-time-cell-${dateStr}-${timeStr}`}
             type="time-cell"
             date={day}
             hour={hour}
+            minute={minute}
             disabled={!isBusiness}
-            data-testid={`week-time-cell-${dateStr}-${hourStr}`}
+            data-testid={`week-time-cell-${dateStr}-${timeStr}`}
             className={cn(
-              'hover:bg-accent relative z-10 h-[60px] cursor-pointer border-b'
+              'hover:bg-accent relative z-10 cursor-pointer border-b'
             )}
+            style={{ height: `${rowHeight}px` }}
           />
         )
       })}
