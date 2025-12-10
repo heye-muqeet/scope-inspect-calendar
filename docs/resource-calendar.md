@@ -236,9 +236,7 @@ availableSlots: {
 }
 ```
 
-#### Blocked Slots (Legacy)
-
-> **Note**: `blockedSlots` is deprecated in favor of `availableSlots`. Use `availableSlots` for new implementations.
+#### Blocked Slots
 
 Blocked slots define times when a resource is unavailable. They support both one-time and recurring patterns using RRULE.
 
