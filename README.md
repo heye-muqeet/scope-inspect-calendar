@@ -38,6 +38,9 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 ### Core Features
 
 - **🗓️ Multiple Views**: Month, Week, Day, and Year views with smooth transitions
+- **📊 Unified Calendar Component**: Single `ScopeInspectCalendar` component for both agenda and timeline (resource) views
+  - Use `type="agenda"` for standard calendar view (default)
+  - Use `type="timeline"` for resource-based timeline view
 - **📊 Resource Calendar**: Visualize and manage events across multiple resources with timeline layout
 - **🎯 Drag & Drop**: Move events between dates and time slots with collision detection
 - **🔄 RFC 5545 Recurring Events**: Full RRULE support with Google Calendar-style operations
@@ -45,11 +48,29 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
   - Smart Operations: Edit "this event", "this and following", or "all events"
   - Exception Handling: EXDATE exclusions and modified instance support
   - rrule.js Integration: Battle-tested library for robust recurrence generation
+- **⏰ Resource Availability**: Flexible availability management for team members
+  - **Available Slots** (Recommended): Define only available times using inverted logic - all other times are blocked
+  - Supports recurring weekly schedules and one-time date-specific schedules
+  - One-time slots override recurring schedules for precise control
+  - **Blocked Slots** (Legacy): Define unavailable times with one-time or recurring RRULE patterns
+  - Exception dates (EXDATE) to exclude specific occurrences
+  - Perfect for team member availability, recurring meetings, breaks
+- **⏱️ Customizable Slot Duration**: Control time slot granularity
+  - 30-minute or 60-minute (1-hour) time slots
+  - Adjusts grid lines and time labels automatically
+  - Perfect for detailed scheduling or standard hourly views
+- **⏮️ Past Time Greying**: Automatic visual indication of past time slots
+  - Past cells are greyed out but remain fully interactive
+  - Works for both day-level and hour-level cells
+- **🎨 Visual Distinction**: Clear differentiation between unavailable and past slots
+  - Unavailable slots: Darker with diagonal pattern (truly blocked)
+  - Past slots: Lighter opacity, no pattern (historical but accessible)
 - **📤 iCalendar Export**: RFC 5545 compliant .ics file export with proper recurring event handling
 - **🌍 Internationalization**: 100+ locales with dayjs and configurable week start days
 - **🎨 Customizable Styling**:
   - Flexible theming with Tailwind CSS and CSS variables
   - Custom event rendering with render props
+  - Custom resource rendering for timeline views
   - Configurable colors, fonts, and spacing
 - **⚡ Performance Optimized**:
   - On-demand recurring event generation
@@ -77,6 +98,15 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 - 🔄 **Independent from Business Hours**: Display settings are separate from interaction rules
 - 📊 **Better UX**: Reduce visual clutter by hiding irrelevant time slots
 - ⚡ **Performance**: Fewer DOM nodes when showing fewer hours
+
+### ⏱️ Slot Duration
+
+Control the granularity of time slots in day and week views with the `slotDuration` prop:
+
+- **30 minutes**: More detailed scheduling with half-hour intervals (e.g., 12:00, 12:30, 1:00, 1:30)
+- **60 minutes**: Standard hourly intervals (e.g., 12:00, 1:00, 2:00)
+
+The calendar automatically adjusts grid lines, time labels, and cell click behavior based on the selected slot duration.
 
 ---
 
@@ -182,17 +212,19 @@ function App() {
 />
 ```
 
-### 4. Resource Calendar
+### 4. Resource Calendar (Timeline View)
 
 ```tsx
-import { ScopeInspectResourceCalendar } from 'scope-inspect-calendar'
+import { ScopeInspectCalendar } from 'scope-inspect-calendar'
+import type { Resource } from 'scope-inspect-calendar'
 
-const resources = [
+const resources: Resource[] = [
   { id: '1', name: 'Room A' },
   { id: '2', name: 'Room B' },
 ]
 
-<ScopeInspectResourceCalendar
+<ScopeInspectCalendar
+  type="timeline" // Use timeline view for resources
   resources={resources}
   events={events}
   visibleHours={{ startTime: 9, endTime: 17 }}
@@ -323,7 +355,10 @@ Comprehensive documentation is available in the [`docs`](./docs) directory:
 
 - **[Calendar Views](./docs/guides/calendar-views.md)** - Month, Week, Day, and Year views
 - **[Recurring Events](./docs/guides/recurring-events.md)** - RFC 5545 recurring events with RRULE
-- **[Resource Calendar](./docs/resource-calendar.md)** - Multi-resource scheduling
+- **[Resource Calendar](./docs/resource-calendar.md)** - Multi-resource scheduling with timeline view
+- **[Resource Availability](./docs/resource-calendar.md#resource-availability)** - Available slots and blocked slots for team members
+- **[Past Time Greying](./docs/guides/theming-and-styling.md#past-time-greying)** - Visual indication of past time periods
+- **[Visual Distinction](./docs/guides/theming-and-styling.md#visual-distinction-unavailable-vs-past-slots)** - Clear differentiation between unavailable and past slots
 - **[Internationalization](./docs/guides/internationalization.md)** - 100+ locales support
 - **[Theming & Styling](./docs/guides/theming-and-styling.md)** - Customize appearance
 - **[Custom Rendering](./docs/guides/custom-rendering.md)** - Custom event and resource rendering
@@ -333,13 +368,11 @@ Comprehensive documentation is available in the [`docs`](./docs) directory:
 
 #### Components
 
-- **[ScopeInspectCalendar](./docs/api-reference/components/scope-inspect-calendar.md)** - Main calendar component
-- **[ScopeInspectResourceCalendar](./docs/api-reference/components/scope-inspect-resource-calendar.md)** - Resource calendar component
+- **[ScopeInspectCalendar](./docs/api-reference/components/scope-inspect-calendar.md)** - Unified calendar component (supports both agenda and timeline views)
 
 #### Hooks
 
-- **[useScopeInspectCalendarContext](./docs/api-reference/hooks/use-scope-inspect-calendar-context.md)** - Calendar context hook
-- **[useScopeInspectResourceCalendarContext](./docs/api-reference/hooks/use-scope-inspect-resource-calendar-context.md)** - Resource calendar context hook
+- **[useScopeInspectCalendarContext](./docs/api-reference/hooks/use-scope-inspect-calendar-context.md)** - Calendar context hook (works for both agenda and timeline views)
 
 ### Reference
 
