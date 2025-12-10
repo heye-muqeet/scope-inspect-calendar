@@ -7,7 +7,8 @@ interface DayTimeColProps {
 }
 
 export const DayTimeCol: React.FC<DayTimeColProps> = ({ className }) => {
-  const { currentLocale, timeFormat, visibleHours, slotDuration } = useCalendarContext()
+  const { currentLocale, timeFormat, visibleHours, slotDuration } =
+    useCalendarContext()
 
   // Get visible hours based on configuration and slot duration
   const hours = useMemo(

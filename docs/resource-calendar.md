@@ -384,9 +384,9 @@ interface ScopeInspectCalendarProps {
    * @default 'agenda'
    */
   type?: 'agenda' | 'timeline'
-  
+
   // ... existing props ...
-  
+
   // Resource-specific props (when type="timeline"):
   /** Array of events to display */
   events?: CalendarEvent[]

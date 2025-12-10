@@ -5,6 +5,7 @@ A unified React calendar component that supports both **agenda** (standard) and 
 ## Overview
 
 The `ScopeInspectCalendar` component is the main component for displaying calendar views. It can be used for:
+
 - **Agenda View** (`type="agenda"` or default): Standard calendar with events organized by date
 - **Timeline View** (`type="timeline"`): Resource-based calendar with events organized by resource rows
 
@@ -48,12 +49,12 @@ function MyCalendar() {
 
 | Prop                  | Type                                                                                       | Default                    | Description                                                                                                                        |
 | --------------------- | ------------------------------------------------------------------------------------------ | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `type`                | `'agenda' \| 'timeline'`                                                                   | `'agenda'`                 | Calendar display type. Use `'agenda'` for standard calendar view or `'timeline'` for resource-based timeline view                 |
+| `type`                | `'agenda' \| 'timeline'`                                                                   | `'agenda'`                 | Calendar display type. Use `'agenda'` for standard calendar view or `'timeline'` for resource-based timeline view                  |
 | `events`              | `CalendarEvent[]`                                                                          | `[]`                       | Array of events to display in the calendar                                                                                         |
 | `initialView`         | `'month' \| 'week' \| 'day' \| 'year'`                                                     | `'month'`                  | Sets the initial view when the calendar loads                                                                                      |
 | `initialDate`         | `dayjs.Dayjs \| Date \| string`                                                            | `undefined` (today's date) | Sets the initial date displayed when the calendar loads. When undefined, defaults to today's date                                  |
 | `firstDayOfWeek`      | `'sunday' \| 'monday' \| 'tuesday' \| 'wednesday' \| 'thursday' \| 'friday' \| 'saturday'` | `'sunday'`                 | The first day of the week to display                                                                                               |
-| `resources`            | `Resource[]`                                                                               | `[]`                       | Array of resources (team members, rooms, equipment) for timeline view. Required when `type="timeline"`                             |
+| `resources`           | `Resource[]`                                                                               | `[]`                       | Array of resources (team members, rooms, equipment) for timeline view. Required when `type="timeline"`                             |
 | `renderResource`      | `(resource: Resource) => React.ReactNode`                                                  | `undefined`                | Custom render function for resource cells in timeline view                                                                         |
 | `dayMaxEvents`        | `number`                                                                                   | `3`                        | Maximum number of events to display in a day cell                                                                                  |
 | `renderEvent`         | `(event: CalendarEvent) => ReactNode`                                                      | `undefined`                | Custom function to render individual events                                                                                        |
@@ -679,7 +680,8 @@ Use 60-minute slots (default) for standard hourly scheduling:
   events={events}
   visibleHours={visibleHours}
 />
-```
+
+````
 
 ### CellClickInfo Interface
 
@@ -696,7 +698,7 @@ interface CellClickInfo {
   // Resource ID if clicking on a resource calendar cell (optional)
   resourceId?: string | number
 }
-```
+````
 
 #### Usage Example
 

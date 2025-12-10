@@ -15,7 +15,8 @@ import {
 } from '@/features/calendar/utils/visible-hours'
 
 const DayView = () => {
-  const { currentDate, businessHours, visibleHours, slotDuration } = useCalendarContext()
+  const { currentDate, businessHours, visibleHours, slotDuration } =
+    useCalendarContext()
 
   // Get visible hours based on configuration and slot duration
   const hours = useMemo(
@@ -42,13 +43,15 @@ const DayView = () => {
     currentHour >= visibleStartTime && currentHour < visibleEndTime
   const currentTimeTop =
     isCurrentTimeVisible && isToday
-      ? (currentHour - visibleStartTime) * rowHeight * (slotDuration === 30 ? 2 : 1)
+      ? (currentHour - visibleStartTime) *
+        rowHeight *
+        (slotDuration === 30 ? 2 : 1)
       : -9999 // Hide if outside visible hours
 
   return (
     <div data-testid="day-view" className="flex h-full flex-col">
       {/* Day header */}
-      <DayHeader className="h-[3rem]" />
+      <DayHeader className="h-12" />
 
       {/* Time grid without scrollbar */}
       <ScrollArea
@@ -85,9 +88,7 @@ const DayView = () => {
                 businessHours,
               })
 
-              const borderClass = isLastSlot
-                ? 'border-border'
-                : 'border-dashed'
+              const borderClass = isLastSlot ? 'border-border' : 'border-dashed'
 
               return (
                 <DroppableCell
@@ -99,10 +100,7 @@ const DayView = () => {
                   hour={hour}
                   minute={minute}
                   disabled={!isBusiness}
-                  className={cn(
-                    'border-b hover:bg-accent',
-                    borderClass
-                  )}
+                  className={cn('border-b hover:bg-accent', borderClass)}
                   style={{ height: `${rowHeight}px` }}
                 />
               )

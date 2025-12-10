@@ -18,7 +18,7 @@ export interface ResourceCalendarContextType extends CalendarContextType {
   getEventsForResources: (resourceIds: (string | number)[]) => CalendarEvent[]
   getResourceById: (resourceId: string | number) => Resource | undefined
   getVisibleResources: () => Resource[]
-  
+
   // Resource availability utilities
   isResourceAvailable: (
     resourceId: string | number,

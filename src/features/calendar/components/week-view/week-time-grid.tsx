@@ -46,7 +46,9 @@ export const WeekTimeGrid: React.FC = () => {
     currentHour >= visibleStartTime && currentHour < visibleEndTime
   const currentTimeTop =
     isCurrentTimeVisible && isCurrentWeek
-      ? (currentHour - visibleStartTime) * rowHeight * (slotDuration === 30 ? 2 : 1)
+      ? (currentHour - visibleStartTime) *
+        rowHeight *
+        (slotDuration === 30 ? 2 : 1)
       : -9999 // Hide if outside visible hours
 
   return (

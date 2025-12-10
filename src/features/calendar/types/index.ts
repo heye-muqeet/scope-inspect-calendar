@@ -23,7 +23,7 @@ export interface BlockedSlot {
   end: dayjs.Dayjs | Date | string
   /** Optional reason for the block (e.g., 'Team meeting', 'Lunch break', 'Training session') */
   reason?: string
-    /**
+  /**
    * Recurrence rule for recurring blocked slots (RFC 5545 standard).
    * If provided, this block repeats according to the rule.
    * @example { freq: 'WEEKLY', interval: 1, byweekday: ['MO', 'WE', 'FR'] } // Every Monday, Wednesday, Friday

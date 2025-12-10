@@ -491,11 +491,14 @@ export function DemoCalendarSettings({
               Slot Duration
             </label>
             <div className="text-xs text-muted-foreground mb-2">
-              Duration of each time slot in the calendar grid. Controls the granularity of time slots displayed in day and week views.
+              Duration of each time slot in the calendar grid. Controls the
+              granularity of time slots displayed in day and week views.
             </div>
             <Select
               value={slotDuration.toString()}
-              onValueChange={(value) => setSlotDuration(Number.parseInt(value, 10) as 30 | 60)}
+              onValueChange={(value) =>
+                setSlotDuration(Number.parseInt(value, 10) as 30 | 60)
+              }
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select slot duration" />

@@ -27,7 +27,7 @@ export const WeekDayCol: React.FC<WeekDayColProps> = ({ day }) => {
     () => getVisibleHoursCount(visibleHours, slotDuration),
     [visibleHours, slotDuration]
   )
-  
+
   // Calculate row height based on slot duration (30px for 30min, 60px for 60min)
   const rowHeight = slotDuration === 30 ? 30 : 60
 

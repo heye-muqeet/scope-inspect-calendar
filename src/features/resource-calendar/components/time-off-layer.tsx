@@ -26,9 +26,8 @@ export const TimeOffLayer: React.FC<TimeOffLayerProps> = ({
       // Check if there's any time-off for this day
       return getTimeOffsForSlot(resourceId, day)
     }
-      // For hour views, check each hour
-      return getTimeOffsForSlot(resourceId, day, day.hour())
-    
+    // For hour views, check each hour
+    return getTimeOffsForSlot(resourceId, day, day.hour())
   }, [resourceId, day, gridType, getTimeOffsForSlot])
 
   if (timeOffs.length === 0) {
@@ -56,11 +55,15 @@ export const TimeOffLayer: React.FC<TimeOffLayerProps> = ({
             )}
             title={`Time Off: ${timeOff.title} (${timeOff.status})`}
           >
-            <div className="font-medium truncate text-[11px] mb-0.5">{timeOff.title}</div>
-            <div className={cn(
-              'inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium border',
-              statusBadgeClass
-            )}>
+            <div className="font-medium truncate text-[11px] mb-0.5">
+              {timeOff.title}
+            </div>
+            <div
+              className={cn(
+                'inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium border',
+                statusBadgeClass
+              )}
+            >
               {timeOff.status}
             </div>
           </div>
@@ -69,4 +72,3 @@ export const TimeOffLayer: React.FC<TimeOffLayerProps> = ({
     </div>
   )
 }
-

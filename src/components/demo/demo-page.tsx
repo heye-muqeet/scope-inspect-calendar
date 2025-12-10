@@ -49,20 +49,44 @@ const demoResources: Resource[] = [
     // Available slots: Only weekdays 9am-5pm are available, all other times are blocked
     availableSlots: {
       recurring: {
-        mon: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
-        tue: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
-        wed: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
-        thu: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
-        fri: { schedule: [{ start: '09:00 AM', end: '05:00 PM' }], enabled: true },
-        sat: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: true },
-        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: true },
+        mon: {
+          schedule: [{ start: '09:00 AM', end: '05:00 PM' }],
+          enabled: true,
+        },
+        tue: {
+          schedule: [{ start: '09:00 AM', end: '05:00 PM' }],
+          enabled: true,
+        },
+        wed: {
+          schedule: [{ start: '09:00 AM', end: '05:00 PM' }],
+          enabled: true,
+        },
+        thu: {
+          schedule: [{ start: '09:00 AM', end: '05:00 PM' }],
+          enabled: true,
+        },
+        fri: {
+          schedule: [{ start: '09:00 AM', end: '05:00 PM' }],
+          enabled: true,
+        },
+        sat: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: true,
+        },
+        sun: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: true,
+        },
       },
       one_time: [
         // Special availability on a specific date
         {
-          date: dayjs().format('DD-MM-YYYY'), 
-          schedule: [{ start: '11:00 AM', end: '01:30 PM' }, { start: '02:00 PM', end: '03:00 PM' }],
-          enabled: true
+          date: dayjs().format('DD-MM-YYYY'),
+          schedule: [
+            { start: '11:00 AM', end: '01:30 PM' },
+            { start: '02:00 PM', end: '03:00 PM' },
+          ],
+          enabled: true,
         },
       ],
     },
@@ -76,13 +100,34 @@ const demoResources: Resource[] = [
     // Available slots: Monday-Friday 8am-6pm, Saturday 10am-2pm
     availableSlots: {
       recurring: {
-        mon: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
-        tue: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
-        wed: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
-        thu: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
-        fri: { schedule: [{ start: '08:00 AM', end: '06:00 PM' }], enabled: true },
-        sat: { schedule: [{ start: '10:00 AM', end: '02:00 PM' }], enabled: true },
-        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        mon: {
+          schedule: [{ start: '08:00 AM', end: '06:00 PM' }],
+          enabled: true,
+        },
+        tue: {
+          schedule: [{ start: '08:00 AM', end: '06:00 PM' }],
+          enabled: true,
+        },
+        wed: {
+          schedule: [{ start: '08:00 AM', end: '06:00 PM' }],
+          enabled: true,
+        },
+        thu: {
+          schedule: [{ start: '08:00 AM', end: '06:00 PM' }],
+          enabled: true,
+        },
+        fri: {
+          schedule: [{ start: '08:00 AM', end: '06:00 PM' }],
+          enabled: true,
+        },
+        sat: {
+          schedule: [{ start: '10:00 AM', end: '02:00 PM' }],
+          enabled: true,
+        },
+        sun: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
       },
       one_time: [
         // Unavailable on a specific date (enabled: false means this date is blocked)
@@ -103,13 +148,34 @@ const demoResources: Resource[] = [
     // Available slots: Tuesday and Thursday only, 10am-4pm
     availableSlots: {
       recurring: {
-        mon: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
-        tue: { schedule: [{ start: '10:00 AM', end: '04:00 PM' }], enabled: true },
-        wed: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
-        thu: { schedule: [{ start: '10:00 AM', end: '04:00 PM' }], enabled: true },
-        fri: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
-        sat: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
-        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        mon: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
+        tue: {
+          schedule: [{ start: '10:00 AM', end: '04:00 PM' }],
+          enabled: true,
+        },
+        wed: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
+        thu: {
+          schedule: [{ start: '10:00 AM', end: '04:00 PM' }],
+          enabled: true,
+        },
+        fri: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
+        sat: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
+        sun: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
       },
     },
   },
@@ -123,27 +189,48 @@ const demoResources: Resource[] = [
     availableSlots: {
       recurring: {
         mon: {
-          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
-          enabled: true
+          schedule: [
+            { start: '09:00 AM', end: '12:00 PM' },
+            { start: '01:00 PM', end: '05:00 PM' },
+          ],
+          enabled: true,
         },
         tue: {
-          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
-          enabled: true
+          schedule: [
+            { start: '09:00 AM', end: '12:00 PM' },
+            { start: '01:00 PM', end: '05:00 PM' },
+          ],
+          enabled: true,
         },
         wed: {
-          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
-          enabled: true
+          schedule: [
+            { start: '09:00 AM', end: '12:00 PM' },
+            { start: '01:00 PM', end: '05:00 PM' },
+          ],
+          enabled: true,
         },
         thu: {
-          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
-          enabled: true
+          schedule: [
+            { start: '09:00 AM', end: '12:00 PM' },
+            { start: '01:00 PM', end: '05:00 PM' },
+          ],
+          enabled: true,
         },
         fri: {
-          schedule: [{ start: '09:00 AM', end: '12:00 PM' }, { start: '01:00 PM', end: '05:00 PM' },],
-          enabled: true
+          schedule: [
+            { start: '09:00 AM', end: '12:00 PM' },
+            { start: '01:00 PM', end: '05:00 PM' },
+          ],
+          enabled: true,
         },
-        sat: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
-        sun: { schedule: [{ start: '12:00 AM', end: '11:30 PM' }], enabled: false },
+        sat: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
+        sun: {
+          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+          enabled: false,
+        },
       },
     },
   },

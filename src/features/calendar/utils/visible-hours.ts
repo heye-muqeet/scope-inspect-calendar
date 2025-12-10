@@ -24,7 +24,7 @@ export function getVisibleHours(
 
   // Generate time slots array based on slot duration
   const slots: dayjs.Dayjs[] = []
-  
+
   if (slotDuration === 30) {
     // Generate 30-minute slots
     for (let hour = validStart; hour < validEnd; hour++) {

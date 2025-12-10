@@ -453,6 +453,7 @@ Past time slots are automatically greyed out to provide visual feedback about hi
 #### Visual Styling
 
 Past slots use:
+
 - Background: `bg-secondary/40` (40% opacity)
 - Text: `text-muted-foreground/60` (60% opacity)
 
@@ -506,25 +507,27 @@ The calendar provides clear visual distinction between two types of greyed-out c
 
 #### Comparison Table
 
-| Feature | Unavailable Slots | Past Slots |
-|---------|-------------------|------------|
-| Background Opacity | 100% (full) | 40% (reduced) |
-| Text Opacity | 100% (full) | 60% (reduced) |
-| Pattern | Diagonal stripes | None |
-| Clickable | ❌ No | ✅ Yes |
-| Hoverable | ❌ No | ✅ Yes |
-| Droppable | ❌ No | ✅ Yes |
-| Visual Intent | Blocked/Unavailable | Historical |
+| Feature            | Unavailable Slots   | Past Slots    |
+| ------------------ | ------------------- | ------------- |
+| Background Opacity | 100% (full)         | 40% (reduced) |
+| Text Opacity       | 100% (full)         | 60% (reduced) |
+| Pattern            | Diagonal stripes    | None          |
+| Clickable          | ❌ No               | ✅ Yes        |
+| Hoverable          | ❌ No               | ✅ Yes        |
+| Droppable          | ❌ No               | ✅ Yes        |
+| Visual Intent      | Blocked/Unavailable | Historical    |
 
 #### Use Cases
 
 **Unavailable Slots:**
+
 - Business hours outside working time
 - Resource-specific blocked slots (meetings, breaks)
 - Time-off periods
 - Recurring unavailable patterns
 
 **Past Slots:**
+
 - Viewing historical calendar data
 - Reviewing past events
 - Analyzing time usage
