@@ -62,17 +62,20 @@ export function DroppableCell({
   const isPast = useMemo(() => {
     const now = dayjsInstance()
     const cellTime = date.clone()
-    
+
     if (hour !== undefined) {
-      cellTime.hour(hour).minute(minute ?? 0).second(0).millisecond(0)
+      cellTime
+        .hour(hour)
+        .minute(minute ?? 0)
+        .second(0)
+        .millisecond(0)
       // For hour-level cells, check if the specific time is in the past
       // isBefore already excludes the current time, so this is correct
       return cellTime.isBefore(now)
     }
-      // For day-level cells, check if the day is in the past (not today)
-      // isBefore with 'day' granularity excludes today, so this is correct
-      return cellTime.isBefore(now, 'day')
-    
+    // For day-level cells, check if the day is in the past (not today)
+    // isBefore with 'day' granularity excludes today, so this is correct
+    return cellTime.isBefore(now, 'day')
   }, [date, hour, minute])
 
   const handleCellClick = (e: React.MouseEvent) => {
@@ -108,8 +111,10 @@ export function DroppableCell({
         disableCellClick || disabled ? 'cursor-default' : 'cursor-pointer',
         // Unavailable slots: darker with diagonal pattern
         disabled && 'bg-secondary text-muted-foreground pointer-events-none',
-        disabled && 'bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(0,0,0,0.05)_4px,rgba(0,0,0,0.05)_8px)]',
-        disabled && 'dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(255,255,255,0.05)_4px,rgba(255,255,255,0.05)_8px)]',
+        disabled &&
+          'bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(0,0,0,0.05)_4px,rgba(0,0,0,0.05)_8px)]',
+        disabled &&
+          'dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(255,255,255,0.05)_4px,rgba(255,255,255,0.05)_8px)]',
         !disabled && !disableCellClick && 'group relative',
         // Grey out past cells but keep them interactive (same styling as disabled but without pointer-events-none)
         isPast && !disabled && 'bg-secondary text-muted-foreground'

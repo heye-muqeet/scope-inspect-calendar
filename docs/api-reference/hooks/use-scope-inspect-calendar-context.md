@@ -125,7 +125,7 @@ The hook returns an object with the following properties and methods:
 | `openEventForm`   | `(eventData?: Partial<CalendarEvent>) => void`                    | Open the event form modal with optional pre-populated data           |
 | `closeEventForm`  | `() => void`                                                      | Close the event form modal                                           |
 | `businessHours`   | `BusinessHours \| undefined`                                      | Business hours configuration, if set                                 |
-| `visibleHours`    | `VisibleHours \| undefined`                                       | **Exclusive feature**: Visible hours configuration, if set           |
+| `visibleHours`    | `VisibleHours \| undefined`                                       | Visible hours configuration, if set                                  |
 
 ## Examples
 

@@ -177,7 +177,7 @@ Default: `"12-hour"`
 
 #### `visibleHours`
 
-Controls which time range is displayed (exclusive feature):
+Controls which time range is displayed:
 
 ```tsx
 <ScopeInspectCalendar

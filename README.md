@@ -87,7 +87,6 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
   - Multi-day events with smart positioning
   - Event validation and error handling
   - Bulk operations and batch updates
-
 - **👁️ Visible Hours**: Control which time range is displayed on the calendar's vertical time scale, independent of business hours. Perfect for focusing on specific time periods (e.g., business hours, working shifts) without affecting event creation or editing capabilities
 - **⏱️ Slot Duration**: Customize time slot granularity in day and week views
   - 30 minutes: More detailed scheduling with half-hour intervals (e.g., 12:00, 12:30, 1:00, 1:30)

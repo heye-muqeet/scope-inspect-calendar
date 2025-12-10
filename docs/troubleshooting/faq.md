@@ -90,7 +90,7 @@ Drag and drop is enabled by default. See the [Basic Usage Guide](../getting-star
 
 ### How do I use the Visible Hours feature?
 
-The `visibleHours` prop is an exclusive feature that controls which time range is displayed on the calendar's vertical time scale:
+The `visibleHours` prop controls which time range is displayed on the calendar's vertical time scale:
 
 ```tsx
 <ScopeInspectCalendar
@@ -247,7 +247,7 @@ Yes, the calendar is fully responsive and works great on desktop, tablet, and mo
 
 ### What is the Visible Hours feature?
 
-**Visible Hours** is an exclusive feature that allows you to control which time range is displayed on the calendar's vertical time scale, independent of business hours. This is perfect for focusing on specific time periods without affecting event creation or editing capabilities.
+**Visible Hours** allows you to control which time range is displayed on the calendar's vertical time scale, independent of business hours. This is perfect for focusing on specific time periods without affecting event creation or editing capabilities.
 
 ```tsx
 <ScopeInspectCalendar

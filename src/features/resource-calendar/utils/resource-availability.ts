@@ -1,6 +1,10 @@
 import type dayjs from '@/lib/configs/dayjs-config'
 import dayjsInstance from '@/lib/configs/dayjs-config'
-import type { BlockedSlot, TimeOff, AvailableSlots } from '@/features/calendar/types'
+import type {
+  BlockedSlot,
+  TimeOff,
+  AvailableSlots,
+} from '@/features/calendar/types'
 import { safeDate } from '@/lib'
 import { RRule } from 'rrule'
 import type { RRuleOptions } from '@/features/recurrence/types'
@@ -44,9 +48,10 @@ export const isBlockedSlot = ({
     return false
   }
 
-  const checkTime = hour !== undefined
-    ? date.hour(hour).minute(minute).second(0).millisecond(0)
-    : date.startOf('day')
+  const checkTime =
+    hour !== undefined
+      ? date.hour(hour).minute(minute).second(0).millisecond(0)
+      : date.startOf('day')
 
   // Check if the time falls within any blocked slot
   for (const block of blockedSlots) {
@@ -74,12 +79,18 @@ export const isBlockedSlot = ({
         // Check if checkTime falls within any recurring occurrence
         for (const occurrence of occurrences) {
           // Skip if this occurrence is in exdates
-          if (block.exdates && block.exdates.includes(occurrence.toISOString())) {
+          if (
+            block.exdates &&
+            block.exdates.includes(occurrence.toISOString())
+          ) {
             continue
           }
 
           const occurrenceStart = dayjsInstance(occurrence)
-          const occurrenceEnd = occurrenceStart.add(blockDuration, 'millisecond')
+          const occurrenceEnd = occurrenceStart.add(
+            blockDuration,
+            'millisecond'
+          )
 
           if (hour === undefined) {
             // Day-level check
@@ -91,14 +102,16 @@ export const isBlockedSlot = ({
             }
           } else {
             // Time-level check
-            if (checkTime.isSameOrAfter(occurrenceStart) && checkTime.isBefore(occurrenceEnd)) {
+            if (
+              checkTime.isSameOrAfter(occurrenceStart) &&
+              checkTime.isBefore(occurrenceEnd)
+            ) {
               return true
             }
           }
         }
       } catch {
         // If RRULE parsing fails, fall back to one-time check
-        
       }
     }
 
@@ -114,7 +127,10 @@ export const isBlockedSlot = ({
         }
       } else {
         // For time-level checks, check if the time falls within the block
-        if (checkTime.isSameOrAfter(blockStart) && checkTime.isBefore(blockEnd)) {
+        if (
+          checkTime.isSameOrAfter(blockStart) &&
+          checkTime.isBefore(blockEnd)
+        ) {
           return true
         }
       }
@@ -202,7 +218,10 @@ export const isResourceAvailable = ({
         }
       } else {
         // Time-level check
-        if (checkTime.isSameOrAfter(timeOffStart) && checkTime.isBefore(timeOffEnd)) {
+        if (
+          checkTime.isSameOrAfter(timeOffStart) &&
+          checkTime.isBefore(timeOffEnd)
+        ) {
           return false
         }
       }
@@ -216,7 +235,8 @@ export const isResourceAvailable = ({
 
   // Check business hours
   const dayName = date.format('dddd').toLowerCase()
-  const businessDays = businessHours.daysOfWeek?.map((d) => d.toLowerCase()) || []
+  const businessDays =
+    businessHours.daysOfWeek?.map((d) => d.toLowerCase()) || []
 
   // Check if it's a business day
   if (!businessDays.includes(dayName)) {
@@ -260,7 +280,11 @@ export const getTimeOffsForSlot = (
 
   const checkTime =
     hour !== undefined
-      ? date.hour(hour).minute(minute ?? 0).second(0).millisecond(0)
+      ? date
+          .hour(hour)
+          .minute(minute ?? 0)
+          .second(0)
+          .millisecond(0)
       : date.startOf('day')
 
   const overlapping: TimeOff[] = []
@@ -280,7 +304,10 @@ export const getTimeOffsForSlot = (
       }
     } else {
       // Time-level check
-      if (checkTime.isSameOrAfter(timeOffStart) && checkTime.isBefore(timeOffEnd)) {
+      if (
+        checkTime.isSameOrAfter(timeOffStart) &&
+        checkTime.isBefore(timeOffEnd)
+      ) {
         overlapping.push(timeOff)
       }
     }
@@ -288,4 +315,3 @@ export const getTimeOffsForSlot = (
 
   return overlapping
 }
-

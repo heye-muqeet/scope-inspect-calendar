@@ -176,7 +176,7 @@ All props from `ScopeInspectCalendar` are available, including:
 - `locale` - Locale for date formatting
 - `timezone` - Timezone for date handling
 - `timeFormat` - Time format (`'12-hour'` or `'24-hour'`)
-- `visibleHours` - **Exclusive feature**: Control displayed time range
+- `visibleHours` - Control displayed time range
 - `businessHours` - Restrict interactions to business hours
 - `onEventClick` - Event click handler
 - `onCellClick` - Cell click handler

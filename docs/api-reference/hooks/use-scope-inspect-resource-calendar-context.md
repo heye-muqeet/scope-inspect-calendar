@@ -105,7 +105,7 @@ All properties and methods from `useScopeInspectCalendarContext` are also availa
 - `openEventForm` - Open the event form
 - `closeEventForm` - Close the event form
 - `businessHours` - Business hours configuration
-- `visibleHours` - **Exclusive feature**: Visible hours configuration
+- `visibleHours` - Visible hours configuration
 
 See the [useScopeInspectCalendarContext documentation](./use-scope-inspect-calendar-context.md) for complete details on inherited properties.
 

@@ -116,8 +116,8 @@ interface Resource {
 
 Resources can define their availability using two approaches:
 
-1. **Available Slots** (Recommended): Define only the times when the resource is available. All other times are considered blocked.
-2. **Blocked Slots** (Legacy): Define only the times when the resource is unavailable. All other times are considered available.
+1. **Available Slots**: Define only the times when the resource is available. All other times are considered blocked.
+2. **Blocked Slots**: Define only the times when the resource is unavailable. All other times are considered available.
 
 #### Available Slots
 

@@ -46,7 +46,9 @@ export const GridCell: React.FC<GridProps> = ({
     t: state.t,
     getEventsForResource: state.getEventsForResource,
     businessHours: state.businessHours,
-      isResourceAvailable: (state as { isResourceAvailable?: typeof state.isResourceAvailable }).isResourceAvailable,
+    isResourceAvailable: (
+      state as { isResourceAvailable?: typeof state.isResourceAvailable }
+    ).isResourceAvailable,
   }))
 
   const todayEvents = useMemo(() => {
@@ -103,12 +105,11 @@ export const GridCell: React.FC<GridProps> = ({
     }
     // Fall back to business hours check
     return isBusinessHour({
-    date: day,
-    hour: gridType === 'hour' ? day.hour() : undefined,
-    businessHours,
-  })
+      date: day,
+      hour: gridType === 'hour' ? day.hour() : undefined,
+      businessHours,
+    })
   }, [day, resourceId, gridType, isResourceAvailable, businessHours])
-
 
   return (
     <>
