@@ -48,8 +48,8 @@
   "sideEffects": false,
   "scripts": {
     "dev": "bun --hot src/index.tsx",
-    "start": "NODE_ENV=production bun src/index.tsx",
-    "build": "NODE_ENV=production bunx bunup",
+    "start": "bunx cross-env NODE_ENV=production bun src/index.tsx",
+    "build": "bunx cross-env NODE_ENV=production bunx bunup",
     "lint": "bunx oxlint@latest",
     "lint:fix": "bunx oxlint@latest --fix --fix-suggestions",
     "prettier": "bunx prettier",
@@ -91,6 +91,7 @@
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "^18.0.1",
+    "@oxc-minify/binding-win32-x64-msvc": "^0.102.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",

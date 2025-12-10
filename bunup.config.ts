@@ -91,7 +91,6 @@ export default defineConfig({
   minify: true,
   clean: true,
   sourcemap: true,
-  platform: 'browser',
   external: ['react', 'react-dom'],
   // Define replacements for Node.js globals
   define: {
