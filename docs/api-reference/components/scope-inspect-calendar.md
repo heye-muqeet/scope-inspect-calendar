@@ -604,7 +604,7 @@ const businessHours: BusinessHours = {
 
 ### VisibleHours Interface
 
-**Exclusive Feature**: Configuration object for controlling which time range is displayed on the calendar's vertical time scale. This is independent from `businessHours` which controls interaction rules.
+Configuration object for controlling which time range is displayed on the calendar's vertical time scale. This is independent from `businessHours` which controls interaction rules.
 
 ```typescript
 interface VisibleHours {
