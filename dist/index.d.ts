@@ -254,30 +254,63 @@ type CalendarView = "month" | "week" | "day" | "year";
 */
 type TimeFormat = "12-hour" | "24-hour";
 /**
-* Time slot block definition for a team member.
-* Represents unavailable time slots that override business hours (e.g., scheduled meetings, breaks, training sessions).
-* Supports both one-time blocks and recurring blocks using RRULE patterns.
+* Schedule time range for blocked slots (same structure as available slots)
 */
-interface BlockedSlot {
-	/** Start date and time of the blocked slot */
-	start: dayjs.Dayjs | Date | string;
-	/** End date and time of the blocked slot */
-	end: dayjs.Dayjs | Date | string;
-	/** Optional reason for the block (e.g., 'Team meeting', 'Lunch break', 'Training session') */
-	reason?: string;
-	/**
-	* Recurrence rule for recurring blocked slots (RFC 5545 standard).
-	* If provided, this block repeats according to the rule.
-	* @example { freq: 'WEEKLY', interval: 1, byweekday: ['MO', 'WE', 'FR'] } // Every Monday, Wednesday, Friday
-	* @example { freq: 'DAILY', interval: 1, count: 30 } // Daily for 30 occurrences
-	*/
-	rrule?: RRuleOptions;
-	/**
-	* Exception dates (EXDATE) - dates to exclude from recurring blocks.
-	* Uses ISO string format for storage and transmission.
-	* @example ['2024-01-15T12:00:00.000Z', '2024-01-22T12:00:00.000Z']
-	*/
-	exdates?: string[];
+interface BlockedSchedule {
+	/** Start time in format 'HH:mm A' or 'HH:mm' (e.g., '12:00 AM', '09:00') */
+	start: string;
+	/** End time in format 'HH:mm A' or 'HH:mm' (e.g., '11:30 PM', '17:00') */
+	end: string;
+}
+/**
+* Recurring blocked slot configuration for a specific day of the week
+*/
+interface RecurringBlockedDay {
+	/** Array of time schedules for this day */
+	schedule: BlockedSchedule[];
+	/** Whether this day's schedule is enabled */
+	enabled: boolean;
+}
+/**
+* Recurring blocked slots configuration
+* Maps day names to their schedules
+*/
+interface RecurringBlockedSlots {
+	/** Monday schedule */
+	mon?: RecurringBlockedDay;
+	/** Tuesday schedule */
+	tue?: RecurringBlockedDay;
+	/** Wednesday schedule */
+	wed?: RecurringBlockedDay;
+	/** Thursday schedule */
+	thu?: RecurringBlockedDay;
+	/** Friday schedule */
+	fri?: RecurringBlockedDay;
+	/** Saturday schedule */
+	sat?: RecurringBlockedDay;
+	/** Sunday schedule */
+	sun?: RecurringBlockedDay;
+}
+/**
+* One-time blocked slot configuration
+*/
+interface OneTimeBlockedSlot {
+	/** Date in format 'DD-MM-YYYY' (e.g., '24-04-2024') */
+	date: string;
+	/** Array of time schedules for this date */
+	schedule: BlockedSchedule[];
+	/** Whether this slot is enabled */
+	enabled: boolean;
+}
+/**
+* Blocked slots configuration for a resource
+* Uses same structure as AvailableSlots: define only blocked times; all other times are available
+*/
+interface BlockedSlots {
+	/** Recurring weekly schedule */
+	recurring?: RecurringBlockedSlots;
+	/** One-time specific date schedules */
+	one_time?: OneTimeBlockedSlot[];
 }
 /**
 * Schedule time range for available slots
@@ -383,13 +416,23 @@ interface Resource {
 	/** Optional position for team member display order */
 	position?: number;
 	/**
-	* Blocked time slots for this team member (e.g., scheduled meetings, breaks, unavailability).
-	* These slots override business hours and make the team member unavailable for scheduling.
-	* @deprecated Use `availableSlots` instead for better control. If both are provided, `availableSlots` takes precedence.
-	* @example [{ start: '2024-01-15T12:00:00', end: '2024-01-15T13:00:00', reason: 'Lunch break' }]
-	* @example [{ start: '2024-01-15T14:00:00', end: '2024-01-15T15:00:00', reason: 'Training session' }]
+	* Blocked time slots for this team member (e.g., scheduled meetings, breaks, training sessions).
+	* These override business hours and make the team member unavailable during these times.
+	* Uses same structure as AvailableSlots: define only blocked times; all other times are available.
+	* Supports both recurring weekly schedules and one-time date-specific schedules.
+	* One-time slots override recurring schedules for precise control.
+	* @example
+	* {
+	*   recurring: {
+	*     mon: { schedule: [{start: '12:00 PM', end: '01:00 PM'}], enabled: true },
+	*     wed: { schedule: [{start: '02:00 PM', end: '03:00 PM'}], enabled: true },
+	*   },
+	*   one_time: [
+	*     { date: '24-04-2024', schedule: [{start: '10:00 AM', end: '11:00 AM'}], enabled: true }
+	*   ]
+	* }
 	*/
-	blockedSlots?: BlockedSlot[];
+	blockedSlots?: BlockedSlots;
 	/**
 	* Available time slots for this team member.
 	* Uses inverted logic: only slots defined here are available; all other times are blocked.

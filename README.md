@@ -37,76 +37,99 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
 
 ### Core Features
 
-- **🗓️ Multiple Views**: Month, Week, Day, and Year views with smooth transitions
-- **📊 Unified Calendar Component**: Single `ScopeInspectCalendar` component for both agenda and timeline (resource) views
-  - Use `type="agenda"` for standard calendar view (default)
-  - Use `type="timeline"` for resource-based timeline view
-- **📊 Resource Calendar**: Visualize and manage events across multiple resources with timeline layout
-- **🎯 Drag & Drop**: Move events between dates and time slots with collision detection
+- **🗓️ Multiple Views**: Month, Week, Day, and Year views with smooth animated transitions
+- **📊 Unified Calendar Component**: Single `ScopeInspectCalendar` component supporting both agenda (standard) and timeline (resource) views via `type` prop
+- **📊 Resource Calendar**: Timeline layout for visualizing and managing events across multiple resources (team members, rooms, equipment)
+  - Single resource events via `resourceId`
+  - Cross-resource events via `resourceIds` (events spanning multiple resources)
+- **🎯 Drag & Drop**: Move events between dates and time slots with automatic collision detection
 - **🔄 RFC 5545 Recurring Events**: Full RRULE support with Google Calendar-style operations
-  - RRULE Patterns: Daily, Weekly, Monthly, Yearly with complex frequencies
-  - Smart Operations: Edit "this event", "this and following", or "all events"
-  - Exception Handling: EXDATE exclusions and modified instance support
-  - rrule.js Integration: Battle-tested library for robust recurrence generation
+  - Daily, Weekly, Monthly, Yearly recurrence patterns with complex frequencies
+  - Edit operations: "This event only", "This and following", or "All events"
+  - Exception dates (EXDATE) to exclude specific occurrences
+  - Modified instance support with RECURRENCE-ID
+  - rrule.js integration for robust recurrence generation
+- **🎛️ Event Types**: Support for various event configurations
+  - All-day events with proper timezone handling
+  - Multi-day events with smart positioning and display
+  - Timed events with start and end times
+  - Single and cross-resource event assignments
+- **📞 Event Lifecycle Callbacks**: Complete event management integration
+  - `onEventAdd`: Triggered when new events are created
+  - `onEventUpdate`: Called when events are modified (dragged, resized, edited)
+  - `onEventDelete`: Invoked when events are removed
+  - `onEventClick`: Handles event click interactions
+  - `onCellClick`: Responds to calendar cell clicks with date/time info
+  - `onViewChange`: Fires when calendar view changes
+  - `onDateChange`: Notifies when navigation changes the current date
+- **🎨 Custom Rendering**: Full control over component rendering
+  - `renderEvent`: Custom event component rendering
+  - `renderResource`: Custom resource cell rendering for timeline views
+  - `renderEventForm`: Custom event form component
+- **⏰ Business Hours**: Restrict calendar interactions to specific days and time ranges
+- **👁️ Visible Hours**: Control which time range is displayed on the calendar's vertical time scale, independent of business hours
+- **⏱️ Slot Duration**: Customize time slot granularity in day and week views
+  - 30-minute slots for detailed scheduling
+  - 60-minute (1-hour) slots for standard hourly views
+  - Automatically adjusts grid lines, time labels, and cell click behavior
 - **⏰ Resource Availability**: Flexible availability management for team members
-  - **Available Slots** (Recommended): Define only available times using inverted logic - all other times are blocked
+  - Available Slots: Define only available times using inverted logic - all other times are blocked
+  - Blocked Slots: Define unavailable times using same structure as available slots (recurring and one-time schedules)
   - Supports recurring weekly schedules and one-time date-specific schedules
   - One-time slots override recurring schedules for precise control
-  - **Blocked Slots** (Legacy): Define unavailable times with one-time or recurring RRULE patterns
-  - Exception dates (EXDATE) to exclude specific occurrences
-  - Perfect for team member availability, recurring meetings, breaks
-- **⏱️ Customizable Slot Duration**: Control time slot granularity
-  - 30-minute or 60-minute (1-hour) time slots
-  - Adjusts grid lines and time labels automatically
-  - Perfect for detailed scheduling or standard hourly views
+  - Only `enabled: true` entries are applied; `enabled: false` entries are skipped (draft state)
 - **⏮️ Past Time Greying**: Automatic visual indication of past time slots
   - Past cells are greyed out but remain fully interactive
   - Works for both day-level and hour-level cells
 - **🎨 Visual Distinction**: Clear differentiation between unavailable and past slots
-  - Unavailable slots: Darker with diagonal pattern (truly blocked)
+  - Unavailable slots: Darker background with diagonal pattern (truly blocked, non-interactive)
   - Past slots: Lighter opacity, no pattern (historical but accessible)
-- **📤 iCalendar Export**: RFC 5545 compliant .ics file export with proper recurring event handling
-- **🌍 Internationalization**: 100+ locales with dayjs and configurable week start days
-- **🎨 Customizable Styling**:
-  - Flexible theming with Tailwind CSS and CSS variables
-  - Custom event rendering with render props
-  - Custom resource rendering for timeline views
+- **🕐 Time Format**: Flexible time display options
+  - 12-hour format (e.g., "1:00 PM", "11:30 AM")
+  - 24-hour format (e.g., "13:00", "23:30")
+- **🌍 Internationalization**: Comprehensive locale and timezone support
+  - 100+ locales with dayjs integration
+  - Configurable first day of the week (Sunday through Saturday)
+  - Timezone support for accurate date/time handling
+  - Custom translation system with `translations` object or `translator` function
+- **📤 iCalendar Export**: RFC 5545 compliant .ics file export
+  - Proper recurring event handling with RRULE
+  - EXDATE support for exceptions
+  - Full event metadata preservation
+- **🎨 Customizable Styling**: Complete visual control
+  - Flexible theming with Tailwind CSS v4 and CSS variables
+  - Custom event colors and backgrounds (hex, rgb, hsl, CSS classes)
+  - Custom header components and styling
+  - View header customization with sticky positioning
   - Configurable colors, fonts, and spacing
-- **⚡ Performance Optimized**:
+- **📊 Event Overflow Handling**: Smart event display in month view
+  - Configurable maximum events per day (`dayMaxEvents`)
+  - "+X more" indicator for additional events
+  - Click to view all events in a dialog
+- **🔒 Interaction Controls**: Fine-grained control over user interactions
+  - `disableCellClick`: Disable calendar cell clicks
+  - `disableEventClick`: Disable event click interactions
+  - `disableDragAndDrop`: Disable drag-and-drop functionality
+- **🔧 Context API & Hooks**: Programmatic calendar control
+  - `useScopeInspectCalendarContext`: Access calendar state and methods
+  - Navigation methods: `nextPeriod`, `prevPeriod`, `today`, `setCurrentDate`
+  - View management: `setView`, view state access
+  - Event management: `addEvent`, `updateEvent`, `deleteEvent`
+  - Utility methods: `getEventsForDateRange`, `getEventsForResource` (timeline view)
+- **⚡ Performance Optimized**: Efficient rendering and memory management
   - On-demand recurring event generation
   - Efficient date range calculations
   - Minimal re-renders with optimized React patterns
-- **📱 Responsive Design**: Adaptive layouts for desktop, tablet, and mobile
-- **🔧 Developer Experience**:
+  - Smart event processing and caching
+- **📱 Responsive Design**: Adaptive layouts for all screen sizes
+  - Desktop, tablet, and mobile optimizations
+  - Responsive grid layouts
+  - Touch-friendly interactions
+- **🔧 Developer Experience**: Best-in-class developer tools
   - Full TypeScript support with comprehensive type definitions
   - IntelliSense and autocompletion
   - Extensive JSDoc documentation
-  - Test-driven development with 100% test coverage
-- **🎛️ Advanced Event Management**:
-  - All-day events with proper timezone handling
-  - Multi-day events with smart positioning
-  - Event validation and error handling
-  - Bulk operations and batch updates
-
-### ✨ Exclusive Feature: Visible Hours
-
-**Visible Hours** is a unique customization that allows you to control which time range is displayed on the calendar's vertical time scale, independent of business hours. This feature is perfect for focusing on specific time periods (e.g., business hours, working shifts) without affecting event creation or editing capabilities.
-
-**Key Benefits:**
-
-- 🎯 **Focus on Relevant Times**: Show only the hours that matter to your users
-- 🔄 **Independent from Business Hours**: Display settings are separate from interaction rules
-- 📊 **Better UX**: Reduce visual clutter by hiding irrelevant time slots
-- ⚡ **Performance**: Fewer DOM nodes when showing fewer hours
-
-### ⏱️ Slot Duration
-
-Control the granularity of time slots in day and week views with the `slotDuration` prop:
-
-- **30 minutes**: More detailed scheduling with half-hour intervals (e.g., 12:00, 12:30, 1:00, 1:30)
-- **60 minutes**: Standard hourly intervals (e.g., 12:00, 1:00, 2:00)
-
-The calendar automatically adjusts grid lines, time labels, and cell click behavior based on the selected slot duration.
+  - Test-driven development with comprehensive test coverage
 
 ---
 
