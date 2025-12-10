@@ -1,9 +1,6 @@
 import type dayjs from '@/lib/configs/dayjs-config'
 import dayjsInstance from '@/lib/configs/dayjs-config'
-import type {
-  AvailableSlots,
-  BlockedSlots,
-} from '@/features/calendar/types'
+import type { AvailableSlots, BlockedSlots } from '@/features/calendar/types'
 
 /**
  * Parses a time string (e.g., '12:00 AM', '11:30 PM', '09:00', '17:30')
@@ -155,8 +152,7 @@ export function isTimeBlocked(
     blockedSlots.recurring &&
     Object.values(blockedSlots.recurring).some((day) => day?.enabled)
   const hasEnabledOneTime =
-    blockedSlots.one_time &&
-    blockedSlots.one_time.some((slot) => slot.enabled)
+    blockedSlots.one_time && blockedSlots.one_time.some((slot) => slot.enabled)
 
   if (hasEnabledRecurring || hasEnabledOneTime) {
     return false // Time is not in any blocked schedule, so it's available
@@ -219,8 +215,7 @@ export function isDayBlocked(
     blockedSlots.recurring &&
     Object.values(blockedSlots.recurring).some((day) => day?.enabled)
   const hasEnabledOneTime =
-    blockedSlots.one_time &&
-    blockedSlots.one_time.some((slot) => slot.enabled)
+    blockedSlots.one_time && blockedSlots.one_time.some((slot) => slot.enabled)
 
   if (hasEnabledRecurring || hasEnabledOneTime) {
     return false

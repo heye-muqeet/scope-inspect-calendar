@@ -75,17 +75,16 @@ export const isResourceAvailable = ({
       // Day-level check
       return false
     }
-  } else {
+  } else if (hour !== undefined) {
     // Priority 2: Check blocked slots (if availableSlots not provided)
-    if (hour !== undefined) {
-      // Time-level check
-      if (isTimeBlocked(date, hour, minute, blockedSlots)) {
-        return false
-      }
-    } else if (isDayBlocked(date, blockedSlots)) {
-      // Day-level check
+    // Time-level check
+    if (isTimeBlocked(date, hour, minute, blockedSlots)) {
       return false
     }
+  } else if (isDayBlocked(date, blockedSlots)) {
+    // Priority 2: Check blocked slots (if availableSlots not provided)
+    // Day-level check
+    return false
   }
 
   // Check if there's a time-off (pending or approved) - both block availability
