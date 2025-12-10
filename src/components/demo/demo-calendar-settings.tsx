@@ -135,7 +135,10 @@ export function DemoCalendarSettings({
           <ModeToggle />
         </div>
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="calendar-type"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Calendar Type
           </label>
           <Select
@@ -144,7 +147,7 @@ export function DemoCalendarSettings({
               setCalendarType(value as 'regular' | 'resource')
             }
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="calendar-type" className="w-full">
               <SelectValue placeholder="Select calendar type" />
             </SelectTrigger>
             <SelectContent>
@@ -154,14 +157,17 @@ export function DemoCalendarSettings({
           </Select>
         </div>
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="first-day-of-week"
+            className="block text-sm text-left font-medium mb-1"
+          >
             First Day of Week
           </label>
           <Select
             value={firstDayOfWeek}
             onValueChange={(value) => setFirstDayOfWeek(value as WeekDays)}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="first-day-of-week" className="w-full">
               <SelectValue placeholder="Select first day of week" />
             </SelectTrigger>
             <SelectContent>
@@ -176,14 +182,17 @@ export function DemoCalendarSettings({
           </Select>
         </div>
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="initial-view"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Initial View
           </label>
           <Select
             value={initialView}
             onValueChange={(value) => setInitialView(value as CalendarView)}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="initial-view" className="w-full">
               <SelectValue placeholder="Select initial view" />
             </SelectTrigger>
             <SelectContent>
@@ -198,7 +207,10 @@ export function DemoCalendarSettings({
         </div>
 
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="initial-date"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Initial Date
           </label>
           <Select
@@ -238,11 +250,14 @@ export function DemoCalendarSettings({
         </div>
 
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="locale"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Locale
           </label>
           <Select value={locale} onValueChange={setLocale}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="locale" className="w-full">
               <SelectValue placeholder="Select locale" />
             </SelectTrigger>
             <SelectContent>
@@ -278,11 +293,14 @@ export function DemoCalendarSettings({
         </div> */}
 
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="calendar-height"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Calendar Height
           </label>
           <Select value={calendarHeight} onValueChange={setCalendarHeight}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="calendar-height" className="w-full">
               <SelectValue placeholder="Select height" />
             </SelectTrigger>
             <SelectContent>
@@ -297,14 +315,17 @@ export function DemoCalendarSettings({
         </div>
 
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="max-events-per-day"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Max Events Per Day
           </label>
           <Select
             value={dayMaxEvents?.toString()}
             onValueChange={(value) => setDayMaxEvents(Number.parseInt(value))}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="max-events-per-day" className="w-full">
               <SelectValue placeholder="Select max events" />
             </SelectTrigger>
             <SelectContent>
@@ -319,11 +340,14 @@ export function DemoCalendarSettings({
         </div>
 
         <div>
-          <label className="block text-sm text-left font-medium mb-1">
+          <label
+            htmlFor="time-format"
+            className="block text-sm text-left font-medium mb-1"
+          >
             Time Format
           </label>
           <Select value={timeFormat} onValueChange={setTimeFormat}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="time-format" className="w-full">
               <SelectValue placeholder="Select time format" />
             </SelectTrigger>
             <SelectContent>
@@ -335,12 +359,18 @@ export function DemoCalendarSettings({
 
         <div className="border-t pt-4 space-y-4">
           <div>
-            <label className="block text-sm text-left font-medium mb-2">
+            <label
+              htmlFor="business-hours"
+              className="block text-sm text-left font-medium mb-2"
+            >
               Business Hours
             </label>
-            <div className="space-y-3">
+            <div id="business-hours" className="space-y-3">
               <div>
-                <label className="block text-xs text-left text-muted-foreground mb-2">
+                <label
+                  htmlFor="business-days-of-week"
+                  className="block text-xs text-left text-muted-foreground mb-2"
+                >
                   Days of Week
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -387,10 +417,14 @@ export function DemoCalendarSettings({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-left text-muted-foreground mb-1">
+                  <label
+                    htmlFor="business-start-time"
+                    className="block text-xs text-left text-muted-foreground mb-1"
+                  >
                     Start Time (24h)
                   </label>
                   <Input
+                    id="business-start-time"
                     type="number"
                     min="0"
                     max="23"
@@ -407,10 +441,14 @@ export function DemoCalendarSettings({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-left text-muted-foreground mb-1">
+                  <label
+                    htmlFor="business-end-time"
+                    className="block text-xs text-left text-muted-foreground mb-1"
+                  >
                     End Time (24h)
                   </label>
                   <Input
+                    id="business-end-time"
                     type="number"
                     min="0"
                     max="24"
@@ -433,19 +471,29 @@ export function DemoCalendarSettings({
 
         <div className="border-t pt-4 space-y-4">
           <div>
-            <label className="block text-sm text-left font-medium mb-2">
+            <label
+              htmlFor="visible-hours"
+              className="block text-sm text-left font-medium mb-2"
+            >
               Visible Hours
             </label>
-            <div className="text-xs text-muted-foreground mb-3">
+            <div
+              id="visible-hours"
+              className="text-xs text-muted-foreground mb-3"
+            >
               Controls which time range is displayed on the calendar's vertical
               time scale. This is independent from business hours.
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-left text-muted-foreground mb-1">
+                <label
+                  htmlFor="visible-start-time"
+                  className="block text-xs text-left text-muted-foreground mb-1"
+                >
                   Start Time (24h)
                 </label>
                 <Input
+                  id="visible-start-time"
                   type="number"
                   min="0"
                   max="23"
@@ -462,10 +510,14 @@ export function DemoCalendarSettings({
                 />
               </div>
               <div>
-                <label className="block text-xs text-left text-muted-foreground mb-1">
+                <label
+                  htmlFor="visible-end-time"
+                  className="block text-xs text-left text-muted-foreground mb-1"
+                >
                   End Time (24h)
                 </label>
                 <Input
+                  id="visible-end-time"
                   type="number"
                   min="0"
                   max="24"
@@ -487,7 +539,10 @@ export function DemoCalendarSettings({
 
         <div className="border-t pt-4">
           <div>
-            <label className="block text-sm text-left font-medium mb-1">
+            <label
+              htmlFor="slot-duration"
+              className="block text-sm text-left font-medium mb-1"
+            >
               Slot Duration
             </label>
             <div className="text-xs text-muted-foreground mb-2">
@@ -500,7 +555,7 @@ export function DemoCalendarSettings({
                 setSlotDuration(Number.parseInt(value, 10) as 30 | 60)
               }
             >
-              <SelectTrigger className="w-full">
+              <SelectTrigger id="slot-duration" className="w-full">
                 <SelectValue placeholder="Select slot duration" />
               </SelectTrigger>
               <SelectContent>

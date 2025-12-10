@@ -2,7 +2,7 @@ import type {
   ScopeInspectCalendarProps,
   ScopeInspectCalendarPropEvent,
   Resource,
-  BlockedSlot,
+  BlockedSlots,
   TimeOff,
   TimeOffStatus,
 } from '@/features/calendar/types'
@@ -36,7 +36,7 @@ export interface ScopeInspectResourceCalendarProps
 // Re-export types from calendar types for convenience
 export type {
   Resource,
-  BlockedSlot,
+  BlockedSlots,
   TimeOff,
   TimeOffStatus,
 } from '@/features/calendar/types'

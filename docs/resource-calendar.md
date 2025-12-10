@@ -204,7 +204,8 @@ const resource: Resource = {
       },
       {
         date: '12-02-2024',
-        enabled: false, // Completely unavailable on this date
+        schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+        enabled: false, // Draft - not applied (skipped)
       },
     ],
   },
@@ -214,8 +215,8 @@ const resource: Resource = {
 ##### Priority Rules
 
 1. **One-time slots override recurring slots**: If a `one_time` slot exists for a date, it takes precedence over the `recurring` schedule for that date.
-2. **Only `enabled: true` entries are considered**: Slots with `enabled: false` are treated as blocked.
-3. **If `availableSlots` is defined**: Only explicitly defined available slots are truly available; all other times are blocked.
+2. **Only `enabled: true` entries are applied**: Slots with `enabled: false` are skipped (treated as drafts, no effect on availability).
+3. **If `availableSlots` is defined**: Only explicitly defined available slots are truly available; all other times are blocked. Takes precedence over `blockedSlots`.
 4. **If `availableSlots` is not defined**: Falls back to `blockedSlots` and `businessHours` logic.
 
 ##### Multiple Time Ranges
@@ -238,50 +239,115 @@ availableSlots: {
 
 #### Blocked Slots
 
-Blocked slots define times when a resource is unavailable. They support both one-time and recurring patterns using RRULE.
+Blocked slots define times when a resource is unavailable. They use the same structure as available slots, with `recurring` weekly schedules and `one_time` date-specific schedules.
 
 ```typescript
-interface BlockedSlot {
-  /** Start date and time of the blocked slot */
-  start: dayjs.Dayjs | Date | string
-  /** End date and time of the blocked slot */
-  end: dayjs.Dayjs | Date | string
-  /** Optional reason for the block */
-  reason?: string
-  /** Recurrence rule for recurring blocked slots (RFC 5545 standard) */
-  rrule?: RRuleOptions
-  /** Exception dates (EXDATE) - dates to exclude from recurrence */
-  exdates?: string[]
+interface BlockedSlots {
+  /** Recurring weekly schedules for each day of the week */
+  recurring?: {
+    mon?: RecurringBlockedDay
+    tue?: RecurringBlockedDay
+    wed?: RecurringBlockedDay
+    thu?: RecurringBlockedDay
+    fri?: RecurringBlockedDay
+    sat?: RecurringBlockedDay
+    sun?: RecurringBlockedDay
+  }
+  /** One-time schedules for specific dates */
+  one_time?: OneTimeBlockedSlot[]
+}
+
+interface RecurringBlockedDay {
+  /** Time schedules for this day */
+  schedule: BlockedSchedule[]
+  /** Whether this day is enabled */
+  enabled: boolean
+}
+
+interface OneTimeBlockedSlot {
+  /** Date in format 'DD-MM-YYYY' (e.g., '24-04-2024') */
+  date: string
+  /** Time schedules for this date */
+  schedule: BlockedSchedule[]
+  /** Whether this slot is enabled */
+  enabled: boolean
+}
+
+interface BlockedSchedule {
+  /** Start time in format 'HH:mm' or 'HH:mm AM/PM' (e.g., '09:00', '12:00 AM') */
+  start: string
+  /** End time in format 'HH:mm' or 'HH:mm AM/PM' (e.g., '17:00', '11:30 PM') */
+  end: string
 }
 ```
 
 ##### Usage Example
 
 ```tsx
-import { RRule } from 'rrule'
-import dayjs from 'dayjs'
-
 const resource: Resource = {
   id: 'john-doe',
   name: 'John Doe',
-  blockedSlots: [
-    {
-      start: dayjs().hour(12).minute(0).second(0),
-      end: dayjs().hour(13).minute(0).second(0),
-      reason: 'Lunch break',
-    },
-    {
-      start: dayjs().hour(14).minute(0).second(0),
-      end: dayjs().hour(15).minute(0).second(0),
-      reason: 'Team standup',
-      rrule: {
-        freq: RRule.WEEKLY,
-        interval: 1,
-        byweekday: [RRule.MO, RRule.WE, RRule.FR],
-        dtstart: dayjs().hour(14).minute(0).second(0).toDate(),
+  blockedSlots: {
+    recurring: {
+      mon: {
+        schedule: [{ start: '12:00 PM', end: '01:00 PM' }], // Lunch break
+        enabled: true,
+      },
+      tue: {
+        schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
+        enabled: true,
+      },
+      wed: {
+        schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
+        enabled: true,
+      },
+      thu: {
+        schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
+        enabled: true,
+      },
+      fri: {
+        schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
+        enabled: true,
       },
     },
-  ],
+    one_time: [
+      {
+        date: '24-04-2024',
+        schedule: [{ start: '02:00 PM', end: '04:00 PM' }], // Meeting blocked
+        enabled: true,
+      },
+      {
+        date: '25-04-2024',
+        schedule: [{ start: '10:00 AM', end: '11:00 AM' }], // Draft - not applied
+        enabled: false, // This slot is skipped (draft state)
+      },
+    ],
+  },
+}
+```
+
+##### Priority Rules
+
+1. **One-time slots override recurring slots**: If a `one_time` slot exists for a date, it takes precedence over the `recurring` schedule for that date.
+2. **Only `enabled: true` entries are applied**: Slots with `enabled: false` are skipped (treated as drafts, no effect on availability).
+3. **If `blockedSlots` is defined**: Only explicitly defined blocked times are unavailable; all other times are available.
+4. **If `availableSlots` is also defined**: `availableSlots` takes precedence over `blockedSlots`.
+
+##### Multiple Time Ranges
+
+You can define multiple blocked time ranges per day:
+
+```tsx
+blockedSlots: {
+  recurring: {
+    mon: {
+      schedule: [
+        { start: '12:00 PM', end: '01:00 PM' }, // Lunch break
+        { start: '03:00 PM', end: '03:30 PM' }, // Afternoon break
+      ],
+      enabled: true,
+    },
+  },
 }
 ```
 

@@ -186,52 +186,85 @@ const demoResources: Resource[] = [
     backgroundColor: '#ede9fe',
     position: 4,
     // Available slots: Monday-Friday 9am-5pm, with lunch break (12pm-1pm blocked)
-    availableSlots: {
+    // availableSlots: {
+    //   recurring: {
+    //     mon: {
+    //       schedule: [
+    //         { start: '09:00 AM', end: '12:00 PM' },
+    //         { start: '01:00 PM', end: '05:00 PM' },
+    //       ],
+    //       enabled: true,
+    //     },
+    //     tue: {
+    //       schedule: [
+    //         { start: '09:00 AM', end: '12:00 PM' },
+    //         { start: '01:00 PM', end: '05:00 PM' },
+    //       ],
+    //       enabled: true,
+    //     },
+    //     wed: {
+    //       schedule: [
+    //         { start: '09:00 AM', end: '12:00 PM' },
+    //         { start: '01:00 PM', end: '05:00 PM' },
+    //       ],
+    //       enabled: true,
+    //     },
+    //     thu: {
+    //       schedule: [
+    //         { start: '09:00 AM', end: '12:00 PM' },
+    //         { start: '01:00 PM', end: '05:00 PM' },
+    //       ],
+    //       enabled: true,
+    //     },
+    //     fri: {
+    //       schedule: [
+    //         { start: '09:00 AM', end: '12:00 PM' },
+    //         { start: '01:00 PM', end: '05:00 PM' },
+    //       ],
+    //       enabled: true,
+    //     },
+    //     sat: {
+    //       schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+    //       enabled: false,
+    //     },
+    //     sun: {
+    //       schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
+    //       enabled: false,
+    //     },
+    //   },
+    // },
+    // Example: Blocked slots using same format as available slots
+    // This demonstrates how blocked slots can be used as an alternative
+    blockedSlots: {
       recurring: {
         mon: {
-          schedule: [
-            { start: '09:00 AM', end: '12:00 PM' },
-            { start: '01:00 PM', end: '05:00 PM' },
-          ],
+          schedule: [{ start: '12:00 PM', end: '01:00 PM' }], // Lunch break
           enabled: true,
         },
         tue: {
-          schedule: [
-            { start: '09:00 AM', end: '12:00 PM' },
-            { start: '01:00 PM', end: '05:00 PM' },
-          ],
+          schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
           enabled: true,
         },
         wed: {
-          schedule: [
-            { start: '09:00 AM', end: '12:00 PM' },
-            { start: '01:00 PM', end: '05:00 PM' },
-          ],
+          schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
           enabled: true,
         },
         thu: {
-          schedule: [
-            { start: '09:00 AM', end: '12:00 PM' },
-            { start: '01:00 PM', end: '05:00 PM' },
-          ],
+          schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
           enabled: true,
         },
         fri: {
-          schedule: [
-            { start: '09:00 AM', end: '12:00 PM' },
-            { start: '01:00 PM', end: '05:00 PM' },
-          ],
+          schedule: [{ start: '12:00 PM', end: '01:00 PM' }],
           enabled: true,
         },
-        sat: {
-          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
-          enabled: false,
-        },
-        sun: {
-          schedule: [{ start: '12:00 AM', end: '11:30 PM' }],
-          enabled: false,
-        },
       },
+      one_time: [
+        {
+          date: dayjs().add(2, 'day').format('DD-MM-YYYY'),
+          schedule: [{ start: '02:00 PM', end: '04:00 PM' }], // Meeting blocked
+          enabled: false,
+        },
+      ],
     },
   },
 ]

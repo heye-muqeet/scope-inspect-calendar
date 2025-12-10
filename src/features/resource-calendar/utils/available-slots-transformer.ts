@@ -1,6 +1,9 @@
 import type dayjs from '@/lib/configs/dayjs-config'
 import dayjsInstance from '@/lib/configs/dayjs-config'
-import type { AvailableSlots, BlockedSlot } from '@/features/calendar/types'
+import type {
+  AvailableSlots,
+  BlockedSlots,
+} from '@/features/calendar/types'
 
 /**
  * Parses a time string (e.g., '12:00 AM', '11:30 PM', '09:00', '17:30')
@@ -90,19 +93,140 @@ function isTimeInSchedules(
 }
 
 /**
- * Transforms available slots into blocked slots (inverted logic).
- * Only times defined in available slots are available; everything else becomes blocked.
- *
- * Note: This function is kept for potential future use, but currently we check
- * available slots directly in isTimeAvailable/isDayAvailable functions.
+ * Checks if a time slot is blocked based on blocked slots configuration.
+ * One-time slots have higher priority and override recurring slots.
  */
-export function transformAvailableSlotsToBlocked(
-  _availableSlots: AvailableSlots,
-  _baseDate: dayjs.Dayjs = dayjsInstance()
-): BlockedSlot[] {
-  // Return empty array - we check available slots directly in availability logic
-  // instead of converting to blocked slots
-  return []
+export function isTimeBlocked(
+  date: dayjs.Dayjs,
+  hour: number,
+  minute: number,
+  blockedSlots?: BlockedSlots
+): boolean {
+  if (!blockedSlots) {
+    return false // No restrictions if no blocked slots defined
+  }
+
+  // Priority 1: Check one-time slots first (they override recurring)
+  if (blockedSlots.one_time) {
+    for (const oneTimeSlot of blockedSlots.one_time) {
+      // Skip disabled entries (enabled: false means draft, not applied)
+      if (!oneTimeSlot.enabled) {
+        continue
+      }
+      const slotDate = parseDate(oneTimeSlot.date)
+      if (slotDate.isSame(date, 'day')) {
+        // One-time slot exists for this date - use it (overrides recurring)
+        // Check if time is in the schedule
+        if (isTimeInSchedules(date, hour, minute, oneTimeSlot.schedule)) {
+          return true // Time is in blocked schedule
+        }
+        return false // Time is not in blocked schedule, so it's available
+      }
+    }
+  }
+
+  // Priority 2: Check recurring slots (only if no one-time slot matches this date)
+  const dayOfWeek = date.day() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  const dayNameMap: Record<number, keyof BlockedSlots['recurring']> = {
+    1: 'mon',
+    2: 'tue',
+    3: 'wed',
+    4: 'thu',
+    5: 'fri',
+    6: 'sat',
+    0: 'sun',
+  }
+  const dayName = dayNameMap[dayOfWeek]
+
+  if (blockedSlots.recurring && dayName) {
+    const dayConfig = blockedSlots.recurring[dayName]
+    // Skip disabled entries (enabled: false means draft, not applied)
+    if (dayConfig && dayConfig.enabled && dayConfig.schedule) {
+      if (isTimeInSchedules(date, hour, minute, dayConfig.schedule)) {
+        return true // Time is in blocked schedule
+      }
+      return false // Time is not in blocked schedule, so it's available
+    }
+    // If dayConfig is disabled or doesn't exist, continue to check other rules
+  }
+
+  // If we have blocked slots defined but time doesn't match any enabled rule, it's available
+  const hasEnabledRecurring =
+    blockedSlots.recurring &&
+    Object.values(blockedSlots.recurring).some((day) => day?.enabled)
+  const hasEnabledOneTime =
+    blockedSlots.one_time &&
+    blockedSlots.one_time.some((slot) => slot.enabled)
+
+  if (hasEnabledRecurring || hasEnabledOneTime) {
+    return false // Time is not in any blocked schedule, so it's available
+  }
+
+  return false // No blocked slots defined, so nothing is blocked
+}
+
+/**
+ * Checks if a day is blocked (for day-level checks).
+ * One-time slots have higher priority and override recurring slots.
+ */
+export function isDayBlocked(
+  date: dayjs.Dayjs,
+  blockedSlots?: BlockedSlots
+): boolean {
+  if (!blockedSlots) {
+    return false
+  }
+
+  // Priority 1: Check one-time slots first (they override recurring)
+  if (blockedSlots.one_time) {
+    for (const oneTimeSlot of blockedSlots.one_time) {
+      // Skip disabled entries (enabled: false means draft, not applied)
+      if (!oneTimeSlot.enabled) {
+        continue
+      }
+      const slotDate = parseDate(oneTimeSlot.date)
+      if (slotDate.isSame(date, 'day')) {
+        // One-time slot exists for this date - use it (overrides recurring)
+        return true // Date is blocked
+      }
+    }
+  }
+
+  // Priority 2: Check recurring slots (only if no one-time slot matches this date)
+  const dayOfWeek = date.day()
+  const dayNameMap: Record<number, keyof BlockedSlots['recurring']> = {
+    1: 'mon',
+    2: 'tue',
+    3: 'wed',
+    4: 'thu',
+    5: 'fri',
+    6: 'sat',
+    0: 'sun',
+  }
+  const dayName = dayNameMap[dayOfWeek]
+
+  if (blockedSlots.recurring && dayName) {
+    const dayConfig = blockedSlots.recurring[dayName]
+    // Skip disabled entries (enabled: false means draft, not applied)
+    if (dayConfig && dayConfig.enabled) {
+      return true // Day is blocked
+    }
+    // If dayConfig is disabled or doesn't exist, continue to check other rules
+  }
+
+  // If we have blocked slots defined but day doesn't match any enabled rule, it's available
+  const hasEnabledRecurring =
+    blockedSlots.recurring &&
+    Object.values(blockedSlots.recurring).some((day) => day?.enabled)
+  const hasEnabledOneTime =
+    blockedSlots.one_time &&
+    blockedSlots.one_time.some((slot) => slot.enabled)
+
+  if (hasEnabledRecurring || hasEnabledOneTime) {
+    return false
+  }
+
+  return false
 }
 
 /**
@@ -122,18 +246,18 @@ export function isTimeAvailable(
   // Priority 1: Check one-time slots first (they override recurring)
   if (availableSlots.one_time) {
     for (const oneTimeSlot of availableSlots.one_time) {
+      // Skip disabled entries (enabled: false means draft, not applied)
+      if (!oneTimeSlot.enabled) {
+        continue
+      }
       const slotDate = parseDate(oneTimeSlot.date)
       if (slotDate.isSame(date, 'day')) {
         // One-time slot exists for this date - use it (overrides recurring)
-        if (oneTimeSlot.enabled) {
-          // If enabled, check if time is in the schedule
-          if (isTimeInSchedules(date, hour, minute, oneTimeSlot.schedule)) {
-            return true // Time is in available schedule
-          }
-          return false // Time is not in available schedule, so it's blocked
+        // Check if time is in the schedule
+        if (isTimeInSchedules(date, hour, minute, oneTimeSlot.schedule)) {
+          return true // Time is in available schedule
         }
-        // If disabled (enabled: false), block this date completely
-        return false
+        return false // Time is not in available schedule, so it's blocked
       }
     }
   }
@@ -153,15 +277,14 @@ export function isTimeAvailable(
 
   if (availableSlots.recurring && dayName) {
     const dayConfig = availableSlots.recurring[dayName]
+    // Skip disabled entries (enabled: false means draft, not applied)
     if (dayConfig && dayConfig.enabled && dayConfig.schedule) {
       if (isTimeInSchedules(date, hour, minute, dayConfig.schedule)) {
         return true // Time is in available schedule
       }
       return false // Time is not in available schedule, so it's blocked
-    } else if (dayConfig && !dayConfig.enabled) {
-      // Day is explicitly disabled in recurring
-      return false
     }
+    // If dayConfig is disabled or doesn't exist, continue to check other rules
   }
 
   // If we have available slots defined but time doesn't match any, it's blocked
@@ -192,10 +315,14 @@ export function isDayAvailable(
   // Priority 1: Check one-time slots first (they override recurring)
   if (availableSlots.one_time) {
     for (const oneTimeSlot of availableSlots.one_time) {
+      // Skip disabled entries (enabled: false means draft, not applied)
+      if (!oneTimeSlot.enabled) {
+        continue
+      }
       const slotDate = parseDate(oneTimeSlot.date)
       if (slotDate.isSame(date, 'day')) {
         // One-time slot exists for this date - use it (overrides recurring)
-        return oneTimeSlot.enabled // enabled = available, disabled = blocked
+        return true // Date is available
       }
     }
   }
@@ -215,18 +342,22 @@ export function isDayAvailable(
 
   if (availableSlots.recurring && dayName) {
     const dayConfig = availableSlots.recurring[dayName]
-    if (dayConfig) {
-      return dayConfig.enabled // enabled = available, disabled = blocked
+    // Skip disabled entries (enabled: false means draft, not applied)
+    if (dayConfig && dayConfig.enabled) {
+      return true // Day is available
     }
+    // If dayConfig is disabled or doesn't exist, continue to check other rules
   }
 
-  // If we have available slots defined but day doesn't match any, it's blocked
-  const hasRecurring =
-    availableSlots.recurring && Object.keys(availableSlots.recurring).length > 0
-  const hasOneTime =
-    availableSlots.one_time && availableSlots.one_time.length > 0
+  // If we have available slots defined but day doesn't match any enabled rule, it's blocked
+  const hasEnabledRecurring =
+    availableSlots.recurring &&
+    Object.values(availableSlots.recurring).some((day) => day?.enabled)
+  const hasEnabledOneTime =
+    availableSlots.one_time &&
+    availableSlots.one_time.some((slot) => slot.enabled)
 
-  if (hasRecurring || hasOneTime) {
+  if (hasEnabledRecurring || hasEnabledOneTime) {
     return false
   }
 

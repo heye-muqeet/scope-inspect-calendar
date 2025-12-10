@@ -74,10 +74,10 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
   - Automatically adjusts grid lines, time labels, and cell click behavior
 - **⏰ Resource Availability**: Flexible availability management for team members
   - Available Slots: Define only available times using inverted logic - all other times are blocked
-  - Blocked Slots: Define unavailable times with one-time or recurring RRULE patterns
+  - Blocked Slots: Define unavailable times using same structure as available slots (recurring and one-time schedules)
   - Supports recurring weekly schedules and one-time date-specific schedules
   - One-time slots override recurring schedules for precise control
-  - Exception dates (EXDATE) to exclude specific occurrences from recurrence
+  - Only `enabled: true` entries are applied; `enabled: false` entries are skipped (draft state)
 - **⏮️ Past Time Greying**: Automatic visual indication of past time slots
   - Past cells are greyed out but remain fully interactive
   - Works for both day-level and hour-level cells
