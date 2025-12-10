@@ -88,25 +88,11 @@ ScopeInspect Calendar is a comprehensive React calendar component library that p
   - Event validation and error handling
   - Bulk operations and batch updates
 
-### ✨ Exclusive Feature: Visible Hours
-
-**Visible Hours** is a unique customization that allows you to control which time range is displayed on the calendar's vertical time scale, independent of business hours. This feature is perfect for focusing on specific time periods (e.g., business hours, working shifts) without affecting event creation or editing capabilities.
-
-**Key Benefits:**
-
-- 🎯 **Focus on Relevant Times**: Show only the hours that matter to your users
-- 🔄 **Independent from Business Hours**: Display settings are separate from interaction rules
-- 📊 **Better UX**: Reduce visual clutter by hiding irrelevant time slots
-- ⚡ **Performance**: Fewer DOM nodes when showing fewer hours
-
-### ⏱️ Slot Duration
-
-Control the granularity of time slots in day and week views with the `slotDuration` prop:
-
-- **30 minutes**: More detailed scheduling with half-hour intervals (e.g., 12:00, 12:30, 1:00, 1:30)
-- **60 minutes**: Standard hourly intervals (e.g., 12:00, 1:00, 2:00)
-
-The calendar automatically adjusts grid lines, time labels, and cell click behavior based on the selected slot duration.
+- **👁️ Visible Hours**: Control which time range is displayed on the calendar's vertical time scale, independent of business hours. Perfect for focusing on specific time periods (e.g., business hours, working shifts) without affecting event creation or editing capabilities
+- **⏱️ Slot Duration**: Customize time slot granularity in day and week views
+  - 30 minutes: More detailed scheduling with half-hour intervals (e.g., 12:00, 12:30, 1:00, 1:30)
+  - 60 minutes: Standard hourly intervals (e.g., 12:00, 1:00, 2:00)
+  - Automatically adjusts grid lines, time labels, and cell click behavior
 
 ---
 

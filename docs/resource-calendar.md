@@ -106,7 +106,7 @@ interface Resource {
   /**
    * Blocked time slots for this team member (e.g., scheduled meetings, breaks, unavailability).
    * These slots override business hours and make the team member unavailable for scheduling.
-   * @deprecated Use `availableSlots` instead for better control. If both are provided, `availableSlots` takes precedence.
+   * If both `availableSlots` and `blockedSlots` are provided, `availableSlots` takes precedence.
    */
   blockedSlots?: BlockedSlot[]
 }
